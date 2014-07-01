@@ -5,8 +5,8 @@
     android:versionName="1.0" >
 
     <uses-sdk
-        android:minSdkVersion="16"
-        android:targetSdkVersion="18" />
+        android:minSdkVersion="5"
+        android:targetSdkVersion="20" />
 
     <uses-permission android:name="android.permission.READ_CONTACTS" />
 
@@ -24,15 +24,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity
-            android:name="com.prajitdas.parserapp.providerlists.ProvidersListFragment"
-            android:label="@string/title_activity_provider_main"
-            android:parentActivityName="com.prajitdas.parserapp.providerlists.ProvidersMainActivity" >
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.prajitdas.parserapp.contentparsers.contacts.ContactsListActivity" />
-        </activity>
-        
+
         <activity
             android:name="com.prajitdas.parserapp.contentparsers.contacts.ContactsListActivity"
             android:label="@string/activity_contacts_list"
@@ -45,15 +37,14 @@
             <meta-data
                 android:name="android.app.searchable"
                 android:resource="@xml/searchable_contacts" />
-            </activity>
+        </activity>
+        
         <activity
             android:name="com.prajitdas.parserapp.contentparsers.contacts.ContactDetailActivity"
-            android:label="@string/activity_contact_detail"
-            android:parentActivityName="com.prajitdas.parserapp.contentparsers.contacts.ContactsListActivity" >
+            android:label="@string/activity_contact_detail" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.prajitdas.parserapp.contentparsers.contacts.ContactsListActivity" />
         </activity>
     </application>
-
 </manifest>

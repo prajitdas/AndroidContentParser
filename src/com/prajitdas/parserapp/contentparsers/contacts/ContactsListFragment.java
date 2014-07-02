@@ -232,6 +232,9 @@ public class ContactsListFragment extends ListFragment implements
         // the action bar search view (see onQueryTextChange() in onCreateOptionsMenu()).
         if (mPreviouslySelectedSearchItem == 0) {
             // Initialize the loader, and create a loader identified by ContactsQuery.QUERY_ID
+			/**
+			 * The LoaderManager call initiates here
+			 */
             getLoaderManager().initLoader(ContactsQuery.QUERY_ID, null, this);
         }
     }
@@ -366,6 +369,9 @@ public class ContactsListFragment extends ListFragment implements
                     // Restarts the loader. This triggers onCreateLoader(), which builds the
                     // necessary content Uri from mSearchTerm.
                     mSearchQueryChanged = true;
+					/**
+					 * If the query text changes for the contact search then the loader is restarted
+					 */
                     getLoaderManager().restartLoader(
                             ContactsQuery.QUERY_ID, null, ContactsListFragment.this);
                     return true;
@@ -389,6 +395,9 @@ public class ContactsListFragment extends ListFragment implements
                             onSelectionCleared();
                         }
                         mSearchTerm = null;
+    					/**
+    					 * If the query text changes for the contact search then the loader is restarted
+    					 */
                         getLoaderManager().restartLoader(
                                 ContactsQuery.QUERY_ID, null, ContactsListFragment.this);
                         return true;
@@ -482,7 +491,7 @@ public class ContactsListFragment extends ListFragment implements
 //                    ContactsQuery.SORT_ORDER);
 
             /**
-             * @doc If you return null here then the access to the content is actually blocked!
+             * If you return null here then the access to the content is actually blocked!
              */
             return null;
         }
@@ -493,7 +502,9 @@ public class ContactsListFragment extends ListFragment implements
 
     @Override
     public void onLoadFinished(Loader<Cursor> loader, Cursor data) {
-        // This swaps the new cursor into the adapter.
+		/**
+		 * This swaps the new cursor into the adapter. This is the point when the cursor data is passed on to the adapter. 
+		 */
         if (loader.getId() == ContactsQuery.QUERY_ID) {
             mAdapter.swapCursor(data);
 

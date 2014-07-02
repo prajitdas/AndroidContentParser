@@ -1,23 +1,52 @@
 package com.prajitdas.parserapp.alternate;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.view.View.OnClickListener;
+import android.widget.Button;
+
+import com.prajitdas.parserapp.ParserApplication;
 import com.prajitdas.parserapp.R;
+import com.prajitdas.parserapp.contentparsers.contacts.ContactsListActivity;
 
 public class AlternateMainActivity extends Activity {
+	private Button mContactQueryButton;
+	private Button mContactLoaderButton;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.activity_provider_main);
+		setContentView(R.layout.activity_alternate_main);
+		mContactQueryButton = (Button) findViewById(R.id.buttonCursorQuery);
+		mContactLoaderButton = (Button) findViewById(R.id.buttonCursorLoader);
+		
+		mContactQueryButton.setOnClickListener(new OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				Intent intent = new Intent(v.getContext(), ContactsListActivity.class);
+				intent.putExtra(ParserApplication.getCallMethodTag(), ParserApplication.getButtonQuery());
+				startActivity(intent);
+			}
+		});
+
+		mContactLoaderButton.setOnClickListener(new OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				Intent intent = new Intent(v.getContext(), ContactsListActivity.class);
+				intent.putExtra(ParserApplication.getCallMethodTag(), ParserApplication.getButtonLoader());
+				startActivity(intent);
+			}
+		});
 	}
 
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		// Inflate the menu; this adds items to the action bar if it is present.
-		getMenuInflater().inflate(R.menu.provider_main, menu);
+		getMenuInflater().inflate(R.menu.alternate_main_menu, menu);
 		return true;
 	}
 

@@ -21,18 +21,19 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.Locale;
 
+import android.app.Activity;
+import android.database.Cursor;
+import android.net.Uri;
+import android.os.Bundle;
+import android.widget.TextView;
 import android.annotation.SuppressLint;
 import android.annotation.TargetApi;
-import android.app.Activity;
 import android.app.SearchManager;
 import android.content.Context;
 import android.content.Intent;
 import android.content.res.AssetFileDescriptor;
-import android.database.Cursor;
 import android.graphics.Bitmap;
-import android.net.Uri;
 import android.os.Build;
-import android.os.Bundle;
 import android.provider.ContactsContract.Contacts;
 import android.provider.ContactsContract.Contacts.Photo;
 import android.support.v4.app.ListFragment;
@@ -57,9 +58,10 @@ import android.widget.ListView;
 import android.widget.QuickContactBadge;
 import android.widget.SearchView;
 import android.widget.SectionIndexer;
-import android.widget.TextView;
+import android.widget.Toast;
 
 import com.prajitdas.parserapp.BuildConfig;
+import com.prajitdas.parserapp.ParserApplication;
 import com.prajitdas.parserapp.R;
 import com.prajitdas.parserapp.util.ImageLoader;
 import com.prajitdas.parserapp.util.Utils;
@@ -232,14 +234,63 @@ public class ContactsListFragment extends ListFragment implements
         // the action bar search view (see onQueryTextChange() in onCreateOptionsMenu()).
         if (mPreviouslySelectedSearchItem == 0) {
             // Initialize the loader, and create a loader identified by ContactsQuery.QUERY_ID
-			/**
-			 * The LoaderManager call initiates here
-			 */
-            getLoaderManager().initLoader(ContactsQuery.QUERY_ID, null, this);
+        	if(ParserApplication.getQueryOrLoader() == ParserApplication.getButtonLoader()) {
+				/**
+				 * The LoaderManager call initiates here
+				 */
+	            getLoaderManager().initLoader(ContactsQuery.QUERY_ID, null, this);
+	            Toast.makeText(getActivity(), ParserApplication.getQueryOrLoader()
+	            		+"and"+ParserApplication.getButtonLoader(), Toast.LENGTH_LONG).show();
+        	}
+        	else {
+	            Toast.makeText(getActivity(), ParserApplication.getQueryOrLoader(), Toast.LENGTH_LONG).show();
+        		getData();
+        	}
         }
     }
 
-    @Override
+    private Cursor getContacts() {
+    	// Run query
+//    	Uri uri = ContactsQuery.CONTENT_URI;
+//    	String[] projection = ContactsQuery.PROJECTION;
+//    	String selection = ContactsQuery.SELECTION;
+//    	String[] selectionArgs = null;
+//    	String sortOrder = ContactsQuery.SORT_ORDER;
+//    	return getActivity().getContentResolver().query(uri, projection, selection, selectionArgs, sortOrder);
+    	return null;
+    }
+    
+    private void getData() {
+    	Cursor data = getContacts();
+        mAdapter.swapCursor(data);
+
+        // If this is a two-pane layout and there is a search query then
+        // there is some additional work to do around default selected
+        // search item.
+        if (mIsTwoPaneLayout && !TextUtils.isEmpty(mSearchTerm) && mSearchQueryChanged) {
+            // Selects the first item in results, unless this fragment has
+            // been restored from a saved state (like orientation change)
+            // in which case it selects the previously selected search item.
+            if (data != null && data.moveToPosition(mPreviouslySelectedSearchItem)) {
+                // Creates the content Uri for the previously selected contact by appending the
+                // contact's ID to the Contacts table content Uri
+                final Uri uri = Uri.withAppendedPath(
+                        Contacts.CONTENT_URI, String.valueOf(data.getLong(ContactsQuery.ID)));
+                mOnContactSelectedListener.onContactSelected(uri);
+                getListView().setItemChecked(mPreviouslySelectedSearchItem, true);
+            } else {
+                // No results, clear selection.
+                onSelectionCleared();
+            }
+            // Only restore from saved state one time. Next time fall back
+            // to selecting first item. If the fragment state is saved again
+            // then the currently selected item will once again be saved.
+            mPreviouslySelectedSearchItem = 0;
+            mSearchQueryChanged = false;
+        }
+	}
+
+	@Override
     public void onAttach(Activity activity) {
         super.onAttach(activity);
 
@@ -369,12 +420,20 @@ public class ContactsListFragment extends ListFragment implements
                     // Restarts the loader. This triggers onCreateLoader(), which builds the
                     // necessary content Uri from mSearchTerm.
                     mSearchQueryChanged = true;
-					/**
-					 * If the query text changes for the contact search then the loader is restarted
-					 */
-                    getLoaderManager().restartLoader(
-                            ContactsQuery.QUERY_ID, null, ContactsListFragment.this);
-                    return true;
+                	if(ParserApplication.getQueryOrLoader() == ParserApplication.getButtonLoader()) {
+						/**
+						 * If the query text changes for the contact search then the loader is restarted
+						 */
+	                    getLoaderManager().restartLoader(
+	                            ContactsQuery.QUERY_ID, null, ContactsListFragment.this);
+        	            Toast.makeText(getActivity(), ParserApplication.getQueryOrLoader()
+        	            		+"and"+ParserApplication.getButtonLoader(), Toast.LENGTH_LONG).show();
+                	}
+                	else {
+        	            Toast.makeText(getActivity(), ParserApplication.getQueryOrLoader(), Toast.LENGTH_LONG).show();
+                		getData();
+                	}
+                	return true;
                 }
             });
 
@@ -395,11 +454,19 @@ public class ContactsListFragment extends ListFragment implements
                             onSelectionCleared();
                         }
                         mSearchTerm = null;
-    					/**
-    					 * If the query text changes for the contact search then the loader is restarted
-    					 */
-                        getLoaderManager().restartLoader(
-                                ContactsQuery.QUERY_ID, null, ContactsListFragment.this);
+                    	if(ParserApplication.getQueryOrLoader() == ParserApplication.getButtonLoader()) {
+    						/**
+    						 * If the query text changes for the contact search then the loader is restarted
+    						 */
+    	                    getLoaderManager().restartLoader(
+    	                            ContactsQuery.QUERY_ID, null, ContactsListFragment.this);
+            	            Toast.makeText(getActivity(), ParserApplication.getQueryOrLoader()
+            	            		+"and"+ParserApplication.getButtonLoader(), Toast.LENGTH_LONG).show();
+                    	}
+                    	else {
+            	            Toast.makeText(getActivity(), ParserApplication.getQueryOrLoader(), Toast.LENGTH_LONG).show();
+                    		getData();
+                    	}
                         return true;
                     }
                 });

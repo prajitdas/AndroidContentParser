@@ -17,6 +17,7 @@
 package com.prajitdas.parserapp.contentparsers.contacts;
 
 import com.prajitdas.parserapp.BuildConfig;
+import com.prajitdas.parserapp.ParserApplication;
 import com.prajitdas.parserapp.R;
 import com.prajitdas.parserapp.util.Utils;
 
@@ -52,7 +53,9 @@ public class ContactsListActivity extends FragmentActivity implements
             Utils.enableStrictMode();
         }
         super.onCreate(savedInstanceState);
-
+        Bundle extras = getIntent().getExtras();
+        ParserApplication.setQueryOrLoader(extras.getString(ParserApplication.getCallMethodTag()));
+        
         // Set main content view. On smaller screen devices this is a single pane view with one
         // fragment. One larger screen devices this is a two pane view with two fragments.
         setContentView(R.layout.activity_contact_main);
@@ -72,6 +75,7 @@ public class ContactsListActivity extends FragmentActivity implements
             ContactsListFragment mContactsListFragment = (ContactsListFragment)
                     getSupportFragmentManager().findFragmentById(R.id.contact_list);
 
+            mContactsListFragment.setArguments(extras);
             // This flag notes that the Activity is doing a search, and so the result will be
             // search results rather than all contacts. This prevents the Activity and Fragment
             // from trying to a search on search results.

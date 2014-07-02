@@ -3,6 +3,7 @@
 
     <string name="app_name">Content Parser</string>
     <string name="title_activity_provider_main">Providers List</string>
+    <string name="title_activity_alternate_main">Parse Contacts</string>
     <string name="title_contact_provider">Contact Provider Data</string>
     <string name="activity_contacts_list">Contacts List</string>
     <string name="activity_contact_detail">Contact Detail</string>
@@ -34,5 +35,7 @@
     <string name="no_address">No addresses found</string>
     <string name="no_intent_found">No application found to handle this action</string>
     <string name="action_settings">Settings</string>
+    <string name="CursorQueryButtonText">Cursor Query</string>
+    <string name="CursorLoaderButtonText">Cursor Loader</string>
 
 </resources>

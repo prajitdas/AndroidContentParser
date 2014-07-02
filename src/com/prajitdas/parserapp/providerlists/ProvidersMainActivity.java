@@ -29,7 +29,7 @@ public class ProvidersMainActivity extends Activity
 
 		// Check that the activity is using the layout version with
         // the fragment_container FrameLayout
-        if (findViewById(R.id.fragment_container) != null) {
+        if (findViewById(R.id.main_layout) != null) {
             // However, if we're being restored from a previous state,
             // then we don't need to do anything and should return or else
             // we could end up with overlapping fragments.
@@ -44,7 +44,7 @@ public class ProvidersMainActivity extends Activity
             	
                 // Add the fragment to the 'fragment_container' FrameLayout
                 getFragmentManager().beginTransaction()
-						.add(R.id.fragment_container, providersListFragment).commit();
+						.add(R.id.main_layout, providersListFragment).commit();
             }
         }
 	}

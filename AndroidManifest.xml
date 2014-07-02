@@ -16,13 +16,18 @@
         android:label="@string/app_name"
         android:theme="@style/AppTheme" >
         <activity
-            android:name="com.prajitdas.parserapp.providerlists.ProvidersMainActivity"
-            android:label="@string/title_activity_provider_main" >
+            android:name="com.prajitdas.parserapp.alternate.AlternateMainActivity"
+            android:label="@string/title_activity_alternate_main" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+        </activity>
+
+        <activity
+            android:name="com.prajitdas.parserapp.providerlists.ProvidersMainActivity"
+            android:label="@string/title_activity_provider_main" >
         </activity>
 
         <activity

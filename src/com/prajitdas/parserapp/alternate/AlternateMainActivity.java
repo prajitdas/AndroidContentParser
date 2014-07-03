@@ -8,6 +8,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
+import android.widget.Toast;
 
 import com.prajitdas.parserapp.ParserApplication;
 import com.prajitdas.parserapp.R;
@@ -16,19 +17,28 @@ import com.prajitdas.parserapp.contentparsers.contacts.ContactsListActivity;
 public class AlternateMainActivity extends Activity {
 	private Button mContactQueryButton;
 	private Button mContactLoaderButton;
+	private Button mMediaQueryButton;
+	private Button mMediaLoaderButton;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_alternate_main);
-		mContactQueryButton = (Button) findViewById(R.id.buttonCursorQuery);
-		mContactLoaderButton = (Button) findViewById(R.id.buttonCursorLoader);
 		ParserApplication.setQueryOrLoader(new String());
+
+		mContactQueryButton = (Button) findViewById(R.id.buttonContactProviderQuery);
+		mContactLoaderButton = (Button) findViewById(R.id.buttonContactProviderLoader);
+		mMediaQueryButton = (Button) findViewById(R.id.buttonMediaProviderQuery);
+		mMediaLoaderButton = (Button) findViewById(R.id.buttonMediaProviderLoader);
+		setOnClickListener();
+	}
+
+	private void setOnClickListener() {
 		mContactQueryButton.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View v) {
 				Intent intent = new Intent(v.getContext(), ContactsListActivity.class);
-				ParserApplication.setQueryOrLoader(ParserApplication.getButtonQuery());
+				ParserApplication.setQueryOrLoader(ParserApplication.getContactButtonQuery());
 				startActivity(intent);
 			}
 		});
@@ -37,8 +47,28 @@ public class AlternateMainActivity extends Activity {
 			@Override
 			public void onClick(View v) {
 				Intent intent = new Intent(v.getContext(), ContactsListActivity.class);
-				ParserApplication.setQueryOrLoader(ParserApplication.getButtonLoader());
+				ParserApplication.setQueryOrLoader(ParserApplication.getContactButtonLoader());
 				startActivity(intent);
+			}
+		});
+
+		mMediaQueryButton.setOnClickListener(new OnClickListener() {
+			@Override
+			public void onClick(View v) {
+//				Intent intent = new Intent(v.getContext(), ContactsListActivity.class);
+//				ParserApplication.setQueryOrLoader(ParserApplication.getContactButtonLoader());
+//				startActivity(intent);
+				Toast.makeText(getApplicationContext(), "Sorry! I still am not sure what to do there...", Toast.LENGTH_LONG).show();
+			}
+		});
+		
+		mMediaLoaderButton.setOnClickListener(new OnClickListener() {
+			@Override
+			public void onClick(View v) {
+//				Intent intent = new Intent(v.getContext(), ContactsListActivity.class);
+//				ParserApplication.setQueryOrLoader(ParserApplication.getContactButtonLoader());
+//				startActivity(intent);
+				Toast.makeText(getApplicationContext(), "Sorry! I still am not sure what to do there...", Toast.LENGTH_LONG).show();
 			}
 		});
 	}

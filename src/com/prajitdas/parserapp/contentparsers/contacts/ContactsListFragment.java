@@ -232,7 +232,7 @@ public class ContactsListFragment extends ListFragment implements
         // the action bar search view (see onQueryTextChange() in onCreateOptionsMenu()).
         if (mPreviouslySelectedSearchItem == 0) {
             // Initialize the loader, and create a loader identified by ContactsQuery.QUERY_ID
-        	if(ParserApplication.getQueryOrLoader().equals(ParserApplication.getButtonLoader())) {
+        	if(ParserApplication.getQueryOrLoader().equals(ParserApplication.getContactButtonLoader())) {
 				/**
 				 * The LoaderManager call initiates here
 				 */
@@ -240,7 +240,7 @@ public class ContactsListFragment extends ListFragment implements
 //	            Toast.makeText(getActivity(), ParserApplication.getQueryOrLoader()
 //	            		+"and"+ParserApplication.getButtonLoader(), Toast.LENGTH_LONG).show();
         	}
-        	else if(ParserApplication.getQueryOrLoader().equals(ParserApplication.getButtonQuery())) {
+        	else if(ParserApplication.getQueryOrLoader().equals(ParserApplication.getContactButtonQuery())) {
 //	            Toast.makeText(getActivity(), ParserApplication.getQueryOrLoader(), Toast.LENGTH_LONG).show();
         		getData();
         	}
@@ -407,7 +407,7 @@ public class ContactsListFragment extends ListFragment implements
                     // Restarts the loader. This triggers onCreateLoader(), which builds the
                     // necessary content Uri from mSearchTerm.
                     mSearchQueryChanged = true;
-                	if(ParserApplication.getQueryOrLoader() == ParserApplication.getButtonLoader()) {
+                	if(ParserApplication.getQueryOrLoader() == ParserApplication.getContactButtonLoader()) {
 						/**
 						 * If the query text changes for the contact search then the loader is restarted
 						 */
@@ -416,7 +416,7 @@ public class ContactsListFragment extends ListFragment implements
 //        	            Toast.makeText(getActivity(), ParserApplication.getQueryOrLoader()
 //        	            		+"and"+ParserApplication.getButtonLoader(), Toast.LENGTH_LONG).show();
                 	}
-                	else if(ParserApplication.getQueryOrLoader().equals(ParserApplication.getButtonQuery())) {
+                	else if(ParserApplication.getQueryOrLoader().equals(ParserApplication.getContactButtonQuery())) {
 //        	            Toast.makeText(getActivity(), ParserApplication.getQueryOrLoader(), Toast.LENGTH_LONG).show();
                 		getData();
                 	}
@@ -441,7 +441,7 @@ public class ContactsListFragment extends ListFragment implements
                             onSelectionCleared();
                         }
                         mSearchTerm = null;
-                    	if(ParserApplication.getQueryOrLoader() == ParserApplication.getButtonLoader()) {
+                    	if(ParserApplication.getQueryOrLoader() == ParserApplication.getContactButtonLoader()) {
     						/**
     						 * If the query text changes for the contact search then the loader is restarted
     						 */
@@ -450,7 +450,7 @@ public class ContactsListFragment extends ListFragment implements
 //            	            Toast.makeText(getActivity(), ParserApplication.getQueryOrLoader()
 //            	            		+"and"+ParserApplication.getButtonLoader(), Toast.LENGTH_LONG).show();
                     	}
-                    	else if(ParserApplication.getQueryOrLoader().equals(ParserApplication.getButtonQuery())) {
+                    	else if(ParserApplication.getQueryOrLoader().equals(ParserApplication.getContactButtonQuery())) {
 //            	            Toast.makeText(getActivity(), ParserApplication.getQueryOrLoader(), Toast.LENGTH_LONG).show();
                     		getData();
                     	}

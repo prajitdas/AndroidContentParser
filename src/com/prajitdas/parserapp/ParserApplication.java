@@ -12,9 +12,11 @@ import android.content.res.Configuration;
 
 public class ParserApplication extends Application {
 	
-	private static final String BUTTON_LOADER = "loader";
-	private static final String BUTTON_QUERY = "query";
-	private static final String CALL_METHOD_TAG = "CALL_METHOD_TAG";
+	private static final String CONTACT_BUTTON_LOADER = "getContactUsingloader";
+	private static final String CONTACT_BUTTON_QUERY = "getContactUsingQuery";
+
+	private static final String MEDIA_BUTTON_LOADER = "getMediaUsingloader";
+	private static final String MEDIA_BUTTON_QUERY = "getMediaUsingQuery";
 
 	/**
 	 * public static final Strings for known content providers
@@ -38,21 +40,9 @@ public class ParserApplication extends Application {
 
 	private static int ProviderCount;
 
-	private static String QueryOrLoader;
+	private static String queryOrLoader;
 
 	private static ParserApplication singleton;
-
-	public static String getButtonLoader() {
-		return BUTTON_LOADER;
-	}
-
-	public static String getButtonQuery() {
-		return BUTTON_QUERY;
-	}
-
-	public static String getCallMethodTag() {
-		return CALL_METHOD_TAG;
-	}
 
 	public static String getContactProvider() {
 		return CONTACT_PROVIDER;
@@ -86,7 +76,7 @@ public class ParserApplication extends Application {
 	}
 
 	public static String getQueryOrLoader() {
-		return QueryOrLoader;
+		return queryOrLoader;
 	}
 
 	/**
@@ -108,8 +98,8 @@ public class ParserApplication extends Application {
 		ProviderCount = providerCount;
 	}
 
-	public static void setQueryOrLoader(String queryOrLoader) {
-		QueryOrLoader = queryOrLoader;
+	public static void setQueryOrLoader(String aQueryOrLoaderString) {
+		queryOrLoader = aQueryOrLoaderString;
 	}
 	
 	/**
@@ -138,5 +128,21 @@ public class ParserApplication extends Application {
 	@Override
 	public void onTerminate() {
 		super.onTerminate();
+	}
+
+	public static String getContactButtonLoader() {
+		return CONTACT_BUTTON_LOADER;
+	}
+
+	public static String getContactButtonQuery() {
+		return CONTACT_BUTTON_QUERY;
+	}
+
+	public static String getMediaButtonLoader() {
+		return MEDIA_BUTTON_LOADER;
+	}
+
+	public static String getMediaButtonQuery() {
+		return MEDIA_BUTTON_QUERY;
 	}
 }

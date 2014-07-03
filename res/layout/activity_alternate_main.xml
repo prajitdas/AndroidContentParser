@@ -5,21 +5,39 @@
     android:layout_height="match_parent" >
 
     <Button
-        android:id="@+id/buttonCursorLoader"
+        android:id="@+id/buttonContactProviderQuery"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/buttonCursorQuery"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="31dp"
-        android:text="@string/CursorLoaderButtonText" />
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="32dp"
+        android:text="@string/buttonContactProviderQueryText" />
 
     <Button
-        android:id="@+id/buttonCursorQuery"
+        android:id="@+id/buttonContactProviderLoader"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="95dp"
-        android:text="@string/CursorQueryButtonText" />
+        android:layout_alignBaseline="@+id/buttonContactProviderQuery"
+        android:layout_alignBottom="@+id/buttonContactProviderQuery"
+        android:layout_alignParentRight="true"
+        android:text="@string/buttonContactProviderLoaderText" />
+
+    <Button
+        android:id="@+id/buttonMediaProviderQuery"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@+id/buttonContactProviderQuery"
+        android:layout_marginTop="39dp"
+        android:text="@string/buttonMediaProviderQueryText" />
+
+    <Button
+        android:id="@+id/buttonMediaProviderLoader"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/buttonMediaProviderQuery"
+        android:layout_alignBottom="@+id/buttonMediaProviderQuery"
+        android:layout_alignParentRight="true"
+        android:text="@string/buttonMediaProviderLoaderText" />
 
 </RelativeLayout>

@@ -35,7 +35,9 @@
     <string name="no_address">No addresses found</string>
     <string name="no_intent_found">No application found to handle this action</string>
     <string name="action_settings">Settings</string>
-    <string name="CursorQueryButtonText">Cursor Query</string>
-    <string name="CursorLoaderButtonText">Cursor Loader</string>
+    <string name="buttonContactProviderQueryText">Contact Query</string>
+    <string name="buttonContactProviderLoaderText">Contact Loader</string>
+    <string name="buttonMediaProviderQueryText">Media Query</string>
+    <string name="buttonMediaProviderLoaderText">Media Loader</string>
 
 </resources>

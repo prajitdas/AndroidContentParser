@@ -42,7 +42,6 @@ import android.support.v4.content.Loader;
 import android.text.SpannableString;
 import android.text.TextUtils;
 import android.util.DisplayMetrics;
-import android.util.Log;
 import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -58,7 +57,6 @@ import android.widget.ListView;
 import android.widget.QuickContactBadge;
 import android.widget.SearchView;
 import android.widget.SectionIndexer;
-import android.widget.Toast;
 
 import com.prajitdas.parserapp.BuildConfig;
 import com.prajitdas.parserapp.ParserApplication;
@@ -87,10 +85,9 @@ import com.prajitdas.parserapp.util.Utils;
 public class ContactsListFragment extends ListFragment implements
         AdapterView.OnItemClickListener, LoaderManager.LoaderCallbacks<Cursor> {
 
-    // Defines a tag for identifying log entries
-    private static final String TAG = "ContactsListFragment";
+    private Uri mContentUri;
 
-    // Bundle key for saving previously selected search result item
+	// Bundle key for saving previously selected search result item
     private static final String STATE_PREVIOUSLY_SELECTED_KEY =
             "com.example.android.contactslist.ui.SELECTED_ITEM";
 
@@ -234,30 +231,19 @@ public class ContactsListFragment extends ListFragment implements
         // the action bar search view (see onQueryTextChange() in onCreateOptionsMenu()).
         if (mPreviouslySelectedSearchItem == 0) {
             // Initialize the loader, and create a loader identified by ContactsQuery.QUERY_ID
-        	if(ParserApplication.getQueryOrLoader() == ParserApplication.getButtonLoader()) {
+        	if(ParserApplication.getQueryOrLoader().equals(ParserApplication.getButtonLoader())) {
 				/**
 				 * The LoaderManager call initiates here
 				 */
 	            getLoaderManager().initLoader(ContactsQuery.QUERY_ID, null, this);
-	            Toast.makeText(getActivity(), ParserApplication.getQueryOrLoader()
-	            		+"and"+ParserApplication.getButtonLoader(), Toast.LENGTH_LONG).show();
+//	            Toast.makeText(getActivity(), ParserApplication.getQueryOrLoader()
+//	            		+"and"+ParserApplication.getButtonLoader(), Toast.LENGTH_LONG).show();
         	}
-        	else {
-	            Toast.makeText(getActivity(), ParserApplication.getQueryOrLoader(), Toast.LENGTH_LONG).show();
+        	else if(ParserApplication.getQueryOrLoader().equals(ParserApplication.getButtonQuery())) {
+//	            Toast.makeText(getActivity(), ParserApplication.getQueryOrLoader(), Toast.LENGTH_LONG).show();
         		getData();
         	}
         }
-    }
-
-    private Cursor getContacts() {
-    	// Run query
-//    	Uri uri = ContactsQuery.CONTENT_URI;
-//    	String[] projection = ContactsQuery.PROJECTION;
-//    	String selection = ContactsQuery.SELECTION;
-//    	String[] selectionArgs = null;
-//    	String sortOrder = ContactsQuery.SORT_ORDER;
-//    	return getActivity().getContentResolver().query(uri, projection, selection, selectionArgs, sortOrder);
-    	return null;
     }
     
     private void getData() {
@@ -426,11 +412,11 @@ public class ContactsListFragment extends ListFragment implements
 						 */
 	                    getLoaderManager().restartLoader(
 	                            ContactsQuery.QUERY_ID, null, ContactsListFragment.this);
-        	            Toast.makeText(getActivity(), ParserApplication.getQueryOrLoader()
-        	            		+"and"+ParserApplication.getButtonLoader(), Toast.LENGTH_LONG).show();
+//        	            Toast.makeText(getActivity(), ParserApplication.getQueryOrLoader()
+//        	            		+"and"+ParserApplication.getButtonLoader(), Toast.LENGTH_LONG).show();
                 	}
-                	else {
-        	            Toast.makeText(getActivity(), ParserApplication.getQueryOrLoader(), Toast.LENGTH_LONG).show();
+                	else if(ParserApplication.getQueryOrLoader().equals(ParserApplication.getButtonQuery())) {
+//        	            Toast.makeText(getActivity(), ParserApplication.getQueryOrLoader(), Toast.LENGTH_LONG).show();
                 		getData();
                 	}
                 	return true;
@@ -460,11 +446,11 @@ public class ContactsListFragment extends ListFragment implements
     						 */
     	                    getLoaderManager().restartLoader(
     	                            ContactsQuery.QUERY_ID, null, ContactsListFragment.this);
-            	            Toast.makeText(getActivity(), ParserApplication.getQueryOrLoader()
-            	            		+"and"+ParserApplication.getButtonLoader(), Toast.LENGTH_LONG).show();
+//            	            Toast.makeText(getActivity(), ParserApplication.getQueryOrLoader()
+//            	            		+"and"+ParserApplication.getButtonLoader(), Toast.LENGTH_LONG).show();
                     	}
-                    	else {
-            	            Toast.makeText(getActivity(), ParserApplication.getQueryOrLoader(), Toast.LENGTH_LONG).show();
+                    	else if(ParserApplication.getQueryOrLoader().equals(ParserApplication.getButtonQuery())) {
+//            	            Toast.makeText(getActivity(), ParserApplication.getQueryOrLoader(), Toast.LENGTH_LONG).show();
                     		getData();
                     	}
                         return true;
@@ -522,15 +508,23 @@ public class ContactsListFragment extends ListFragment implements
         return super.onOptionsItemSelected(item);
     }
 
-    @SuppressWarnings("unused")
+    private Cursor getContacts() {
+    	// Run query
+//    	setContentUri(ContactsQuery.CONTENT_URI);
+//    	String[] projection = ContactsQuery.PROJECTION;
+//    	String selection = ContactsQuery.SELECTION;
+//    	String[] selectionArgs = null;
+//    	String sortOrder = ContactsQuery.SORT_ORDER;
+//    	return getActivity().getContentResolver().query(getContentUri(), projection, selection, selectionArgs, sortOrder);
+    	return null;
+    }
+    
 	@Override
     public Loader<Cursor> onCreateLoader(int id, Bundle args) {
 
         // If this is the loader for finding contacts in the Contacts Provider
         // (the only one supported)
         if (id == ContactsQuery.QUERY_ID) {
-            Uri contentUri;
-
             // There are two types of searches, one which displays all contacts and
             // one which filters contacts by a search query. If mSearchTerm is set
             // then a search query has been entered and the latter should be used.
@@ -538,12 +532,11 @@ public class ContactsListFragment extends ListFragment implements
             if (mSearchTerm == null) {
                 // Since there's no search string, use the content URI that searches the entire
                 // Contacts table
-                contentUri = ContactsQuery.CONTENT_URI;
+            	setContentUri(ContactsQuery.CONTENT_URI);
             } else {
                 // Since there's a search string, use the special content Uri that searches the
                 // Contacts table. The URI consists of a base Uri and the search string.
-                contentUri =
-                        Uri.withAppendedPath(ContactsQuery.FILTER_URI, Uri.encode(mSearchTerm));
+            	setContentUri(Uri.withAppendedPath(ContactsQuery.FILTER_URI, Uri.encode(mSearchTerm)));
             }
 
             // Returns a new CursorLoader for querying the Contacts table. No arguments are used
@@ -551,7 +544,7 @@ public class ContactsListFragment extends ListFragment implements
             // or no contacts search string is used. The other search criteria are constants. See
             // the ContactsQuery interface.
 //            return new CursorLoader(getActivity(),
-//                    contentUri,
+//            		getContentUri(),
 //                    ContactsQuery.PROJECTION,
 //                    ContactsQuery.SELECTION,
 //                    null,
@@ -563,7 +556,7 @@ public class ContactsListFragment extends ListFragment implements
             return null;
         }
 
-        Log.e(TAG, "onCreateLoader - incorrect ID provided (" + id + ")");
+//        Log.e(TAG, "onCreateLoader - incorrect ID provided (" + id + ")");
         return null;
     }
 
@@ -695,8 +688,8 @@ public class ContactsListFragment extends ListFragment implements
             // opened in "read" mode, ContentResolver.openAssetFileDescriptor throws a
             // FileNotFoundException.
             if (BuildConfig.DEBUG) {
-                Log.d(TAG, "Contact photo thumbnail not found for contact " + photoData
-                        + ": " + e.toString());
+//                Log.d(TAG, "Contact photo thumbnail not found for contact " + photoData
+//                        + ": " + e.toString());
             }
         } finally {
             // If an AssetFileDescriptor was returned, try to close it
@@ -714,6 +707,14 @@ public class ContactsListFragment extends ListFragment implements
         return null;
     }
 
+    public Uri getContentUri() {
+		return mContentUri;
+	}
+
+	public void setContentUri(Uri contentUri) {
+		mContentUri = contentUri;
+	}
+	
     /**
      * This is a subclass of CursorAdapter that supports binding Cursor columns to a view layout.
      * If those items are part of search results, the search string is marked by highlighting the

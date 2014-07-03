@@ -23,12 +23,12 @@ public class AlternateMainActivity extends Activity {
 		setContentView(R.layout.activity_alternate_main);
 		mContactQueryButton = (Button) findViewById(R.id.buttonCursorQuery);
 		mContactLoaderButton = (Button) findViewById(R.id.buttonCursorLoader);
-		
+		ParserApplication.setQueryOrLoader(new String());
 		mContactQueryButton.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View v) {
 				Intent intent = new Intent(v.getContext(), ContactsListActivity.class);
-				intent.putExtra(ParserApplication.getCallMethodTag(), ParserApplication.getButtonQuery());
+				ParserApplication.setQueryOrLoader(ParserApplication.getButtonQuery());
 				startActivity(intent);
 			}
 		});
@@ -37,7 +37,7 @@ public class AlternateMainActivity extends Activity {
 			@Override
 			public void onClick(View v) {
 				Intent intent = new Intent(v.getContext(), ContactsListActivity.class);
-				intent.putExtra(ParserApplication.getCallMethodTag(), ParserApplication.getButtonLoader());
+				ParserApplication.setQueryOrLoader(ParserApplication.getButtonLoader());
 				startActivity(intent);
 			}
 		});

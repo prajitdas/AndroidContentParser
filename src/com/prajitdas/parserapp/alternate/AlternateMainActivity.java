@@ -19,6 +19,7 @@ public class AlternateMainActivity extends Activity {
 	private Button mContactLoaderButton;
 	private Button mMediaQueryButton;
 	private Button mMediaLoaderButton;
+	private final String APOLOGY = "Sorry! I still am not sure what to do there...";
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -58,7 +59,7 @@ public class AlternateMainActivity extends Activity {
 //				Intent intent = new Intent(v.getContext(), ContactsListActivity.class);
 //				ParserApplication.setQueryOrLoader(ParserApplication.getContactButtonLoader());
 //				startActivity(intent);
-				Toast.makeText(getApplicationContext(), "Sorry! I still am not sure what to do there...", Toast.LENGTH_LONG).show();
+				Toast.makeText(getApplicationContext(), APOLOGY, Toast.LENGTH_LONG).show();
 			}
 		});
 		
@@ -68,7 +69,7 @@ public class AlternateMainActivity extends Activity {
 //				Intent intent = new Intent(v.getContext(), ContactsListActivity.class);
 //				ParserApplication.setQueryOrLoader(ParserApplication.getContactButtonLoader());
 //				startActivity(intent);
-				Toast.makeText(getApplicationContext(), "Sorry! I still am not sure what to do there...", Toast.LENGTH_LONG).show();
+				Toast.makeText(getApplicationContext(), APOLOGY, Toast.LENGTH_LONG).show();
 			}
 		});
 	}

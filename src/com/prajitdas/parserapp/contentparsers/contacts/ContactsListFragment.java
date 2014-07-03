@@ -38,6 +38,7 @@ import android.provider.ContactsContract.Contacts;
 import android.provider.ContactsContract.Contacts.Photo;
 import android.support.v4.app.ListFragment;
 import android.support.v4.app.LoaderManager;
+import android.support.v4.content.CursorLoader;
 import android.support.v4.content.Loader;
 import android.text.SpannableString;
 import android.text.TextUtils;
@@ -510,13 +511,13 @@ public class ContactsListFragment extends ListFragment implements
 
     private Cursor getContacts() {
     	// Run query
-//    	setContentUri(ContactsQuery.CONTENT_URI);
-//    	String[] projection = ContactsQuery.PROJECTION;
-//    	String selection = ContactsQuery.SELECTION;
-//    	String[] selectionArgs = null;
-//    	String sortOrder = ContactsQuery.SORT_ORDER;
-//    	return getActivity().getContentResolver().query(getContentUri(), projection, selection, selectionArgs, sortOrder);
-    	return null;
+    	setContentUri(ContactsQuery.CONTENT_URI);
+    	String[] projection = ContactsQuery.PROJECTION;
+    	String selection = ContactsQuery.SELECTION;
+    	String[] selectionArgs = null;
+    	String sortOrder = ContactsQuery.SORT_ORDER;
+    	return getActivity().getContentResolver().query(getContentUri(), projection, selection, selectionArgs, sortOrder);
+//    	return null;
     }
     
 	@Override
@@ -543,17 +544,17 @@ public class ContactsListFragment extends ListFragment implements
             // for the selection clause. The search string is either encoded onto the content URI,
             // or no contacts search string is used. The other search criteria are constants. See
             // the ContactsQuery interface.
-//            return new CursorLoader(getActivity(),
-//            		getContentUri(),
-//                    ContactsQuery.PROJECTION,
-//                    ContactsQuery.SELECTION,
-//                    null,
-//                    ContactsQuery.SORT_ORDER);
+            return new CursorLoader(getActivity(),
+            		getContentUri(),
+                    ContactsQuery.PROJECTION,
+                    ContactsQuery.SELECTION,
+                    null,
+                    ContactsQuery.SORT_ORDER);
 
             /**
              * If you return null here then the access to the content is actually blocked!
              */
-            return null;
+//            return null;
         }
 
 //        Log.e(TAG, "onCreateLoader - incorrect ID provided (" + id + ")");

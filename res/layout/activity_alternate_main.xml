@@ -34,40 +34,91 @@
         android:id="@+id/toggleButtonContactsAccess"
         android:layout_width="100dp"
         android:layout_height="wrap_content"
-        android:layout_above="@+id/buttonMediaProviderQuery"
+        android:layout_above="@+id/buttonMediaProvider"
         android:layout_alignParentRight="true"
         android:layout_alignTop="@+id/buttonContactProviderQuery"
         android:text="@string/toggleButtonContactAccessText"
-        android:textOff="Contacts Access Allowed"
-        android:textOn="Contacts Access Prohibited" 
+        android:textOff="Contact Access Allowed"
+        android:textOn="Contact Access Prohibited" 
         android:checked="true" />
 
     <Button
-        android:id="@+id/buttonMediaProviderQuery"
+        android:id="@+id/buttonMediaProvider"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
         android:layout_below="@+id/buttonContactProviderLoader"
-        android:text="@string/buttonMediaProviderQueryText" />
-
-    <Button
-        android:id="@+id/buttonMediaProviderLoader"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_below="@+id/buttonMediaProviderQuery"
-        android:text="@string/buttonMediaProviderLoaderText" />
+        android:text="@string/buttonMediaProviderText" />
 
     <ToggleButton
         android:id="@+id/toggleButtonMediaAccess"
-        android:layout_width="100dp"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignBottom="@+id/buttonMediaProviderLoader"
         android:layout_alignParentRight="true"
-        android:layout_alignTop="@+id/buttonMediaProviderQuery"
+        android:layout_alignTop="@+id/buttonMediaProvider"
+        android:checked="true"
         android:text="@string/toggleButtonMediaAccessText"
         android:textOff="Media Access Allowed"
-        android:textOn="Media Access Prohibited" 
+        android:textOn="Media Access Prohibited" />
+
+    <Button
+        android:id="@+id/buttonImageProvider"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@+id/buttonMediaProvider"
+        android:text="@string/buttonImageProviderText" />
+
+    <Button
+        android:id="@+id/buttonVideoProvider"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@+id/buttonImageProvider"
+        android:text="@string/buttonVideoProviderText" />
+
+    <Button
+        android:id="@+id/buttonAudioProvider"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@+id/buttonVideoProvider"
+        android:text="@string/buttonAudioProviderText" />
+
+    <ToggleButton
+        android:id="@+id/toggleButtonImageAccess"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/buttonImageProvider"
+        android:layout_alignBottom="@+id/buttonImageProvider"
+        android:layout_alignParentRight="true"
+        android:text="@string/toggleButtonImageAccessText"
+        android:textOff="Image Access Allowed"
+        android:textOn="Image Access Prohibited" 
+        android:checked="true" />
+
+    <ToggleButton
+        android:id="@+id/toggleButtonVideoAccess"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/buttonVideoProvider"
+        android:layout_alignBottom="@+id/buttonVideoProvider"
+        android:layout_alignParentRight="true"
+        android:text="@string/toggleButtonVideoAccessText"
+        android:textOff="Video Access Allowed"
+        android:textOn="Video Access Prohibited" 
+        android:checked="true" />
+
+    <ToggleButton
+        android:id="@+id/toggleButtonAudioAccess"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/buttonAudioProvider"
+        android:layout_alignBottom="@+id/buttonAudioProvider"
+        android:layout_alignParentRight="true"
+        android:text="@string/toggleButtonAudioAccessText"
+        android:textOff="Audio Access Allowed"
+        android:textOn="Audio Access Prohibited" 
         android:checked="true" />
 
 </RelativeLayout>

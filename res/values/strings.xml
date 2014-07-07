@@ -37,12 +37,21 @@
     <string name="action_settings">Settings</string>
     <string name="buttonContactProviderQueryText">Contact Query</string>
     <string name="buttonContactProviderLoaderText">Contact Loader</string>
-    <string name="buttonMediaProviderQueryText">Media Query</string>
-    <string name="buttonMediaProviderLoaderText">Media Loader</string>
+    <string name="buttonMediaProviderText">Media</string>
     <string name="buttonForListOfProvidersText">List of Providers</string>
-    <string name="toggleButtonContactAccessText">Contacts Access Policy</string>
+    <string name="toggleButtonContactAccessText">Contact Access Policy</string>
     <string name="toggleButtonMediaAccessText">Media Access Policy</string>
+    <string name="toggleButtonImageAccessText">Image Access Policy</string>
+    <string name="toggleButtonVideoAccessText">video Access Policy</string>
+    <string name="toggleButtonAudioAccessText">Audio Access Policy</string>
     <string name="title_activity_media">MediaActivity</string>
     <string name="imageDescription">An image displayed from phone gallery</string>
+    <string name="title_activity_image">ImageActivity</string>
+    <string name="hello_world">Hello world!</string>
+    <string name="title_activity_video">VideoActivity</string>
+    <string name="title_activity_audio">AudioActivity</string>
+    <string name="buttonImageProviderText">Image</string>
+    <string name="buttonVideoProviderText">Video</string>
+    <string name="buttonAudioProviderText">Audio</string>
 
 </resources>

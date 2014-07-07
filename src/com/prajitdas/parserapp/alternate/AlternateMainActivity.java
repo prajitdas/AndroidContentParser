@@ -13,40 +13,26 @@ import android.widget.ToggleButton;
 import com.prajitdas.parserapp.ParserApplication;
 import com.prajitdas.parserapp.R;
 import com.prajitdas.parserapp.contentparsers.contacts.ContactsListActivity;
+import com.prajitdas.parserapp.contentparsers.media.AudioActivity;
+import com.prajitdas.parserapp.contentparsers.media.ImageActivity;
 import com.prajitdas.parserapp.contentparsers.media.MediaActivity;
+import com.prajitdas.parserapp.contentparsers.media.VideoActivity;
 import com.prajitdas.parserapp.providerlists.ProvidersMainActivity;
 
 public class AlternateMainActivity extends Activity {
-	private Button mContactQueryButton;
+	private ToggleButton mAudioAccessToggleButton;
+	private Button mAudioButton;
 	private Button mContactLoaderButton;
-	private Button mMediaQueryButton;
-	private Button mMediaLoaderButton;
-	private Button mListOfProvidersButton;
+	private Button mContactQueryButton;
 	private ToggleButton mContactsAccessToggleButton;
+	private ToggleButton mImageAccessToggleButton;
+	private Button mImageButton;
+	private Button mListOfProvidersButton;
 	private ToggleButton mMediaAccessToggleButton;
-//	private final String APOLOGY = "Sorry! I still am not sure what to do there...";
+	private Button mMediaButton;
+	private ToggleButton mVideoAccessToggleButton;
+	private Button mVideoButton;
 	
-	@Override
-	protected void onCreate(Bundle savedInstanceState) {
-		super.onCreate(savedInstanceState);
-		setContentView(R.layout.activity_alternate_main);
-		ParserApplication.setQueryOrLoader(new String());
-
-		mContactQueryButton = (Button) findViewById(R.id.buttonContactProviderQuery);
-		mContactLoaderButton = (Button) findViewById(R.id.buttonContactProviderLoader);
-		mMediaQueryButton = (Button) findViewById(R.id.buttonMediaProviderQuery);
-		mMediaLoaderButton = (Button) findViewById(R.id.buttonMediaProviderLoader);
-		mListOfProvidersButton = (Button) findViewById(R.id.buttonForListOfProviders);
-
-		mContactsAccessToggleButton = (ToggleButton) findViewById(R.id.toggleButtonContactsAccess);
-		mMediaAccessToggleButton = (ToggleButton) findViewById(R.id.toggleButtonMediaAccess);
-		
-		ParserApplication.setContactsAccessPolicyAllowed(false);
-		ParserApplication.setMediaAccessPolicyAllowed(false);
-		
-		addListenerOnButton();
-	}
-
 	private void addListenerOnButton() {
 		mContactQueryButton.setOnClickListener(new OnClickListener() {
 			@Override
@@ -66,21 +52,72 @@ public class AlternateMainActivity extends Activity {
 			}
 		});
 
-		mMediaQueryButton.setOnClickListener(new OnClickListener() {
+		mImageButton.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View v) {
-				Intent intent = new Intent(v.getContext(), MediaActivity.class);
+				Intent intent = new Intent(v.getContext(), ImageActivity.class);
 				startActivity(intent);
 //				Toast.makeText(getApplicationContext(), APOLOGY, Toast.LENGTH_LONG).show();
 			}
 		});
 		
-		mMediaLoaderButton.setOnClickListener(new OnClickListener() {
+		mMediaButton.setOnClickListener(new OnClickListener() {
+			
 			@Override
 			public void onClick(View v) {
 				Intent intent = new Intent(v.getContext(), MediaActivity.class);
 				startActivity(intent);
-//				Toast.makeText(getApplicationContext(), APOLOGY, Toast.LENGTH_LONG).show();
+			}
+		});
+		
+		mMediaAccessToggleButton.setOnClickListener(new OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				if(ParserApplication.isMediaAccessPolicyAllowed())
+					ParserApplication.setMediaAccessPolicyAllowed(false);
+				else
+					ParserApplication.setMediaAccessPolicyAllowed(true);
+			}
+		});
+		
+		mVideoButton.setOnClickListener(new OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				Intent intent = new Intent(v.getContext(), VideoActivity.class);
+				startActivity(intent);
+			}
+		});
+		
+		mVideoAccessToggleButton.setOnClickListener(new OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				if(ParserApplication.isVideoAccessPolicyAllowed())
+					ParserApplication.setVideoAccessPolicyAllowed(false);
+				else
+					ParserApplication.setVideoAccessPolicyAllowed(true);
+			}
+		});
+		
+		mAudioButton.setOnClickListener(new OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				Intent intent = new Intent(v.getContext(), AudioActivity.class);
+				startActivity(intent);
+			}
+		});
+		
+		mAudioAccessToggleButton.setOnClickListener(new OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				if(ParserApplication.isAudioAccessPolicyAllowed())
+					ParserApplication.setAudioAccessPolicyAllowed(false);
+				else
+					ParserApplication.setAudioAccessPolicyAllowed(true);
 			}
 		});
 		
@@ -104,16 +141,27 @@ public class AlternateMainActivity extends Activity {
 			}
 		});
 
-		mMediaAccessToggleButton.setOnClickListener(new OnClickListener() {
+		mImageAccessToggleButton.setOnClickListener(new OnClickListener() {
 			
 			@Override
 			public void onClick(View v) {
-				if(ParserApplication.isMediaAccessPolicyAllowed())
-					ParserApplication.setMediaAccessPolicyAllowed(false);
+				if(ParserApplication.isImageAccessPolicyAllowed())
+					ParserApplication.setImageAccessPolicyAllowed(false);
 				else
-					ParserApplication.setMediaAccessPolicyAllowed(true);
+					ParserApplication.setImageAccessPolicyAllowed(true);
 			}
 		});
+	}
+
+	@Override
+	protected void onCreate(Bundle savedInstanceState) {
+		super.onCreate(savedInstanceState);
+		setContentView(R.layout.activity_alternate_main);
+		ParserApplication.setQueryOrLoader(new String());
+		
+		setViews();
+		setDefaultPolicies();		
+		addListenerOnButton();
 	}
 
 	@Override
@@ -133,5 +181,29 @@ public class AlternateMainActivity extends Activity {
 			return true;
 		}
 		return super.onOptionsItemSelected(item);
+	}
+
+	private void setDefaultPolicies() {
+		ParserApplication.setContactsAccessPolicyAllowed(false);
+		ParserApplication.setMediaAccessPolicyAllowed(false);
+		ParserApplication.setImageAccessPolicyAllowed(false);
+		ParserApplication.setVideoAccessPolicyAllowed(false);
+		ParserApplication.setAudioAccessPolicyAllowed(false);
+	}
+
+	private void setViews() {
+		mContactQueryButton = (Button) findViewById(R.id.buttonContactProviderQuery);
+		mContactLoaderButton = (Button) findViewById(R.id.buttonContactProviderLoader);
+		mMediaButton = (Button) findViewById(R.id.buttonMediaProvider);
+		mImageButton = (Button) findViewById(R.id.buttonImageProvider);
+		mVideoButton = (Button) findViewById(R.id.buttonVideoProvider);
+		mAudioButton = (Button) findViewById(R.id.buttonAudioProvider);
+		mListOfProvidersButton = (Button) findViewById(R.id.buttonForListOfProviders);
+
+		mContactsAccessToggleButton = (ToggleButton) findViewById(R.id.toggleButtonContactsAccess);
+		mMediaAccessToggleButton = (ToggleButton) findViewById(R.id.toggleButtonMediaAccess);
+		mImageAccessToggleButton = (ToggleButton) findViewById(R.id.toggleButtonImageAccess);
+		mVideoAccessToggleButton = (ToggleButton) findViewById(R.id.toggleButtonVideoAccess);
+		mAudioAccessToggleButton = (ToggleButton) findViewById(R.id.toggleButtonAudioAccess);		
 	}
 }

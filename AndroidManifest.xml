@@ -55,8 +55,20 @@
                 android:value="com.prajitdas.parserapp.contentparsers.contacts.ContactsListActivity" />
         </activity>
         <activity
-            android:name="com.prajitdas.parserapp.contentparsers.media.MediaActivity"
+            android:name=".contentparsers.media.MediaActivity"
             android:label="@string/title_activity_media" >
+        </activity>
+        <activity
+            android:name=".contentparsers.media.ImageActivity"
+            android:label="@string/title_activity_image" >
+        </activity>
+        <activity
+            android:name=".contentparsers.media.VideoActivity"
+            android:label="@string/title_activity_video" >
+        </activity>
+        <activity
+            android:name="com.prajitdas.parserapp.contentparsers.media.AudioActivity"
+            android:label="@string/title_activity_audio" >
         </activity>
     </application>
 

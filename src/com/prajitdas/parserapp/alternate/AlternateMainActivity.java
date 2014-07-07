@@ -57,7 +57,6 @@ public class AlternateMainActivity extends Activity {
 			public void onClick(View v) {
 				Intent intent = new Intent(v.getContext(), ImageActivity.class);
 				startActivity(intent);
-//				Toast.makeText(getApplicationContext(), APOLOGY, Toast.LENGTH_LONG).show();
 			}
 		});
 		

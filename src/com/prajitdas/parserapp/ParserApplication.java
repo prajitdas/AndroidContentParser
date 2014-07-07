@@ -9,6 +9,7 @@ import com.prajitdas.parserapp.util.ProviderContent.ProviderItem;
 
 import android.app.Application;
 import android.content.res.Configuration;
+import android.widget.Toast;
 
 public class ParserApplication extends Application {
 	
@@ -198,5 +199,10 @@ public class ParserApplication extends Application {
 	@Override
 	public void onTerminate() {
 		super.onTerminate();
+	}
+	
+	public static void makeToast(String someString) {
+		Toast.makeText(ParserApplication.getSingleton(), 
+				someString, Toast.LENGTH_LONG).show();
 	}
 }

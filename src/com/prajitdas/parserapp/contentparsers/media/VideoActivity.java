@@ -1,8 +1,13 @@
 package com.prajitdas.parserapp.contentparsers.media;
 
+import com.prajitdas.parserapp.ParserApplication;
 import com.prajitdas.parserapp.R;
+
 import android.app.Activity;
+import android.net.Uri;
 import android.os.Bundle;
+import android.provider.MediaStore.Images;
+import android.provider.MediaStore.Images.ImageColumns;
 import android.view.Menu;
 import android.view.MenuItem;
 
@@ -12,6 +17,7 @@ public class VideoActivity extends Activity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_video);
+		ParserApplication.makeToast(VideoQuery.baseUri.toString());
 	}
 
 	@Override
@@ -32,4 +38,14 @@ public class VideoActivity extends Activity {
 		}
 		return super.onOptionsItemSelected(item);
 	}
+    /**
+     * This interface defines constants for the Cursor and CursorLoader, based on constants defined
+     * in the {@link Video.Media} class.
+     */
+    private interface VideoQuery {
+		Uri baseUri = Images.Media.EXTERNAL_CONTENT_URI;
+		String selection = ImageColumns.BUCKET_DISPLAY_NAME + " = 'Camera'";
+	    String[] selectionArgs = null;
+	    String sort = ImageColumns._ID + " DESC LIMIT 1";
+    }
 }

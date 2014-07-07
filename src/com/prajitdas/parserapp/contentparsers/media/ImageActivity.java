@@ -3,8 +3,6 @@ package com.prajitdas.parserapp.contentparsers.media;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 
-import com.prajitdas.parserapp.ParserApplication;
-import com.prajitdas.parserapp.R;
 import android.app.Activity;
 import android.database.Cursor;
 import android.graphics.Bitmap;
@@ -17,6 +15,9 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.ImageView;
 
+import com.prajitdas.parserapp.ParserApplication;
+import com.prajitdas.parserapp.R;
+
 public class ImageActivity extends Activity {
 	private ImageView mImageView;
 
@@ -24,6 +25,7 @@ public class ImageActivity extends Activity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_media);
+		ParserApplication.makeToast(ImageQuery.baseUri.toString());
 		
 		mImageView = (ImageView) findViewById(R.id.imageViewForMedia);
 		mImageView.setImageBitmap(getLatestCameraPhoto());

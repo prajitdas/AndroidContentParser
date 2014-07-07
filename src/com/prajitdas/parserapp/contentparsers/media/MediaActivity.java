@@ -5,12 +5,13 @@ import java.io.IOException;
 
 import com.prajitdas.parserapp.ParserApplication;
 import com.prajitdas.parserapp.R;
+
 import android.app.Activity;
 import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
-import android.provider.MediaStore.Images;
+import android.provider.MediaStore.Files;
 import android.provider.MediaStore.Images.ImageColumns;
 import android.provider.MediaStore.Images.Media;
 import android.view.Menu;
@@ -24,6 +25,7 @@ public class MediaActivity extends Activity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_media);
+		ParserApplication.makeToast(MediaQuery.baseUri.toString());
 		
 		mImageView = (ImageView) findViewById(R.id.imageViewForMedia);
 		mImageView.setImageBitmap(getLatestCameraPhoto());
@@ -81,10 +83,10 @@ public class MediaActivity extends Activity {
 	}
     /**
      * This interface defines constants for the Cursor and CursorLoader, based on constants defined
-     * in the {@link Images.Media} class.
+     * in the {@link Files.Media} class.
      */
     private interface MediaQuery {
-		Uri baseUri = Images.Media.EXTERNAL_CONTENT_URI;
+		Uri baseUri = Files.getContentUri("afile");
 		String selection = ImageColumns.BUCKET_DISPLAY_NAME + " = 'Camera'";
 	    String[] selectionArgs = null;
 	    String sort = ImageColumns._ID + " DESC LIMIT 1";

@@ -8,12 +8,12 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
-import android.widget.Toast;
 import android.widget.ToggleButton;
 
 import com.prajitdas.parserapp.ParserApplication;
 import com.prajitdas.parserapp.R;
 import com.prajitdas.parserapp.contentparsers.contacts.ContactsListActivity;
+import com.prajitdas.parserapp.contentparsers.media.MediaActivity;
 import com.prajitdas.parserapp.providerlists.ProvidersMainActivity;
 
 public class AlternateMainActivity extends Activity {
@@ -24,7 +24,7 @@ public class AlternateMainActivity extends Activity {
 	private Button mListOfProvidersButton;
 	private ToggleButton mContactsAccessToggleButton;
 	private ToggleButton mMediaAccessToggleButton;
-	private final String APOLOGY = "Sorry! I still am not sure what to do there...";
+//	private final String APOLOGY = "Sorry! I still am not sure what to do there...";
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -69,20 +69,18 @@ public class AlternateMainActivity extends Activity {
 		mMediaQueryButton.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View v) {
-//				Intent intent = new Intent(v.getContext(), ContactsListActivity.class);
-//				ParserApplication.setQueryOrLoader(ParserApplication.getContactButtonLoader());
-//				startActivity(intent);
-				Toast.makeText(getApplicationContext(), APOLOGY, Toast.LENGTH_LONG).show();
+				Intent intent = new Intent(v.getContext(), MediaActivity.class);
+				startActivity(intent);
+//				Toast.makeText(getApplicationContext(), APOLOGY, Toast.LENGTH_LONG).show();
 			}
 		});
 		
 		mMediaLoaderButton.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View v) {
-//				Intent intent = new Intent(v.getContext(), ContactsListActivity.class);
-//				ParserApplication.setQueryOrLoader(ParserApplication.getContactButtonLoader());
-//				startActivity(intent);
-				Toast.makeText(getApplicationContext(), APOLOGY, Toast.LENGTH_LONG).show();
+				Intent intent = new Intent(v.getContext(), MediaActivity.class);
+				startActivity(intent);
+//				Toast.makeText(getApplicationContext(), APOLOGY, Toast.LENGTH_LONG).show();
 			}
 		});
 		

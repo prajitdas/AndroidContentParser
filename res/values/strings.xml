@@ -42,5 +42,7 @@
     <string name="buttonForListOfProvidersText">List of Providers</string>
     <string name="toggleButtonContactAccessText">Contacts Access Policy</string>
     <string name="toggleButtonMediaAccessText">Media Access Policy</string>
+    <string name="title_activity_media">MediaActivity</string>
+    <string name="imageDescription">An image displayed from phone gallery</string>
 
 </resources>

@@ -16,7 +16,7 @@
         android:label="@string/app_name"
         android:theme="@style/AppTheme" >
         <activity
-            android:name="com.prajitdas.parserapp.alternate.AlternateMainActivity"
+            android:name=".alternate.AlternateMainActivity"
             android:label="@string/title_activity_alternate_main" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -24,22 +24,21 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
         <activity
-            android:name="com.prajitdas.parserapp.providerlists.ProvidersMainActivity"
+            android:name=".providerlists.ProvidersMainActivity"
             android:label="@string/title_activity_provider_main" >
-<!--             <intent-filter> -->
-<!--                 <action android:name="android.intent.action.MAIN" /> -->
 
-<!--                 <category android:name="android.intent.category.LAUNCHER" /> -->
-<!--             </intent-filter> -->
+            <!-- <intent-filter> -->
+            <!-- <action android:name="android.intent.action.MAIN" /> -->
+
+
+            <!-- <category android:name="android.intent.category.LAUNCHER" /> -->
+            <!-- </intent-filter> -->
         </activity>
-
         <activity
-            android:name="com.prajitdas.parserapp.contentparsers.contacts.ContactsListActivity"
+            android:name=".contentparsers.contacts.ContactsListActivity"
             android:label="@string/activity_contacts_list"
             android:windowSoftInputMode="adjustResize" >
-
             <intent-filter>
                 <action android:name="android.intent.action.SEARCH" />
             </intent-filter>
@@ -48,13 +47,17 @@
                 android:name="android.app.searchable"
                 android:resource="@xml/searchable_contacts" />
         </activity>
-        
         <activity
-            android:name="com.prajitdas.parserapp.contentparsers.contacts.ContactDetailActivity"
+            android:name=".contentparsers.contacts.ContactDetailActivity"
             android:label="@string/activity_contact_detail" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.prajitdas.parserapp.contentparsers.contacts.ContactsListActivity" />
         </activity>
+        <activity
+            android:name="com.prajitdas.parserapp.contentparsers.media.MediaActivity"
+            android:label="@string/title_activity_media" >
+        </activity>
     </application>
+
 </manifest>

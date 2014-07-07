@@ -41,6 +41,9 @@ public class AlternateMainActivity extends Activity {
 		mContactsAccessToggleButton = (ToggleButton) findViewById(R.id.toggleButtonContactsAccess);
 		mMediaAccessToggleButton = (ToggleButton) findViewById(R.id.toggleButtonMediaAccess);
 		
+		ParserApplication.setContactsAccessPolicyAllowed(false);
+		ParserApplication.setMediaAccessPolicyAllowed(false);
+		
 		addListenerOnButton();
 	}
 

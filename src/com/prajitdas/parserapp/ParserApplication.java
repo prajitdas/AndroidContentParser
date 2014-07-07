@@ -18,8 +18,8 @@ public class ParserApplication extends Application {
 	private static final String MEDIA_BUTTON_LOADER = "getMediaUsingloader";
 	private static final String MEDIA_BUTTON_QUERY = "getMediaUsingQuery";
 	
-	private static boolean contactsAccessPolicyAllowed = true; 
-	private static boolean mediaAccessPolicyAllowed = true; 
+	private static boolean contactsAccessPolicyAllowed; 
+	private static boolean mediaAccessPolicyAllowed;
 
 	/**
 	 * public static final Strings for known content providers

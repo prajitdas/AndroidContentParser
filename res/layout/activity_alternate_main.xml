@@ -39,7 +39,8 @@
         android:layout_alignTop="@+id/buttonContactProviderQuery"
         android:text="@string/toggleButtonContactAccessText"
         android:textOff="Contacts Access Allowed"
-        android:textOn="Contacts Access Prohibited" />
+        android:textOn="Contacts Access Prohibited" 
+        android:checked="true" />
 
     <Button
         android:id="@+id/buttonMediaProviderQuery"
@@ -66,6 +67,7 @@
         android:layout_alignTop="@+id/buttonMediaProviderQuery"
         android:text="@string/toggleButtonMediaAccessText"
         android:textOff="Media Access Allowed"
-        android:textOn="Media Access Prohibited" />
+        android:textOn="Media Access Prohibited" 
+        android:checked="true" />
 
 </RelativeLayout>

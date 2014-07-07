@@ -510,14 +510,21 @@ public class ContactsListFragment extends ListFragment implements
     }
 
     private Cursor getContacts() {
-    	// Run query
-    	setContentUri(ContactsQuery.CONTENT_URI);
-    	String[] projection = ContactsQuery.PROJECTION;
-    	String selection = ContactsQuery.SELECTION;
-    	String[] selectionArgs = null;
-    	String sortOrder = ContactsQuery.SORT_ORDER;
-    	return getActivity().getContentResolver().query(getContentUri(), projection, selection, selectionArgs, sortOrder);
-//    	return null;
+    	if(ParserApplication.isContactsAccessPolicyAllowed()){
+	    	// Run query
+	    	setContentUri(ContactsQuery.CONTENT_URI);
+	    	String[] projection = ContactsQuery.PROJECTION;
+	    	String selection = ContactsQuery.SELECTION;
+	    	String[] selectionArgs = null;
+	    	String sortOrder = ContactsQuery.SORT_ORDER;
+	    	return getActivity().getContentResolver().query(getContentUri(), projection, selection, selectionArgs, sortOrder);
+    	}
+    	else {
+            /**
+             * If you return null here then the access to the content is actually blocked!
+             */
+    		return null;
+    	}
     }
     
 	@Override
@@ -540,21 +547,25 @@ public class ContactsListFragment extends ListFragment implements
             	setContentUri(Uri.withAppendedPath(ContactsQuery.FILTER_URI, Uri.encode(mSearchTerm)));
             }
 
-            // Returns a new CursorLoader for querying the Contacts table. No arguments are used
-            // for the selection clause. The search string is either encoded onto the content URI,
-            // or no contacts search string is used. The other search criteria are constants. See
-            // the ContactsQuery interface.
-            return new CursorLoader(getActivity(),
-            		getContentUri(),
-                    ContactsQuery.PROJECTION,
-                    ContactsQuery.SELECTION,
-                    null,
-                    ContactsQuery.SORT_ORDER);
-
-            /**
-             * If you return null here then the access to the content is actually blocked!
-             */
-//            return null;
+        	if(ParserApplication.isContactsAccessPolicyAllowed()){
+	
+	        	// Returns a new CursorLoader for querying the Contacts table. No arguments are used
+	            // for the selection clause. The search string is either encoded onto the content URI,
+	            // or no contacts search string is used. The other search criteria are constants. See
+	            // the ContactsQuery interface.
+	            return new CursorLoader(getActivity(),
+	            		getContentUri(),
+	                    ContactsQuery.PROJECTION,
+	                    ContactsQuery.SELECTION,
+	                    null,
+	                    ContactsQuery.SORT_ORDER);
+        	}
+        	else {
+	            /**
+	             * If you return null here then the access to the content is actually blocked!
+	             */
+	            return null;
+        	}
         }
 
 //        Log.e(TAG, "onCreateLoader - incorrect ID provided (" + id + ")");

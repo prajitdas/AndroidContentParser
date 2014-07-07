@@ -39,5 +39,8 @@
     <string name="buttonContactProviderLoaderText">Contact Loader</string>
     <string name="buttonMediaProviderQueryText">Media Query</string>
     <string name="buttonMediaProviderLoaderText">Media Loader</string>
+    <string name="buttonForListOfProvidersText">List of Providers</string>
+    <string name="toggleButtonContactAccessText">Contacts Access Policy</string>
+    <string name="toggleButtonMediaAccessText">Media Access Policy</string>
 
 </resources>

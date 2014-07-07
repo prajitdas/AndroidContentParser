@@ -9,16 +9,21 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.Toast;
+import android.widget.ToggleButton;
 
 import com.prajitdas.parserapp.ParserApplication;
 import com.prajitdas.parserapp.R;
 import com.prajitdas.parserapp.contentparsers.contacts.ContactsListActivity;
+import com.prajitdas.parserapp.providerlists.ProvidersMainActivity;
 
 public class AlternateMainActivity extends Activity {
 	private Button mContactQueryButton;
 	private Button mContactLoaderButton;
 	private Button mMediaQueryButton;
 	private Button mMediaLoaderButton;
+	private Button mListOfProvidersButton;
+	private ToggleButton mContactsAccessToggleButton;
+	private ToggleButton mMediaAccessToggleButton;
 	private final String APOLOGY = "Sorry! I still am not sure what to do there...";
 	
 	@Override
@@ -31,10 +36,15 @@ public class AlternateMainActivity extends Activity {
 		mContactLoaderButton = (Button) findViewById(R.id.buttonContactProviderLoader);
 		mMediaQueryButton = (Button) findViewById(R.id.buttonMediaProviderQuery);
 		mMediaLoaderButton = (Button) findViewById(R.id.buttonMediaProviderLoader);
-		setOnClickListener();
+		mListOfProvidersButton = (Button) findViewById(R.id.buttonForListOfProviders);
+
+		mContactsAccessToggleButton = (ToggleButton) findViewById(R.id.toggleButtonContactsAccess);
+		mMediaAccessToggleButton = (ToggleButton) findViewById(R.id.toggleButtonMediaAccess);
+		
+		addListenerOnButton();
 	}
 
-	private void setOnClickListener() {
+	private void addListenerOnButton() {
 		mContactQueryButton.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View v) {
@@ -70,6 +80,37 @@ public class AlternateMainActivity extends Activity {
 //				ParserApplication.setQueryOrLoader(ParserApplication.getContactButtonLoader());
 //				startActivity(intent);
 				Toast.makeText(getApplicationContext(), APOLOGY, Toast.LENGTH_LONG).show();
+			}
+		});
+		
+		mListOfProvidersButton.setOnClickListener(new OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				Intent intent = new Intent(v.getContext(), ProvidersMainActivity.class);
+				startActivity(intent);
+			}
+		});
+		
+		mContactsAccessToggleButton.setOnClickListener(new OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				if(ParserApplication.isContactsAccessPolicyAllowed())
+					ParserApplication.setContactsAccessPolicyAllowed(false);
+				else
+					ParserApplication.setContactsAccessPolicyAllowed(true);
+			}
+		});
+
+		mMediaAccessToggleButton.setOnClickListener(new OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				if(ParserApplication.isMediaAccessPolicyAllowed())
+					ParserApplication.setMediaAccessPolicyAllowed(false);
+				else
+					ParserApplication.setMediaAccessPolicyAllowed(true);
 			}
 		});
 	}

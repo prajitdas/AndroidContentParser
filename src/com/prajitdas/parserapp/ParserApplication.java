@@ -17,6 +17,9 @@ public class ParserApplication extends Application {
 
 	private static final String MEDIA_BUTTON_LOADER = "getMediaUsingloader";
 	private static final String MEDIA_BUTTON_QUERY = "getMediaUsingQuery";
+	
+	private static boolean contactsAccessPolicyAllowed = true; 
+	private static boolean mediaAccessPolicyAllowed = true; 
 
 	/**
 	 * public static final Strings for known content providers
@@ -144,5 +147,22 @@ public class ParserApplication extends Application {
 
 	public static String getMediaButtonQuery() {
 		return MEDIA_BUTTON_QUERY;
+	}
+
+	public static boolean isContactsAccessPolicyAllowed() {
+		return contactsAccessPolicyAllowed;
+	}
+
+	public static void setContactsAccessPolicyAllowed(
+			boolean contactsAccessPolicyAllowed) {
+		ParserApplication.contactsAccessPolicyAllowed = contactsAccessPolicyAllowed;
+	}
+
+	public static boolean isMediaAccessPolicyAllowed() {
+		return mediaAccessPolicyAllowed;
+	}
+
+	public static void setMediaAccessPolicyAllowed(boolean mediaAccessPolicyAllowed) {
+		ParserApplication.mediaAccessPolicyAllowed = mediaAccessPolicyAllowed;
 	}
 }

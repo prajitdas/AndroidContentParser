@@ -14,30 +14,58 @@
         android:text="@string/buttonContactProviderQueryText" />
 
     <Button
+        android:id="@+id/buttonForListOfProviders"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentRight="true"
+        android:text="@string/buttonForListOfProvidersText" />
+
+    <Button
         android:id="@+id/buttonContactProviderLoader"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignBaseline="@+id/buttonContactProviderQuery"
-        android:layout_alignBottom="@+id/buttonContactProviderQuery"
-        android:layout_alignParentRight="true"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@+id/buttonContactProviderQuery"
         android:text="@string/buttonContactProviderLoaderText" />
+
+    <ToggleButton
+        android:id="@+id/toggleButtonContactsAccess"
+        android:layout_width="100dp"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/buttonMediaProviderQuery"
+        android:layout_alignParentRight="true"
+        android:layout_alignTop="@+id/buttonContactProviderQuery"
+        android:text="@string/toggleButtonContactAccessText"
+        android:textOff="Contacts Access Allowed"
+        android:textOn="Contacts Access Prohibited" />
 
     <Button
         android:id="@+id/buttonMediaProviderQuery"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
-        android:layout_below="@+id/buttonContactProviderQuery"
-        android:layout_marginTop="39dp"
+        android:layout_below="@+id/buttonContactProviderLoader"
         android:text="@string/buttonMediaProviderQueryText" />
 
     <Button
         android:id="@+id/buttonMediaProviderLoader"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignBaseline="@+id/buttonMediaProviderQuery"
-        android:layout_alignBottom="@+id/buttonMediaProviderQuery"
-        android:layout_alignParentRight="true"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@+id/buttonMediaProviderQuery"
         android:text="@string/buttonMediaProviderLoaderText" />
+
+    <ToggleButton
+        android:id="@+id/toggleButtonMediaAccess"
+        android:layout_width="100dp"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/buttonMediaProviderLoader"
+        android:layout_alignParentRight="true"
+        android:layout_alignTop="@+id/buttonMediaProviderQuery"
+        android:text="@string/toggleButtonMediaAccessText"
+        android:textOff="Media Access Allowed"
+        android:textOn="Media Access Prohibited" />
 
 </RelativeLayout>

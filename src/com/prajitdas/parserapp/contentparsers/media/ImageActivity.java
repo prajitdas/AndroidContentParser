@@ -49,7 +49,7 @@ public class ImageActivity extends Activity {
 	}
 	
 	private Bitmap getLatestCameraPhoto() {
-		if(ParserApplication.isMediaAccessPolicyAllowed()) {
+		if(ParserApplication.isImageAccessPolicyAllowed()) {
 		    Cursor cursor = Media.query(this.getContentResolver(),
 		    							ImageQuery.baseUri,
 		    							new String[] { ImageColumns._ID }, 

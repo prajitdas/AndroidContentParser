@@ -1,10 +1,6 @@
 package com.prajitdas.parserapp.contentparsers.media;
 
 import com.prajitdas.parserapp.R;
-import com.prajitdas.parserapp.R.id;
-import com.prajitdas.parserapp.R.layout;
-import com.prajitdas.parserapp.R.menu;
-
 import android.app.Activity;
 import android.os.Bundle;
 import android.view.Menu;

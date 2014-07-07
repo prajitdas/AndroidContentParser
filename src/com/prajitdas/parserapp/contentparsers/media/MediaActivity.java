@@ -5,7 +5,6 @@ import java.io.IOException;
 
 import com.prajitdas.parserapp.ParserApplication;
 import com.prajitdas.parserapp.R;
-
 import android.app.Activity;
 import android.database.Cursor;
 import android.graphics.Bitmap;
@@ -51,22 +50,18 @@ public class MediaActivity extends Activity {
 	
 	private Bitmap getLatestCameraPhoto() {
 		if(ParserApplication.isMediaAccessPolicyAllowed()) {
-			Uri baseUri = Images.Media.EXTERNAL_CONTENT_URI;
-			String selection = ImageColumns.BUCKET_DISPLAY_NAME + " = 'Camera'";
-		    String[] selectionArgs = null;
-		    String sort = ImageColumns._ID + " DESC LIMIT 1";
 		    Cursor cursor = Media.query(this.getContentResolver(),
-		    							baseUri,
+		    							MediaQuery.baseUri,
 		    							new String[] { ImageColumns._ID }, 
-		    							selection, 
-		    							selectionArgs, 
-		    							sort);
+		    							MediaQuery.selection, 
+		    							MediaQuery.selectionArgs, 
+		    							MediaQuery.sort);
 		    
 		    try {
 		    	int idx = cursor.getColumnIndex(ImageColumns._ID);
 		    	if (cursor != null && cursor.moveToFirst()) {
 		    		return Media.getBitmap(this.getContentResolver(), 
-		    				Uri.withAppendedPath(Images.Media.EXTERNAL_CONTENT_URI, cursor.getString(idx)));
+		    				Uri.withAppendedPath(MediaQuery.baseUri, cursor.getString(idx)));
 		    	}
 		    	else
 		    		return null;
@@ -84,4 +79,14 @@ public class MediaActivity extends Activity {
 		else
 			return null;
 	}
+    /**
+     * This interface defines constants for the Cursor and CursorLoader, based on constants defined
+     * in the {@link Images.Media} class.
+     */
+    private interface MediaQuery {
+		Uri baseUri = Images.Media.EXTERNAL_CONTENT_URI;
+		String selection = ImageColumns.BUCKET_DISPLAY_NAME + " = 'Camera'";
+	    String[] selectionArgs = null;
+	    String sort = ImageColumns._ID + " DESC LIMIT 1";
+    }
 }

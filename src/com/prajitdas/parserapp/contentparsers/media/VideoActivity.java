@@ -42,6 +42,7 @@ public class VideoActivity extends Activity {
      * This interface defines constants for the Cursor and CursorLoader, based on constants defined
      * in the {@link Video.Media} class.
      */
+	@SuppressWarnings("unused")
     private interface VideoQuery {
 		Uri baseUri = Images.Media.EXTERNAL_CONTENT_URI;
 		String selection = ImageColumns.BUCKET_DISPLAY_NAME + " = 'Camera'";

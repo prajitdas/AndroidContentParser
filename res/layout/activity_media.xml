@@ -3,12 +3,14 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent" >
 
-    <ImageView
-        android:id="@+id/imageViewForMedia"
+    <TextView
+        android:id="@+id/textViewMediaFile"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
         android:layout_alignParentLeft="true"
-        android:src="@drawable/dummy" 
-        android:contentDescription="@string/imageDescription"/>
-
+        android:layout_alignParentRight="true"
+        android:layout_alignParentTop="true"
+        android:text="@string/hello_world" />
+    
 </RelativeLayout>

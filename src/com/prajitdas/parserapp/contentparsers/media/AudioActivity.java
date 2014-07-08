@@ -17,7 +17,7 @@ public class AudioActivity extends Activity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_audio);
-		ParserApplication.makeToast(AudioQuery.baseUri.toString());
+		ParserApplication.makeToast(this, AudioQuery.baseUri.toString());
 	}
 
 	@Override

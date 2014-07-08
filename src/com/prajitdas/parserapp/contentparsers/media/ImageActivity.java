@@ -25,7 +25,7 @@ public class ImageActivity extends Activity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_media);
-		ParserApplication.makeToast(ImageQuery.baseUri.toString());
+//		ParserApplication.makeToast(this, ImageQuery.baseUri.toString());
 		
 		mImageView = (ImageView) findViewById(R.id.imageViewForMedia);
 		mImageView.setImageBitmap(getLatestCameraPhoto());
@@ -52,15 +52,14 @@ public class ImageActivity extends Activity {
 	
 	private Bitmap getLatestCameraPhoto() {
 		if(ParserApplication.isImageAccessPolicyAllowed()) {
-		    Cursor cursor = Media.query(this.getContentResolver(),
-		    							ImageQuery.baseUri,
-		    							new String[] { ImageColumns._ID }, 
-		    							ImageQuery.selection, 
-		    							ImageQuery.selectionArgs, 
-		    							ImageQuery.sort);
-		    
+			Cursor cursor = Media.query(this.getContentResolver(),
+										ImageQuery.baseUri,
+										ImageQuery.projection, 
+										ImageQuery.selection, 
+										ImageQuery.selectionArgs, 
+										ImageQuery.sort);
 		    try {
-		    	int idx = cursor.getColumnIndex(ImageColumns._ID);
+		    	int idx = cursor.getColumnIndex(ImageQuery.projection[0]);
 		    	if (cursor != null && cursor.moveToFirst()) {
 		    		return Media.getBitmap(this.getContentResolver(), 
 		    				Uri.withAppendedPath(ImageQuery.baseUri, cursor.getString(idx)));
@@ -88,7 +87,37 @@ public class ImageActivity extends Activity {
     private interface ImageQuery {
 		Uri baseUri = Images.Media.EXTERNAL_CONTENT_URI;
 		String selection = ImageColumns.BUCKET_DISPLAY_NAME + " = 'Camera'";
+		String[] projection = { ImageColumns._ID };
 	    String[] selectionArgs = null;
 	    String sort = ImageColumns._ID + " DESC LIMIT 1";
     }
+// // Get relevant columns for use later.
+//    String[] projection = {
+//        MediaStore.Files.FileColumns._ID, 
+//        MediaStore.Files.FileColumns.DATA,
+//        MediaStore.Files.FileColumns.DATE_ADDED,
+//        MediaStore.Files.FileColumns.MEDIA_TYPE,
+//        MediaStore.Files.FileColumns.MIME_TYPE,
+//        MediaStore.Files.FileColumns.TITLE
+//    };
+//
+//    // Return only video and image metadata.
+//    String selection = MediaStore.Files.FileColumns.MEDIA_TYPE + "="
+//             + MediaStore.Files.FileColumns.MEDIA_TYPE_IMAGE 
+//             + " OR "
+//             + MediaStore.Files.FileColumns.MEDIA_TYPE + "="
+//             + MediaStore.Files.FileColumns.MEDIA_TYPE_VIDEO;
+//
+//    Uri queryUri = MediaStore.Files.getContentUri("external");
+//
+//    CursorLoader cursorLoader = new CursorLoader(
+//        this,
+//        queryUri,
+//        projection,
+//        selection,
+//        null, // Selection args (none).
+//        MediaStore.Files.FileColumns.DATE_ADDED + " DESC" // Sort order.
+//      );
+//
+//    Cursor cursor = cursorLoader.loadInBackground();
 }

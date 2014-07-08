@@ -8,30 +8,32 @@ import java.util.Map;
 import com.prajitdas.parserapp.util.ProviderContent.ProviderItem;
 
 import android.app.Application;
+import android.content.Context;
 import android.content.res.Configuration;
 import android.widget.Toast;
 
 public class ParserApplication extends Application {
-	
+
 	private static boolean audioAccessPolicyAllowed;
-	
+
 	private static final String CONTACT_BUTTON_LOADER = "getContactUsingloader";
 
 	private static final String CONTACT_BUTTON_QUERY = "getContactUsingQuery";
+
 	/**
 	 * public static final Strings for known content providers
 	 */
 	private static final String CONTACT_PROVIDER = "ContactProvider";
-	
+
 	/**
 	 * public static final Strings for known content providers
 	 */
-	private static final String CONTACTS_PROVIDER = "ContactsProvider"; 
-	
-	private static boolean contactsAccessPolicyAllowed;
-	
-	private static final String DEBUG_TAG = "ParserApplicationDebugTag";
+	private static final String CONTACTS_PROVIDER = "ContactsProvider";
 
+	private static boolean contactsAccessPolicyAllowed;
+
+	private static final String DEBUG_TAG = "ParserApplicationDebugTag";
+	
 	private static boolean imageAccessPolicyAllowed;
 
 	/**
@@ -49,15 +51,15 @@ public class ParserApplication extends Application {
 	private static final String MEDIA_BUTTON_QUERY = "getMediaUsingQuery";
 
 	private static boolean mediaAccessPolicyAllowed;
-	
+
 	private static int ProviderCount;
-	
+
 	private static String queryOrLoader;
 
 	private static ParserApplication singleton;
-	
+
 	private static boolean videoAccessPolicyAllowed;
-	
+
 	public static String getContactButtonLoader() {
 		return CONTACT_BUTTON_LOADER;
 	}
@@ -69,19 +71,18 @@ public class ParserApplication extends Application {
 	public static String getContactProvider() {
 		return CONTACT_PROVIDER;
 	}
-
 	public static String getContactsProvider() {
 		return CONTACTS_PROVIDER;
 	}
-
+	
 	public static String getDebugTag() {
 		return DEBUG_TAG;
-	}
-
+	} 
+	
 	public static Map<String, ProviderItem> getITEM_MAP() {
 		return ITEM_MAP;
 	}
-
+	
 	public static List<ProviderItem> getITEMS() {
 		return ITEMS;
 	}
@@ -96,7 +97,7 @@ public class ParserApplication extends Application {
 	public static String getMediaButtonLoader() {
 		return MEDIA_BUTTON_LOADER;
 	}
-	
+
 	public static String getMediaButtonQuery() {
 		return MEDIA_BUTTON_QUERY;
 	}
@@ -115,11 +116,11 @@ public class ParserApplication extends Application {
 	public static ParserApplication getSingleton() {
 		return singleton;
 	}
-
+	
 	public static boolean isAudioAccessPolicyAllowed() {
 		return audioAccessPolicyAllowed;
 	}
-
+	
 	public static boolean isContactsAccessPolicyAllowed() {
 		return contactsAccessPolicyAllowed;
 	}
@@ -127,19 +128,23 @@ public class ParserApplication extends Application {
 	public static boolean isImageAccessPolicyAllowed() {
 		return imageAccessPolicyAllowed;
 	}
-
+	
 	public static boolean isMediaAccessPolicyAllowed() {
 		return mediaAccessPolicyAllowed;
 	}
-
+	
 	public static boolean isVideoAccessPolicyAllowed() {
 		return videoAccessPolicyAllowed;
+	}
+	
+	public static void makeToast(Context context, String someString) {
+		Toast.makeText(context, someString, Toast.LENGTH_LONG).show();
 	}
 
 	public static void setAudioAccessPolicyAllowed(boolean audioAccessPolicyAllowed) {
 		ParserApplication.audioAccessPolicyAllowed = audioAccessPolicyAllowed;
 	}
-	
+
 	public static void setContactsAccessPolicyAllowed(
 			boolean contactsAccessPolicyAllowed) {
 		ParserApplication.contactsAccessPolicyAllowed = contactsAccessPolicyAllowed;
@@ -164,7 +169,7 @@ public class ParserApplication extends Application {
 	public static void setProviderCount(int providerCount) {
 		ProviderCount = providerCount;
 	}
-
+	
 	public static void setQueryOrLoader(String aQueryOrLoaderString) {
 		queryOrLoader = aQueryOrLoaderString;
 	}
@@ -179,7 +184,6 @@ public class ParserApplication extends Application {
 	public static void setVideoAccessPolicyAllowed(boolean videoAccessPolicyAllowed) {
 		ParserApplication.videoAccessPolicyAllowed = videoAccessPolicyAllowed;
 	}
-
 	@Override
 	public void onConfigurationChanged(Configuration newConfig) {
 		super.onConfigurationChanged(newConfig);
@@ -195,14 +199,9 @@ public class ParserApplication extends Application {
 	public void onLowMemory() {
 		super.onLowMemory();
 	}
-
+	
 	@Override
 	public void onTerminate() {
 		super.onTerminate();
-	}
-	
-	public static void makeToast(String someString) {
-		Toast.makeText(ParserApplication.getSingleton(), 
-				someString, Toast.LENGTH_LONG).show();
 	}
 }

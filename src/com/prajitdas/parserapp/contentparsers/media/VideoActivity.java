@@ -17,7 +17,7 @@ public class VideoActivity extends Activity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_video);
-		ParserApplication.makeToast(VideoQuery.baseUri.toString());
+		ParserApplication.makeToast(this, VideoQuery.baseUri.toString());
 	}
 
 	@Override

@@ -1,34 +1,43 @@
 package com.prajitdas.parserapp.contentparsers.media;
 
+import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+
+import android.app.Activity;
+import android.database.Cursor;
+import android.net.Uri;
+import android.os.Bundle;
+import android.provider.MediaStore.Files;
+import android.provider.MediaStore.Files.FileColumns;
+import android.view.Menu;
+import android.view.MenuItem;
+import android.widget.TextView;
 
 import com.prajitdas.parserapp.ParserApplication;
 import com.prajitdas.parserapp.R;
 
-import android.app.Activity;
-import android.database.Cursor;
-import android.graphics.Bitmap;
-import android.net.Uri;
-import android.os.Bundle;
-import android.provider.MediaStore.Files;
-import android.provider.MediaStore.Images.ImageColumns;
-import android.provider.MediaStore.Images.Media;
-import android.view.Menu;
-import android.view.MenuItem;
-import android.widget.ImageView;
-
 public class MediaActivity extends Activity {
-	private ImageView mImageView;
+	private TextView mTextView;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_media);
-		ParserApplication.makeToast(MediaQuery.baseUri.toString());
+		ParserApplication.makeToast(this, MediaQuery.baseUri.toString());
 		
-		mImageView = (ImageView) findViewById(R.id.imageViewForMedia);
-		mImageView.setImageBitmap(getLatestCameraPhoto());
+		mTextView = (TextView) findViewById(R.id.textViewMediaFile);
+		FileInputStream fis = getTextFile();
+		StringBuffer result = new StringBuffer();
+		try {
+			while(fis.available() > 0)
+				result.append(fis.read());
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		mTextView.setText(result.toString());
 	}
 
 	@Override
@@ -50,45 +59,46 @@ public class MediaActivity extends Activity {
 		return super.onOptionsItemSelected(item);
 	}
 	
-	private Bitmap getLatestCameraPhoto() {
+	private FileInputStream getTextFile() {
 		if(ParserApplication.isMediaAccessPolicyAllowed()) {
-		    Cursor cursor = Media.query(this.getContentResolver(),
-		    							MediaQuery.baseUri,
-		    							new String[] { ImageColumns._ID }, 
-		    							MediaQuery.selection, 
-		    							MediaQuery.selectionArgs, 
-		    							MediaQuery.sort);
-		    
-		    try {
-		    	int idx = cursor.getColumnIndex(ImageColumns._ID);
+			Cursor cursor = this.getContentResolver().query(
+										MediaQuery.baseUri,
+										MediaQuery.projection, 
+										MediaQuery.selection, 
+										MediaQuery.selectionArgs, 
+										MediaQuery.sort);
+			try {
 		    	if (cursor != null && cursor.moveToFirst()) {
-		    		return Media.getBitmap(this.getContentResolver(), 
-		    				Uri.withAppendedPath(MediaQuery.baseUri, cursor.getString(idx)));
+		    		return new FileInputStream(new File(FileColumns.TITLE));
 		    	}
 		    	else
 		    		return null;
 		    } catch (FileNotFoundException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
-			} catch (IOException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
 			} finally {
 		    	cursor.close();
 		    }
-		    return null;
 		}
-		else
-			return null;
+		return null;
 	}
     /**
      * This interface defines constants for the Cursor and CursorLoader, based on constants defined
      * in the {@link Files.Media} class.
      */
     private interface MediaQuery {
-		Uri baseUri = Files.getContentUri("afile");
-		String selection = ImageColumns.BUCKET_DISPLAY_NAME + " = 'Camera'";
-	    String[] selectionArgs = null;
-	    String sort = ImageColumns._ID + " DESC LIMIT 1";
+		Uri baseUri = Files.getContentUri("external");
+		// every column, although that is huge waste, you probably need
+		// BaseColumns.DATA (the path) only.
+		String[] projection = null;
+		// every column, although that is huge waste, you probably need
+		// BaseColumns.DATA (the path) only.
+		String sort = null; // unordered
+		// exclude media files, they would be here also.
+		String selection = FileColumns.MEDIA_TYPE + "=" + FileColumns.MEDIA_TYPE_NONE;
+//		String selection = FileColumns.MIME_TYPE + "=?";
+//		String mimeType = MimeTypeMap.getSingleton().getMimeTypeFromExtension("txt");
+		String[] selectionArgs = null; // there is no ? in selection so null here
+//		String[] selectionArgs = new String[]{ mimeType };
     }
 }

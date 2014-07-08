@@ -14,6 +14,7 @@ import android.provider.MediaStore.Files;
 import android.provider.MediaStore.Files.FileColumns;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.webkit.MimeTypeMap;
 import android.widget.TextView;
 
 import com.prajitdas.parserapp.ParserApplication;
@@ -31,7 +32,7 @@ public class MediaActivity extends Activity {
 		mTextView = (TextView) findViewById(R.id.textViewMediaFile);
 		String result = "Nothing here!";
 		try {
-			result = getStringFromFile(getTextFile().getPath());
+			result = getTextFile();
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -58,7 +59,7 @@ public class MediaActivity extends Activity {
 		return super.onOptionsItemSelected(item);
 	}
 	
-	private Uri getTextFile() {
+	private String getTextFile() throws Exception {
 		if(ParserApplication.isMediaAccessPolicyAllowed()) {
 			Cursor cursor = this.getContentResolver().query(
 															MediaQuery.baseUri,
@@ -67,9 +68,10 @@ public class MediaActivity extends Activity {
 															MediaQuery.selectionArgs, 
 															MediaQuery.sort);
 			try {
-		    	int idx = cursor.getColumnIndex(FileColumns.TITLE);
-		    	if (cursor != null && cursor.moveToFirst()) {
-		    		return Files.getContentUri(cursor.getString(idx), idx);
+		    	if (cursor != null) {
+					int idx = cursor.getColumnIndexOrThrow(FileColumns.DATA);
+				    cursor.moveToFirst();
+		    		return getStringFromFile(cursor.getString(idx));
 		    	}
 	    		return null;
 		    } finally {
@@ -108,15 +110,15 @@ public class MediaActivity extends Activity {
 		Uri baseUri = Files.getContentUri("external");
 		// every column, although that is huge waste, you probably need
 		// BaseColumns.DATA (the path) only.
-		String[] projection = { FileColumns._ID, FileColumns.TITLE };
+		String[] projection = null;
 		// every column, although that is huge waste, you probably need
 		// BaseColumns.DATA (the path) only.
-		String sort = FileColumns._ID + " DESC LIMIT 1"; // get one file
+		String sort = FileColumns._ID + " DESC"; // get all files
 		// exclude media files, they would be here also.
-		String selection = FileColumns.MEDIA_TYPE + "=" + FileColumns.MEDIA_TYPE_NONE;
-//		String selection = FileColumns.MIME_TYPE + "=?";
-//		String mimeType = MimeTypeMap.getSingleton().getMimeTypeFromExtension("txt");
-		String[] selectionArgs = null; // there is no ? in selection so null here
-//		String[] selectionArgs = new String[]{ mimeType };
+//		String selection = FileColumns.MEDIA_TYPE + "=" + FileColumns.MEDIA_TYPE_NONE;
+		String selection = FileColumns.MIME_TYPE + "=?";
+		String mimeType = MimeTypeMap.getSingleton().getMimeTypeFromExtension("txt");
+//		String[] selectionArgs = null; // there is no ? in selection so null here
+		String[] selectionArgs = new String[]{ mimeType };
     }
 }

@@ -2,6 +2,7 @@ package com.prajitdas.parserapp.alternate;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.opengl.Visibility;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -196,14 +197,19 @@ public class AlternateMainActivity extends Activity {
 		mContactLoaderButton = (Button) findViewById(R.id.buttonContactProviderLoader);
 		mMediaButton = (Button) findViewById(R.id.buttonMediaProvider);
 		mVideoButton = (Button) findViewById(R.id.buttonVideoProvider);
+		mVideoButton.setVisibility(View.GONE);
 		mAudioButton = (Button) findViewById(R.id.buttonAudioProvider);
+		mAudioButton.setVisibility(View.GONE);
 		mImageButton = (Button) findViewById(R.id.buttonImageProvider);
 		mListOfProvidersButton = (Button) findViewById(R.id.buttonForListOfProviders);
+		mListOfProvidersButton.setVisibility(View.GONE);
 
 		mContactsAccessToggleButton = (ToggleButton) findViewById(R.id.toggleButtonContactsAccess);
 		mMediaAccessToggleButton = (ToggleButton) findViewById(R.id.toggleButtonMediaAccess);
 		mVideoAccessToggleButton = (ToggleButton) findViewById(R.id.toggleButtonVideoAccess);
+		mVideoAccessToggleButton.setVisibility(View.GONE);
 		mAudioAccessToggleButton = (ToggleButton) findViewById(R.id.toggleButtonAudioAccess);
+		mAudioAccessToggleButton.setVisibility(View.GONE);
 		mImgeAccessToggleButton = (ToggleButton) findViewById(R.id.toggleButtonImageAccess);
 	}
 }

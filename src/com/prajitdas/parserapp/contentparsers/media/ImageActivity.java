@@ -21,13 +21,14 @@ import com.prajitdas.parserapp.R;
 public class ImageActivity extends Activity {
 	private ImageView mImageView;
 
-	@Override
+    @Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_media);
-//		ParserApplication.makeToast(this, ImageQuery.baseUri.toString());
+		ParserApplication.makeToast(this, ImageQuery.baseUri.toString());
 		
 		mImageView = (ImageView) findViewById(R.id.imageViewForMedia);
+		mImageView.setImageResource(R.drawable.dummy);;
 		mImageView.setImageBitmap(getLatestCameraPhoto());
 	}
 
@@ -59,13 +60,11 @@ public class ImageActivity extends Activity {
 										ImageQuery.selectionArgs, 
 										ImageQuery.sort);
 		    try {
-		    	int idx = cursor.getColumnIndex(ImageQuery.projection[0]);
+		    	int idx = cursor.getColumnIndex(ImageColumns._ID);
 		    	if (cursor != null && cursor.moveToFirst()) {
 		    		return Media.getBitmap(this.getContentResolver(), 
 		    				Uri.withAppendedPath(ImageQuery.baseUri, cursor.getString(idx)));
 		    	}
-		    	else
-		    		return null;
 		    } catch (FileNotFoundException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
@@ -75,22 +74,22 @@ public class ImageActivity extends Activity {
 			} finally {
 		    	cursor.close();
 		    }
-		    return null;
 		}
-		else
-			return null;
+		return null;
 	}
+
     /**
      * This interface defines constants for the Cursor and CursorLoader, based on constants defined
      * in the {@link Images.Media} class.
      */
     private interface ImageQuery {
 		Uri baseUri = Images.Media.EXTERNAL_CONTENT_URI;
-		String selection = ImageColumns.BUCKET_DISPLAY_NAME + " = 'Camera'";
 		String[] projection = { ImageColumns._ID };
+		String selection = ImageColumns.BUCKET_DISPLAY_NAME + " = 'Camera'";
 	    String[] selectionArgs = null;
 	    String sort = ImageColumns._ID + " DESC LIMIT 1";
     }
+
 // // Get relevant columns for use later.
 //    String[] projection = {
 //        MediaStore.Files.FileColumns._ID, 

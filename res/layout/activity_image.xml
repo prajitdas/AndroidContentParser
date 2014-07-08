@@ -9,6 +9,6 @@
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
         android:src="@drawable/dummy" 
-        android:contentDescription="@string/imageDescription"/>
+        android:contentDescription="@string/imageDescription" />
 
 </RelativeLayout>

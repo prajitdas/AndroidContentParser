@@ -16,7 +16,7 @@
     <string name="menu_edit_contact">Edit Contact</string>
     <string name="no_contacts">No Contacts Found</string>
     <string name="no_contact_selected">No Contact Selected</string>
-    <string name="search_hint">Find contacts</string>
+    <string name="search_hint">Find Contacts</string>
 
     <!--
          Used for the AlphabetIndexer in ContactsListFragment to provide quick navigation by
@@ -44,12 +44,12 @@
     <string name="toggleButtonImageAccessText">Image Access Policy</string>
     <string name="toggleButtonVideoAccessText">video Access Policy</string>
     <string name="toggleButtonAudioAccessText">Audio Access Policy</string>
-    <string name="title_activity_media">MediaActivity</string>
+    <string name="title_activity_media">Media Activity</string>
     <string name="imageDescription">An image displayed from phone gallery</string>
-    <string name="title_activity_image">ImageActivity</string>
+    <string name="title_activity_image">Image Activity</string>
     <string name="hello_world">Hello world!</string>
-    <string name="title_activity_video">VideoActivity</string>
-    <string name="title_activity_audio">AudioActivity</string>
+    <string name="title_activity_video">Video Activity</string>
+    <string name="title_activity_audio">Audio Activity</string>
     <string name="buttonImageProviderText">Image</string>
     <string name="buttonVideoProviderText">Video</string>
     <string name="buttonAudioProviderText">Audio</string>

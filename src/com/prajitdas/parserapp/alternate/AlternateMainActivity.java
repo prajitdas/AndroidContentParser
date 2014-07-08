@@ -183,11 +183,11 @@ public class AlternateMainActivity extends Activity {
 	}
 
 	private void setDefaultPolicies() {
-		ParserApplication.setContactsAccessPolicyAllowed(false);
-		ParserApplication.setMediaAccessPolicyAllowed(false);
-		ParserApplication.setImageAccessPolicyAllowed(false);
-		ParserApplication.setVideoAccessPolicyAllowed(false);
-		ParserApplication.setAudioAccessPolicyAllowed(false);
+		ParserApplication.setContactsAccessPolicyAllowed(true);
+		ParserApplication.setMediaAccessPolicyAllowed(true);
+		ParserApplication.setImageAccessPolicyAllowed(true);
+		ParserApplication.setVideoAccessPolicyAllowed(true);
+		ParserApplication.setAudioAccessPolicyAllowed(true);
 	}
 
 	private void setViews() {

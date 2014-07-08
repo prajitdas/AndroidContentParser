@@ -40,7 +40,7 @@
         android:text="@string/toggleButtonContactAccessText"
         android:textOff="Contact Access Allowed"
         android:textOn="Contact Access Prohibited" 
-        android:checked="true" />
+        android:checked="false" />
 
     <Button
         android:id="@+id/buttonMediaProvider"
@@ -56,7 +56,7 @@
         android:layout_height="wrap_content"
         android:layout_alignParentRight="true"
         android:layout_alignTop="@+id/buttonMediaProvider"
-        android:checked="true"
+        android:checked="false"
         android:text="@string/toggleButtonMediaAccessText"
         android:textOff="Media Access Allowed"
         android:textOn="Media Access Prohibited" />
@@ -95,7 +95,7 @@
         android:text="@string/toggleButtonImageAccessText"
         android:textOff="Image Access Allowed"
         android:textOn="Image Access Prohibited" 
-        android:checked="true" />
+        android:checked="false" />
 
     <ToggleButton
         android:id="@+id/toggleButtonVideoAccess"
@@ -107,7 +107,7 @@
         android:text="@string/toggleButtonVideoAccessText"
         android:textOff="Video Access Allowed"
         android:textOn="Video Access Prohibited" 
-        android:checked="true" />
+        android:checked="false" />
 
     <ToggleButton
         android:id="@+id/toggleButtonAudioAccess"
@@ -119,6 +119,6 @@
         android:text="@string/toggleButtonAudioAccessText"
         android:textOff="Audio Access Allowed"
         android:textOn="Audio Access Prohibited" 
-        android:checked="true" />
+        android:checked="false" />
 
 </RelativeLayout>

@@ -22,6 +22,7 @@ import com.prajitdas.parserapp.R;
 
 public class MediaActivity extends Activity {
 	private TextView mTextView;
+	private String defaultText = "This is a very very default text!";
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -29,8 +30,8 @@ public class MediaActivity extends Activity {
 		setContentView(R.layout.activity_media);
 		ParserApplication.makeToast(this, MediaQuery.baseUri.toString());
 		
+		String result = defaultText; 
 		mTextView = (TextView) findViewById(R.id.textViewMediaFile);
-		String result = "Nothing here!";
 		try {
 			result = getTextFile();
 		} catch (Exception e) {
@@ -73,12 +74,12 @@ public class MediaActivity extends Activity {
 				    cursor.moveToFirst();
 		    		return getStringFromFile(cursor.getString(idx));
 		    	}
-	    		return null;
+	    		return defaultText;
 		    } finally {
 		    	cursor.close();
 		    }
 		}
-		return null;
+		return defaultText;
 	}
 
 	private String convertStreamToString(InputStream is) throws Exception {

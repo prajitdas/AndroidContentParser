@@ -1,9 +1,10 @@
 package com.prajitdas.parserapp.contentparsers.media;
 
+import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 
 import android.app.Activity;
 import android.database.Cursor;
@@ -28,12 +29,10 @@ public class MediaActivity extends Activity {
 		ParserApplication.makeToast(this, MediaQuery.baseUri.toString());
 		
 		mTextView = (TextView) findViewById(R.id.textViewMediaFile);
-		FileInputStream fis = getTextFile();
-		StringBuffer result = new StringBuffer();
+		String result = "Nothing here!";
 		try {
-			while(fis.available() > 0)
-				result.append(fis.read());
-		} catch (IOException e) {
+			result = getStringFromFile(getTextFile().getPath());
+		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
@@ -59,30 +58,49 @@ public class MediaActivity extends Activity {
 		return super.onOptionsItemSelected(item);
 	}
 	
-	private FileInputStream getTextFile() {
+	private Uri getTextFile() {
 		if(ParserApplication.isMediaAccessPolicyAllowed()) {
 			Cursor cursor = this.getContentResolver().query(
-										MediaQuery.baseUri,
-										MediaQuery.projection, 
-										MediaQuery.selection, 
-										MediaQuery.selectionArgs, 
-										MediaQuery.sort);
+															MediaQuery.baseUri,
+															MediaQuery.projection, 
+															MediaQuery.selection, 
+															MediaQuery.selectionArgs, 
+															MediaQuery.sort);
 			try {
+		    	int idx = cursor.getColumnIndex(FileColumns.TITLE);
 		    	if (cursor != null && cursor.moveToFirst()) {
-		    		return new FileInputStream(new File(FileColumns.TITLE));
+		    		return Files.getContentUri(cursor.getString(idx), idx);
 		    	}
-		    	else
-		    		return null;
-		    } catch (FileNotFoundException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			} finally {
+	    		return null;
+		    } finally {
 		    	cursor.close();
 		    }
 		}
 		return null;
 	}
-    /**
+
+	private String convertStreamToString(InputStream is) throws Exception {
+		BufferedReader reader = new BufferedReader(new InputStreamReader(is));
+		StringBuilder sb = new StringBuilder();
+		String line = null;
+		while ((line = reader.readLine()) != null) {
+			sb.append(line).append("\n");
+		}
+		reader.close();
+		return sb.toString();
+	}
+	
+	private String getStringFromFile (String filePath) throws Exception {
+		ParserApplication.makeToast(this, filePath);
+		File fl = new File(filePath);
+		FileInputStream fin = new FileInputStream(fl);
+		String ret = convertStreamToString(fin);
+		//Make sure you close all streams.
+		fin.close();        
+		return ret;
+	}
+	
+	/**
      * This interface defines constants for the Cursor and CursorLoader, based on constants defined
      * in the {@link Files.Media} class.
      */
@@ -90,10 +108,10 @@ public class MediaActivity extends Activity {
 		Uri baseUri = Files.getContentUri("external");
 		// every column, although that is huge waste, you probably need
 		// BaseColumns.DATA (the path) only.
-		String[] projection = null;
+		String[] projection = { FileColumns._ID, FileColumns.TITLE };
 		// every column, although that is huge waste, you probably need
 		// BaseColumns.DATA (the path) only.
-		String sort = null; // unordered
+		String sort = FileColumns._ID + " DESC LIMIT 1"; // get one file
 		// exclude media files, they would be here also.
 		String selection = FileColumns.MEDIA_TYPE + "=" + FileColumns.MEDIA_TYPE_NONE;
 //		String selection = FileColumns.MIME_TYPE + "=?";

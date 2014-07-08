@@ -28,10 +28,10 @@ public class MediaActivity extends Activity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_media);
-		ParserApplication.makeToast(this, MediaQuery.baseUri.toString());
 		
 		String result = defaultText; 
 		mTextView = (TextView) findViewById(R.id.textViewMediaFile);
+		
 		try {
 			result = getTextFile();
 		} catch (Exception e) {

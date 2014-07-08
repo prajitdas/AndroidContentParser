@@ -21,21 +21,18 @@ import com.prajitdas.parserapp.R;
 public class ImageActivity extends Activity {
 	private ImageView mImageView;
 
-    @Override
+	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.activity_media);
-		ParserApplication.makeToast(this, ImageQuery.baseUri.toString());
-		
-		mImageView = (ImageView) findViewById(R.id.imageViewForMedia);
-		mImageView.setImageResource(R.drawable.dummy);;
+		setContentView(R.layout.activity_image);
+		mImageView = (ImageView) findViewById(R.id.imageViewForPicture);
+//		mImageView.setImageDrawable(getResources().getDrawable(R.drawable.dummy));
 		mImageView.setImageBitmap(getLatestCameraPhoto());
 	}
-
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		// Inflate the menu; this adds items to the action bar if it is present.
-		getMenuInflater().inflate(R.menu.media, menu);
+		getMenuInflater().inflate(R.menu.image, menu);
 		return true;
 	}
 
@@ -50,7 +47,7 @@ public class ImageActivity extends Activity {
 		}
 		return super.onOptionsItemSelected(item);
 	}
-	
+
 	private Bitmap getLatestCameraPhoto() {
 		if(ParserApplication.isImageAccessPolicyAllowed()) {
 			Cursor cursor = Media.query(this.getContentResolver(),
@@ -78,7 +75,7 @@ public class ImageActivity extends Activity {
 		return null;
 	}
 
-    /**
+	/**
      * This interface defines constants for the Cursor and CursorLoader, based on constants defined
      * in the {@link Images.Media} class.
      */
@@ -89,34 +86,4 @@ public class ImageActivity extends Activity {
 	    String[] selectionArgs = null;
 	    String sort = ImageColumns._ID + " DESC LIMIT 1";
     }
-
-// // Get relevant columns for use later.
-//    String[] projection = {
-//        MediaStore.Files.FileColumns._ID, 
-//        MediaStore.Files.FileColumns.DATA,
-//        MediaStore.Files.FileColumns.DATE_ADDED,
-//        MediaStore.Files.FileColumns.MEDIA_TYPE,
-//        MediaStore.Files.FileColumns.MIME_TYPE,
-//        MediaStore.Files.FileColumns.TITLE
-//    };
-//
-//    // Return only video and image metadata.
-//    String selection = MediaStore.Files.FileColumns.MEDIA_TYPE + "="
-//             + MediaStore.Files.FileColumns.MEDIA_TYPE_IMAGE 
-//             + " OR "
-//             + MediaStore.Files.FileColumns.MEDIA_TYPE + "="
-//             + MediaStore.Files.FileColumns.MEDIA_TYPE_VIDEO;
-//
-//    Uri queryUri = MediaStore.Files.getContentUri("external");
-//
-//    CursorLoader cursorLoader = new CursorLoader(
-//        this,
-//        queryUri,
-//        projection,
-//        selection,
-//        null, // Selection args (none).
-//        MediaStore.Files.FileColumns.DATE_ADDED + " DESC" // Sort order.
-//      );
-//
-//    Cursor cursor = cursorLoader.loadInBackground();
 }

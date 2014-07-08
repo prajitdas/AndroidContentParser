@@ -25,13 +25,13 @@ public class AlternateMainActivity extends Activity {
 	private Button mContactLoaderButton;
 	private Button mContactQueryButton;
 	private ToggleButton mContactsAccessToggleButton;
-	private ToggleButton mImageAccessToggleButton;
-	private Button mImageButton;
 	private Button mListOfProvidersButton;
 	private ToggleButton mMediaAccessToggleButton;
 	private Button mMediaButton;
 	private ToggleButton mVideoAccessToggleButton;
 	private Button mVideoButton;
+	private ToggleButton mImgeAccessToggleButton;
+	private Button mImageButton;
 	
 	private void addListenerOnButton() {
 		mContactQueryButton.setOnClickListener(new OnClickListener() {
@@ -52,14 +52,6 @@ public class AlternateMainActivity extends Activity {
 			}
 		});
 
-		mImageButton.setOnClickListener(new OnClickListener() {
-			@Override
-			public void onClick(View v) {
-				Intent intent = new Intent(v.getContext(), ImageActivity.class);
-				startActivity(intent);
-			}
-		});
-		
 		mMediaButton.setOnClickListener(new OnClickListener() {
 			
 			@Override
@@ -139,8 +131,8 @@ public class AlternateMainActivity extends Activity {
 					ParserApplication.setContactsAccessPolicyAllowed(true);
 			}
 		});
-
-		mImageAccessToggleButton.setOnClickListener(new OnClickListener() {
+		
+		mImgeAccessToggleButton.setOnClickListener(new OnClickListener() {
 			
 			@Override
 			public void onClick(View v) {
@@ -148,6 +140,15 @@ public class AlternateMainActivity extends Activity {
 					ParserApplication.setImageAccessPolicyAllowed(false);
 				else
 					ParserApplication.setImageAccessPolicyAllowed(true);
+			}
+		});
+		
+		mImageButton.setOnClickListener(new OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				Intent intent = new Intent(v.getContext(), ImageActivity.class);
+				startActivity(intent);
 			}
 		});
 	}
@@ -194,15 +195,15 @@ public class AlternateMainActivity extends Activity {
 		mContactQueryButton = (Button) findViewById(R.id.buttonContactProviderQuery);
 		mContactLoaderButton = (Button) findViewById(R.id.buttonContactProviderLoader);
 		mMediaButton = (Button) findViewById(R.id.buttonMediaProvider);
-		mImageButton = (Button) findViewById(R.id.buttonImageProvider);
 		mVideoButton = (Button) findViewById(R.id.buttonVideoProvider);
 		mAudioButton = (Button) findViewById(R.id.buttonAudioProvider);
+		mImageButton = (Button) findViewById(R.id.buttonImageProvider);
 		mListOfProvidersButton = (Button) findViewById(R.id.buttonForListOfProviders);
 
 		mContactsAccessToggleButton = (ToggleButton) findViewById(R.id.toggleButtonContactsAccess);
 		mMediaAccessToggleButton = (ToggleButton) findViewById(R.id.toggleButtonMediaAccess);
-		mImageAccessToggleButton = (ToggleButton) findViewById(R.id.toggleButtonImageAccess);
 		mVideoAccessToggleButton = (ToggleButton) findViewById(R.id.toggleButtonVideoAccess);
-		mAudioAccessToggleButton = (ToggleButton) findViewById(R.id.toggleButtonAudioAccess);		
+		mAudioAccessToggleButton = (ToggleButton) findViewById(R.id.toggleButtonAudioAccess);
+		mImgeAccessToggleButton = (ToggleButton) findViewById(R.id.toggleButtonImageAccess);
 	}
 }

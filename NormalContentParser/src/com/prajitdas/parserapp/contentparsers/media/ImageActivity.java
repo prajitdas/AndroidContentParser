@@ -17,6 +17,7 @@ import android.widget.ImageView;
 
 import com.prajitdas.parserapp.ParserApplication;
 import com.prajitdas.parserapp.R;
+import com.prajitdas.sprivacy.contentprovider.PrivacyAwareContentContracts;
 
 public class ImageActivity extends Activity {
 	private ImageView mImageView;
@@ -87,7 +88,7 @@ public class ImageActivity extends Activity {
      * in the {@link Images.Media} class.
      */
     private interface ImageQuery {
-		Uri baseUri = Images.Media.EXTERNAL_CONTENT_URI;
+		Uri baseUri = PrivacyAwareContentContracts.getImageContentUri();
 		String[] projection = { ImageColumns._ID };
 		String selection = ImageColumns.BUCKET_DISPLAY_NAME + " = 'Camera'";
 	    String[] selectionArgs = null;

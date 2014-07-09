@@ -12,6 +12,7 @@
     <!-- Required permission only for Android 4.4 and above -->
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <!-- Unusual but true! -->
+    <uses-permission android:name="com.prajitdas.sprivacy.permission.READ_PROVIDER" />
     
     <application
         android:allowBackup="true"

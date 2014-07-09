@@ -82,6 +82,24 @@ import com.prajitdas.parserapp.util.Utils;
  * On older platforms, the user must enter the full string and trigger the search. In response, the
  * trigger starts a new Activity which loads a fresh instance of this fragment. The resulting UI
  * displays the filtered list and disables the search feature to prevent furthering searching.
+ * 
+ * 
+ * @author prajit.das
+ * 
+ * Code modification was required in:-
+ * 1) 	onActivityCreated() to ensure that the right loader was called. 
+ * 		This was an experiment and was unnecessary from the point of implementation. 
+ * 		We needed to understand how the cursors and cursorloaders worked individually and 
+ * 		how they were different. initloader() was bypassed for the normal cursor call. 
+ * 2)	This code is an example contacts app obtained from the Google Developers website. 
+ * 		We changed the calls to the Contacts Provider and ensured that if the policy 
+ * 		was set to not allow access we don't call the provider at all and return null data.
+ * 3)	The idea is to eventually call only the privacy aware provider and not individual providers.
+ * 4)	onCreateLoader was also modified to ensure null data was returned
+ * 5)	Finally onCreateOptionsMenu() was modified to ensure that the calls their also were privacy aware.
+ * 6)	There are multiple points when the loader creates the data from the provider call. Just remove the
+ * 		LoaderManager.LoaderCallbacks<Cursor> to see which are the points these calls are made.
+ * 		They will show up as errors.
  */
 public class ContactsListFragment extends ListFragment implements
         AdapterView.OnItemClickListener, LoaderManager.LoaderCallbacks<Cursor> {

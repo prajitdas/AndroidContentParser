@@ -10,7 +10,7 @@
 
     <uses-permission android:name="android.permission.READ_CONTACTS" />
     <!-- Required permission only for Android 4.4 and above -->
-    <!-- uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" /-->
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <!-- Unusual but true! -->
     
     <application

@@ -5,7 +5,6 @@ import java.io.IOException;
 
 import android.app.Activity;
 import android.database.Cursor;
-import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore.Images;
@@ -20,20 +19,36 @@ import com.prajitdas.parserapp.R;
 
 public class ImageActivity extends Activity {
 	private ImageView mImageView;
-	private boolean imageFound;
+	private Cursor queryCursor;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_image);
 
-		imageFound = false;
 		mImageView = (ImageView) findViewById(R.id.imageViewForPicture);
 		
-		mImageView.setImageBitmap(getLatestCameraPhoto());
+		getLatestCameraPhoto();
 		
-		if(!imageFound)
-			mImageView.setImageDrawable(getResources().getDrawable(R.drawable.dummy));
+		try {
+	    	if (queryCursor == null) {
+	    		mImageView.setImageDrawable(getResources().getDrawable(R.drawable.dummy));
+			}
+    		else {
+	    		queryCursor.moveToFirst();
+	    		int idx = queryCursor.getColumnIndex(ImageColumns._ID);
+	    		ParserApplication.makeToast(this, "and also here");
+	    		mImageView.setImageBitmap(Media.getBitmap(this.getContentResolver(), 
+	    				Uri.withAppendedPath(Images.Media.EXTERNAL_CONTENT_URI, queryCursor.getString(idx))));
+	    		queryCursor.close();
+	    	}
+	    } catch (FileNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+	    }
 	}
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
@@ -54,34 +69,15 @@ public class ImageActivity extends Activity {
 		return super.onOptionsItemSelected(item);
 	}
 
-	private Bitmap getLatestCameraPhoto() {
-		if(ParserApplication.isImageAccessPolicyAllowed()) {
-			Cursor cursor = getContentResolver().query(ImageQuery.baseUri,
+	private void getLatestCameraPhoto() {
+		if(ParserApplication.isImageAccessPolicyAllowed()) 
+			queryCursor = this.getContentResolver().query(ImageQuery.baseUri,
 										ImageQuery.projection, 
 										ImageQuery.selection, 
 										ImageQuery.selectionArgs, 
 										ImageQuery.sort);
-			
-    		ParserApplication.makeToast(this, "I did come here");
-			try {
-		    	int idx = cursor.getColumnIndex(ImageColumns._ID);
-		    	if (cursor != null && cursor.moveToFirst()) {
-		    		imageFound = true;
-		    		ParserApplication.makeToast(this, "and also here");
-		    		return Media.getBitmap(this.getContentResolver(), 
-		    				Uri.withAppendedPath(Images.Media.EXTERNAL_CONTENT_URI, cursor.getString(idx)));
-		    	}
-		    } catch (FileNotFoundException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			} catch (IOException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			} finally {
-		    	cursor.close();
-		    }
-		}
-		return null;
+		else
+			queryCursor = null;
 	}
 
 	/**
@@ -89,7 +85,7 @@ public class ImageActivity extends Activity {
      * in the {@link Images.Media} class.
      */
     private interface ImageQuery {
-		Uri baseUri = Uri.parse("content://com.example.provider.Media/images");
+		Uri baseUri = Uri.parse("content://com.prajitdas.contentprovider/images");
 		String[] projection = { ImageColumns._ID };
 		String selection = ImageColumns.BUCKET_DISPLAY_NAME + " = 'Camera'";
 	    String[] selectionArgs = null;

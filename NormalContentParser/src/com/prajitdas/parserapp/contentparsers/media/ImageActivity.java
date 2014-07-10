@@ -8,16 +8,16 @@ import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
-import android.provider.MediaStore.Images;
 import android.provider.MediaStore.Images.ImageColumns;
-import android.provider.MediaStore.Images.Media;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.ImageView;
 
 import com.prajitdas.parserapp.ParserApplication;
 import com.prajitdas.parserapp.R;
+import com.prajitdas.sprivacy.ProviderApplication;
 import com.prajitdas.sprivacy.contentprovider.PrivacyAwareContentContracts;
+import com.prajitdas.sprivacy.contentprovider.PrivacyAwareContentContracts.Images.Media;
 
 public class ImageActivity extends Activity {
 	private ImageView mImageView;
@@ -27,6 +27,8 @@ public class ImageActivity extends Activity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_image);
+
+		ProviderApplication.makeToast(this, ImageQuery.baseUri.toString());
 		
 		imageFound = false;
 		mImageView = (ImageView) findViewById(R.id.imageViewForPicture);
@@ -63,10 +65,13 @@ public class ImageActivity extends Activity {
 										ImageQuery.selection, 
 										ImageQuery.selectionArgs, 
 										ImageQuery.sort);
-		    try {
+			
+    		ParserApplication.makeToast(this, "I did come here");
+			try {
 		    	int idx = cursor.getColumnIndex(ImageColumns._ID);
 		    	if (cursor != null && cursor.moveToFirst()) {
 		    		imageFound = true;
+		    		ParserApplication.makeToast(this, "and also here");
 		    		return Media.getBitmap(this.getContentResolver(), 
 		    				Uri.withAppendedPath(ImageQuery.baseUri, cursor.getString(idx)));
 		    	}

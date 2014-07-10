@@ -8,16 +8,15 @@ import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
+import android.provider.MediaStore.Images;
 import android.provider.MediaStore.Images.ImageColumns;
+import android.provider.MediaStore.Images.Media;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.ImageView;
 
 import com.prajitdas.parserapp.ParserApplication;
 import com.prajitdas.parserapp.R;
-import com.prajitdas.sprivacy.ProviderApplication;
-import com.prajitdas.sprivacy.contentprovider.PrivacyAwareContentContracts;
-import com.prajitdas.sprivacy.contentprovider.PrivacyAwareContentContracts.Images.Media;
 
 public class ImageActivity extends Activity {
 	private ImageView mImageView;
@@ -28,8 +27,6 @@ public class ImageActivity extends Activity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_image);
 
-		ProviderApplication.makeToast(this, ImageQuery.baseUri.toString());
-		
 		imageFound = false;
 		mImageView = (ImageView) findViewById(R.id.imageViewForPicture);
 		
@@ -59,8 +56,7 @@ public class ImageActivity extends Activity {
 
 	private Bitmap getLatestCameraPhoto() {
 		if(ParserApplication.isImageAccessPolicyAllowed()) {
-			Cursor cursor = Media.query(this.getContentResolver(),
-										ImageQuery.baseUri,
+			Cursor cursor = getContentResolver().query(ImageQuery.baseUri,
 										ImageQuery.projection, 
 										ImageQuery.selection, 
 										ImageQuery.selectionArgs, 
@@ -73,7 +69,7 @@ public class ImageActivity extends Activity {
 		    		imageFound = true;
 		    		ParserApplication.makeToast(this, "and also here");
 		    		return Media.getBitmap(this.getContentResolver(), 
-		    				Uri.withAppendedPath(ImageQuery.baseUri, cursor.getString(idx)));
+		    				Uri.withAppendedPath(Images.Media.EXTERNAL_CONTENT_URI, cursor.getString(idx)));
 		    	}
 		    } catch (FileNotFoundException e) {
 				// TODO Auto-generated catch block
@@ -93,7 +89,7 @@ public class ImageActivity extends Activity {
      * in the {@link Images.Media} class.
      */
     private interface ImageQuery {
-		Uri baseUri = PrivacyAwareContentContracts.getImageContentUri();
+		Uri baseUri = Uri.parse("content://com.example.provider.Media/images");
 		String[] projection = { ImageColumns._ID };
 		String selection = ImageColumns.BUCKET_DISPLAY_NAME + " = 'Camera'";
 	    String[] selectionArgs = null;

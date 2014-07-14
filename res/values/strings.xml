@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <string name="app_name">Another Content Parser</string>
+    <string name="app_name">Content Parser</string>
     <string name="title_activity_provider_main">Providers List</string>
     <string name="title_activity_alternate_main">Content Parser</string>
     <string name="title_contact_provider">Contact Provider Data</string>

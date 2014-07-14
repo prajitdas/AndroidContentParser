@@ -6,13 +6,13 @@
 
     <uses-sdk
         android:minSdkVersion="16"
-        android:targetSdkVersion="20" />
+        android:targetSdkVersion="21" />
 
     <uses-permission android:name="android.permission.READ_CONTACTS" />
     <!-- Required permission for reading the privacy policies -->
-    <uses-permission android:name="android.permission.sprivacy.contentprovider.READ_WRITE_POLICIES" />    
-    <uses-permission android:name="android.permission.sprivacy.policyprovider.READ_POLICIES" />    
-	<uses-permission android:name="android.permission.sprivacy.policyprovider.WRITE_POLICIES" />    
+    <uses-permission android:name="android.permission.sprivacy.READ_WRITE_CONTENT" />    
+    <uses-permission android:name="android.permission.sprivacy.READ_POLICIES" />    
+	<uses-permission android:name="android.permission.sprivacy.WRITE_POLICIES" />    
     <!-- Required permission only for Android 4.4 and above -->
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <!-- Unusual but true! -->

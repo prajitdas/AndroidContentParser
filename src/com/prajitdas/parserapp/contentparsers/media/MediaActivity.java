@@ -108,6 +108,7 @@ public class MediaActivity extends Activity {
      * in the {@link Files.Media} class.
      */
     private interface MediaQuery {
+//		Uri baseUri = Uri.parse("content://com.prajitdas.sprivacy.contentprovider.Content/files");
 		Uri baseUri = Files.getContentUri("external");
 		// every column, although that is huge waste, you probably need
 		// BaseColumns.DATA (the path) only.

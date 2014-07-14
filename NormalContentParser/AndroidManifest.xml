@@ -9,6 +9,8 @@
         android:targetSdkVersion="20" />
 
     <uses-permission android:name="android.permission.READ_CONTACTS" />
+    <!-- Required permission for reading the privacy policies -->
+    <uses-permission android:name="android.permission.sprivacy.contentprovider.READ_WRITE_POLICIES" />    
     <!-- Required permission only for Android 4.4 and above -->
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <!-- Unusual but true! -->

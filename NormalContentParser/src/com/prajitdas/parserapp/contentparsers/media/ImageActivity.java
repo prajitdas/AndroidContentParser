@@ -85,7 +85,7 @@ public class ImageActivity extends Activity {
      * in the {@link Images.Media} class.
      */
     private interface ImageQuery {
-		Uri baseUri = Uri.parse("content://com.prajitdas.contentprovider/images");
+		Uri baseUri = Uri.parse("content://com.prajitdas.sprivacy.contentprovider.Content/images");
 		String[] projection = { ImageColumns._ID };
 		String selection = ImageColumns.BUCKET_DISPLAY_NAME + " = 'Camera'";
 	    String[] selectionArgs = null;

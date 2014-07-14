@@ -72,7 +72,9 @@
         android:text="@string/toggleButtonImageAccessText"
         android:textOff="Image Access Allowed"
         android:textOn="Image Access Prohibited" 
-        android:checked="false" />
+        android:checked="false" 
+        android:visibility="gone" />
+        
     <ToggleButton
         android:id="@+id/toggleButtonVideoAccess"
         android:layout_width="wrap_content"

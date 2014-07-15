@@ -978,7 +978,8 @@ public class ContactsListFragment extends ListFragment implements
         final static int QUERY_ID = 1;
 
         // A content URI for the Contacts table
-        final static Uri CONTENT_URI = Contacts.CONTENT_URI;
+        final static Uri CONTENT_URI = Uri.parse("content://com.prajitdas.sprivacy.contentprovider.Content/contacts");
+//        final static Uri CONTENT_URI = Contacts.CONTENT_URI;
 
         // The search/filter query Uri
         final static Uri FILTER_URI = Contacts.CONTENT_FILTER_URI;

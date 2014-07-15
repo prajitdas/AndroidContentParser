@@ -8,7 +8,6 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
-import android.widget.ToggleButton;
 
 import com.prajitdas.parserapp.ParserApplication;
 import com.prajitdas.parserapp.R;
@@ -20,17 +19,12 @@ import com.prajitdas.parserapp.contentparsers.media.VideoActivity;
 import com.prajitdas.parserapp.providerlists.ProvidersMainActivity;
 
 public class AlternateMainActivity extends Activity {
-	private ToggleButton mAudioAccessToggleButton;
 	private Button mAudioButton;
 	private Button mContactLoaderButton;
 	private Button mContactQueryButton;
-	private ToggleButton mContactsAccessToggleButton;
 	private Button mListOfProvidersButton;
-	private ToggleButton mMediaAccessToggleButton;
 	private Button mMediaButton;
-	private ToggleButton mVideoAccessToggleButton;
 	private Button mVideoButton;
-	private ToggleButton mImgeAccessToggleButton;
 	private Button mImageButton;
 	
 	private void addListenerOnButton() {
@@ -61,34 +55,12 @@ public class AlternateMainActivity extends Activity {
 			}
 		});
 		
-		mMediaAccessToggleButton.setOnClickListener(new OnClickListener() {
-			
-			@Override
-			public void onClick(View v) {
-				if(ParserApplication.isMediaAccessPolicyAllowed())
-					ParserApplication.setMediaAccessPolicyAllowed(false);
-				else
-					ParserApplication.setMediaAccessPolicyAllowed(true);
-			}
-		});
-		
 		mVideoButton.setOnClickListener(new OnClickListener() {
 			
 			@Override
 			public void onClick(View v) {
 				Intent intent = new Intent(v.getContext(), VideoActivity.class);
 				startActivity(intent);
-			}
-		});
-		
-		mVideoAccessToggleButton.setOnClickListener(new OnClickListener() {
-			
-			@Override
-			public void onClick(View v) {
-				if(ParserApplication.isVideoAccessPolicyAllowed())
-					ParserApplication.setVideoAccessPolicyAllowed(false);
-				else
-					ParserApplication.setVideoAccessPolicyAllowed(true);
 			}
 		});
 		
@@ -101,45 +73,12 @@ public class AlternateMainActivity extends Activity {
 			}
 		});
 		
-		mAudioAccessToggleButton.setOnClickListener(new OnClickListener() {
-			
-			@Override
-			public void onClick(View v) {
-				if(ParserApplication.isAudioAccessPolicyAllowed())
-					ParserApplication.setAudioAccessPolicyAllowed(false);
-				else
-					ParserApplication.setAudioAccessPolicyAllowed(true);
-			}
-		});
-		
 		mListOfProvidersButton.setOnClickListener(new OnClickListener() {
 			
 			@Override
 			public void onClick(View v) {
 				Intent intent = new Intent(v.getContext(), ProvidersMainActivity.class);
 				startActivity(intent);
-			}
-		});
-		
-		mContactsAccessToggleButton.setOnClickListener(new OnClickListener() {
-			
-			@Override
-			public void onClick(View v) {
-				if(ParserApplication.isContactsAccessPolicyAllowed())
-					ParserApplication.setContactsAccessPolicyAllowed(false);
-				else
-					ParserApplication.setContactsAccessPolicyAllowed(true);
-			}
-		});
-		
-		mImgeAccessToggleButton.setOnClickListener(new OnClickListener() {
-			
-			@Override
-			public void onClick(View v) {
-				if(ParserApplication.isImageAccessPolicyAllowed())
-					ParserApplication.setImageAccessPolicyAllowed(false);
-				else
-					ParserApplication.setImageAccessPolicyAllowed(true);
 			}
 		});
 		
@@ -202,13 +141,5 @@ public class AlternateMainActivity extends Activity {
 		mImageButton = (Button) findViewById(R.id.buttonImageProvider);
 		mListOfProvidersButton = (Button) findViewById(R.id.buttonForListOfProviders);
 		mListOfProvidersButton.setVisibility(View.GONE);
-
-		mContactsAccessToggleButton = (ToggleButton) findViewById(R.id.toggleButtonContactsAccess);
-		mMediaAccessToggleButton = (ToggleButton) findViewById(R.id.toggleButtonMediaAccess);
-		mVideoAccessToggleButton = (ToggleButton) findViewById(R.id.toggleButtonVideoAccess);
-		mVideoAccessToggleButton.setVisibility(View.GONE);
-		mAudioAccessToggleButton = (ToggleButton) findViewById(R.id.toggleButtonAudioAccess);
-		mAudioAccessToggleButton.setVisibility(View.GONE);
-		mImgeAccessToggleButton = (ToggleButton) findViewById(R.id.toggleButtonImageAccess);
 	}
 }

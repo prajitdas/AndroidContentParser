@@ -9,7 +9,6 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.Toast;
 
 import com.prajitdas.parserapp.ParserApplication;
 import com.prajitdas.parserapp.R;
@@ -96,8 +95,8 @@ public class ProvidersMainActivity extends Activity
 			contactIntent.putExtra(ProvidersListFragment.ARG_ITEM_ID, whichProvider);
 			startActivity(contactIntent);
 		}
-		else
-			Toast.makeText(this, "Clicked on "+whichProvider+" we don't know what to do with that!", 
-					Toast.LENGTH_LONG).show();
+//		else
+//			Toast.makeText(this, "Clicked on "+whichProvider+" we don't know what to do with that!", 
+//					Toast.LENGTH_LONG).show();
 	}
 }

@@ -37,7 +37,6 @@ public class ImageActivity extends Activity {
     		else {
 	    		queryCursor.moveToFirst();
 	    		int idx = queryCursor.getColumnIndex(ImageColumns._ID);
-	    		ParserApplication.makeToast(this, "and also here");
 	    		mImageView.setImageBitmap(Media.getBitmap(this.getContentResolver(), 
 	    				Uri.withAppendedPath(Images.Media.EXTERNAL_CONTENT_URI, queryCursor.getString(idx))));
 	    		queryCursor.close();

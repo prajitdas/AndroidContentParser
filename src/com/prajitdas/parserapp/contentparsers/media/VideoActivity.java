@@ -1,15 +1,15 @@
 package com.prajitdas.parserapp.contentparsers.media;
 
-import com.prajitdas.parserapp.ParserApplication;
-import com.prajitdas.parserapp.R;
-
 import android.app.Activity;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore.Images;
 import android.provider.MediaStore.Images.ImageColumns;
+import android.provider.MediaStore.Video;
 import android.view.Menu;
 import android.view.MenuItem;
+
+import com.prajitdas.parserapp.R;
 
 public class VideoActivity extends Activity {
 
@@ -17,7 +17,6 @@ public class VideoActivity extends Activity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_video);
-		ParserApplication.makeToast(this, VideoQuery.baseUri.toString());
 	}
 
 	@Override

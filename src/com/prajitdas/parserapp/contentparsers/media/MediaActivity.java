@@ -94,7 +94,6 @@ public class MediaActivity extends Activity {
 	}
 	
 	private String getStringFromFile (String filePath) throws Exception {
-		ParserApplication.makeToast(this, filePath);
 		File fl = new File(filePath);
 		FileInputStream fin = new FileInputStream(fl);
 		String ret = convertStreamToString(fin);

@@ -3,5 +3,9 @@
     android:id="@+id/main_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:paddingLeft="15dp"
+    android:paddingTop="15dp"
+    android:paddingBottom="15dp"
+    android:paddingRight="15dp"
     tools:context="com.prajitdas.parserapp.providerlists.ProvidersMainActivity"
     tools:ignore="MergeRootFrame" />

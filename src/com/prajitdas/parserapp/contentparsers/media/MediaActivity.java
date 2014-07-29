@@ -35,7 +35,6 @@ public class MediaActivity extends Activity {
 		try {
 			result = getTextFile();
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		mTextView.setText(result.toString());

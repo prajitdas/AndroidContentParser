@@ -32,7 +32,8 @@ public class ImageActivity extends Activity {
 		
 		try {
 	    	if (queryCursor == null) {
-	    		mImageView.setImageDrawable(getResources().getDrawable(R.drawable.dummy));
+	    		ParserApplication.makeToast(this, "No data found!");
+//	    		mImageView.setImageDrawable(getResources().getDrawable(R.drawable.dummy));
 			}
     		else {
 	    		queryCursor.moveToFirst();

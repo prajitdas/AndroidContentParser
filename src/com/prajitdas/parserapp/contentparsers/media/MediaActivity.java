@@ -22,7 +22,7 @@ import com.prajitdas.parserapp.R;
 
 public class MediaActivity extends Activity {
 	private TextView mTextView;
-	private String defaultText = "This is a very very default text!";
+	private String defaultText = "No data found!";
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -73,6 +73,7 @@ public class MediaActivity extends Activity {
 				    cursor.moveToFirst();
 		    		return getStringFromFile(cursor.getString(idx));
 		    	}
+	    		ParserApplication.makeToast(this, "No data found!");
 	    		return defaultText;
 		    } finally {
 		    	cursor.close();

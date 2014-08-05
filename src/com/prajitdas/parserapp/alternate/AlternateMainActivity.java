@@ -99,7 +99,7 @@ public class AlternateMainActivity extends Activity {
 		ParserApplication.setQueryOrLoader(new String());
 		
 		setViews();
-		setDefaultPolicies();		
+//		setDefaultPolicies();		
 		addListenerOnButton();
 	}
 
@@ -122,13 +122,13 @@ public class AlternateMainActivity extends Activity {
 		return super.onOptionsItemSelected(item);
 	}
 
-	private void setDefaultPolicies() {
-		ParserApplication.setContactsAccessPolicyAllowed(true);
-		ParserApplication.setMediaAccessPolicyAllowed(true);
-		ParserApplication.setImageAccessPolicyAllowed(true);
-		ParserApplication.setVideoAccessPolicyAllowed(true);
-		ParserApplication.setAudioAccessPolicyAllowed(true);
-	}
+//	private void setDefaultPolicies() {
+//		ParserApplication.setContactsAccessPolicyAllowed(true);
+//		ParserApplication.setMediaAccessPolicyAllowed(true);
+//		ParserApplication.setImageAccessPolicyAllowed(true);
+//		ParserApplication.setVideoAccessPolicyAllowed(true);
+//		ParserApplication.setAudioAccessPolicyAllowed(true);
+//	}
 
 	private void setViews() {
 		mContactQueryButton = (Button) findViewById(R.id.buttonContactProviderQuery);

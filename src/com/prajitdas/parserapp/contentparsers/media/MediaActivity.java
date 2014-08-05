@@ -73,7 +73,7 @@ public class MediaActivity extends Activity {
 				    cursor.moveToFirst();
 		    		return getStringFromFile(cursor.getString(idx));
 		    	}
-	    		ParserApplication.makeToast(this, "No data found!");
+		    	ParserApplication.makeToast(this, "No data found!");
 	    		return defaultText;
 		    } finally {
 		    	cursor.close();

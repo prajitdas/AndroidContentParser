@@ -30,8 +30,6 @@ public class ParserApplication extends Application {
 	 */
 	private static final String CONTACTS_PROVIDER = "ContactsProvider";
 
-	private static boolean contactsAccessPolicyAllowed;
-
 	private static final String DEBUG_TAG = "ParserApplicationDebugTag";
 	
 	private static boolean imageAccessPolicyAllowed;
@@ -121,10 +119,6 @@ public class ParserApplication extends Application {
 		return audioAccessPolicyAllowed;
 	}
 	
-	public static boolean isContactsAccessPolicyAllowed() {
-		return contactsAccessPolicyAllowed;
-	}
-
 	public static boolean isImageAccessPolicyAllowed() {
 		return imageAccessPolicyAllowed;
 	}
@@ -143,11 +137,6 @@ public class ParserApplication extends Application {
 
 	public static void setAudioAccessPolicyAllowed(boolean audioAccessPolicyAllowed) {
 		ParserApplication.audioAccessPolicyAllowed = audioAccessPolicyAllowed;
-	}
-
-	public static void setContactsAccessPolicyAllowed(
-			boolean contactsAccessPolicyAllowed) {
-		ParserApplication.contactsAccessPolicyAllowed = contactsAccessPolicyAllowed;
 	}
 
 	public static void setImageAccessPolicyAllowed(boolean imageAccessPolicyAllowed) {

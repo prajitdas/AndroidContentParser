@@ -530,7 +530,6 @@ public class ContactsListFragment extends ListFragment implements
     private Cursor getContacts() {
 //    	if(ParserApplication.isContactsAccessPolicyAllowed()){
 	    	// Run query
-		ParserApplication.makeToast(getActivity().getApplicationContext(), "No data found!");
     	setContentUri(ContactsQuery.CONTENT_URI);
     	String[] projection = ContactsQuery.PROJECTION;
     	String selection = ContactsQuery.SELECTION;
@@ -572,7 +571,6 @@ public class ContactsListFragment extends ListFragment implements
 	            // for the selection clause. The search string is either encoded onto the content URI,
 	            // or no contacts search string is used. The other search criteria are constants. See
 	            // the ContactsQuery interface.
-    		ParserApplication.makeToast(getActivity().getApplicationContext(), "No data found!");
             return new CursorLoader(getActivity(),
             		getContentUri(),
                     ContactsQuery.PROJECTION,

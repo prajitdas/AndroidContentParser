@@ -68,14 +68,14 @@ public class ImageActivity extends Activity {
 	}
 
 	private void getLatestCameraPhoto() {
-		if(ParserApplication.isImageAccessPolicyAllowed()) 
-			queryCursor = this.getContentResolver().query(ImageQuery.baseUri,
-										ImageQuery.projection, 
-										ImageQuery.selection, 
-										ImageQuery.selectionArgs, 
-										ImageQuery.sort);
-		else
-			queryCursor = null;
+//		if(ParserApplication.isImageAccessPolicyAllowed()) 
+		queryCursor = this.getContentResolver().query(ImageQuery.baseUri,
+									ImageQuery.projection, 
+									ImageQuery.selection, 
+									ImageQuery.selectionArgs, 
+									ImageQuery.sort);
+//		else
+//			queryCursor = null;
 	}
 
 	/**

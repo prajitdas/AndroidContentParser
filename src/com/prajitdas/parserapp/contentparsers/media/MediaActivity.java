@@ -60,26 +60,26 @@ public class MediaActivity extends Activity {
 	}
 	
 	private String getTextFile() throws Exception {
-		if(ParserApplication.isMediaAccessPolicyAllowed()) {
-			Cursor cursor = this.getContentResolver().query(
-															MediaQuery.baseUri,
-															MediaQuery.projection, 
-															MediaQuery.selection, 
-															MediaQuery.selectionArgs, 
-															MediaQuery.sort);
-			try {
-		    	if (cursor != null) {
-					int idx = cursor.getColumnIndexOrThrow(FileColumns.DATA);
-				    cursor.moveToFirst();
-		    		return getStringFromFile(cursor.getString(idx));
-		    	}
-		    	ParserApplication.makeToast(this, "No data found!");
-	    		return defaultText;
-		    } finally {
-		    	cursor.close();
-		    }
-		}
-		return defaultText;
+//		if(ParserApplication.isMediaAccessPolicyAllowed()) {
+		Cursor cursor = this.getContentResolver().query(
+														MediaQuery.baseUri,
+														MediaQuery.projection, 
+														MediaQuery.selection, 
+														MediaQuery.selectionArgs, 
+														MediaQuery.sort);
+		try {
+	    	if (cursor != null) {
+				int idx = cursor.getColumnIndexOrThrow(FileColumns.DATA);
+			    cursor.moveToFirst();
+	    		return getStringFromFile(cursor.getString(idx));
+	    	}
+	    	ParserApplication.makeToast(this, "No data found!");
+    		return defaultText;
+	    } finally {
+	    	cursor.close();
+	    }
+//		}
+//		return defaultText;
 	}
 
 	private String convertStreamToString(InputStream is) throws Exception {

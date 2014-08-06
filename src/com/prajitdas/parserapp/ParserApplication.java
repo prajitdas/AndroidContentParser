@@ -13,9 +13,6 @@ import android.content.res.Configuration;
 import android.widget.Toast;
 
 public class ParserApplication extends Application {
-
-	private static boolean audioAccessPolicyAllowed;
-
 	private static final String CONTACT_BUTTON_LOADER = "getContactUsingloader";
 
 	private static final String CONTACT_BUTTON_QUERY = "getContactUsingQuery";
@@ -32,8 +29,6 @@ public class ParserApplication extends Application {
 
 	private static final String DEBUG_TAG = "ParserApplicationDebugTag";
 	
-	private static boolean imageAccessPolicyAllowed;
-
 	/**
 	 * A map of sample (dummy) items, by ID.
 	 */
@@ -48,15 +43,11 @@ public class ParserApplication extends Application {
 
 	private static final String MEDIA_BUTTON_QUERY = "getMediaUsingQuery";
 
-	private static boolean mediaAccessPolicyAllowed;
-
 	private static int ProviderCount;
 
 	private static String queryOrLoader;
 
 	private static ParserApplication singleton;
-
-	private static boolean videoAccessPolicyAllowed;
 
 	public static String getContactButtonLoader() {
 		return CONTACT_BUTTON_LOADER;
@@ -115,32 +106,8 @@ public class ParserApplication extends Application {
 		return singleton;
 	}
 	
-	public static boolean isAudioAccessPolicyAllowed() {
-		return audioAccessPolicyAllowed;
-	}
-	
-	public static boolean isImageAccessPolicyAllowed() {
-		return imageAccessPolicyAllowed;
-	}
-	
-	public static boolean isMediaAccessPolicyAllowed() {
-		return mediaAccessPolicyAllowed;
-	}
-	
-	public static boolean isVideoAccessPolicyAllowed() {
-		return videoAccessPolicyAllowed;
-	}
-	
 	public static void makeToast(Context context, String someString) {
 		Toast.makeText(context, someString, Toast.LENGTH_LONG).show();
-	}
-
-	public static void setAudioAccessPolicyAllowed(boolean audioAccessPolicyAllowed) {
-		ParserApplication.audioAccessPolicyAllowed = audioAccessPolicyAllowed;
-	}
-
-	public static void setImageAccessPolicyAllowed(boolean imageAccessPolicyAllowed) {
-		ParserApplication.imageAccessPolicyAllowed = imageAccessPolicyAllowed;
 	}
 
 	public static void setITEM_MAP(Map<String, ProviderItem> iTEM_MAP) {
@@ -149,10 +116,6 @@ public class ParserApplication extends Application {
 
 	public static void setITEMS(List<ProviderItem> iTEMS) {
 		ITEMS = iTEMS;
-	}
-
-	public static void setMediaAccessPolicyAllowed(boolean mediaAccessPolicyAllowed) {
-		ParserApplication.mediaAccessPolicyAllowed = mediaAccessPolicyAllowed;
 	}
 
 	public static void setProviderCount(int providerCount) {
@@ -170,9 +133,6 @@ public class ParserApplication extends Application {
 		ParserApplication.singleton = singleton;
 	}
 
-	public static void setVideoAccessPolicyAllowed(boolean videoAccessPolicyAllowed) {
-		ParserApplication.videoAccessPolicyAllowed = videoAccessPolicyAllowed;
-	}
 	@Override
 	public void onConfigurationChanged(Configuration newConfig) {
 		super.onConfigurationChanged(newConfig);

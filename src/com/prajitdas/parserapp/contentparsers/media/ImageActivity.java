@@ -10,6 +10,7 @@ import android.os.Bundle;
 import android.provider.MediaStore.Images;
 import android.provider.MediaStore.Images.ImageColumns;
 import android.provider.MediaStore.Images.Media;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.ImageView;
@@ -28,6 +29,7 @@ public class ImageActivity extends Activity {
 
 		mImageView = (ImageView) findViewById(R.id.imageViewForPicture);
 		
+		Log.v(ParserApplication.getDebugTag(), Media.EXTERNAL_CONTENT_URI.toString());
 		getLatestCameraPhoto();
 		
 		try {
@@ -39,7 +41,7 @@ public class ImageActivity extends Activity {
 	    		queryCursor.moveToFirst();
 	    		int idx = queryCursor.getColumnIndex(ImageColumns._ID);
 	    		mImageView.setImageBitmap(Media.getBitmap(this.getContentResolver(), 
-	    				Uri.withAppendedPath(Images.Media.EXTERNAL_CONTENT_URI, queryCursor.getString(idx))));
+	    				Uri.withAppendedPath(Media.EXTERNAL_CONTENT_URI, queryCursor.getString(idx))));
 	    		queryCursor.close();
 	    	}
 	    } catch (FileNotFoundException e) {

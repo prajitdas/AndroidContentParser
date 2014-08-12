@@ -336,9 +336,9 @@ public class ContactsListFragment extends ListFragment implements
          */
         // Creates a contact lookup Uri from contact ID and lookup_key
         final Uri uri = //Uri.parse("content://com.prajitdas.sprivacy.contentprovider.Content/contacts/John Doe/1");
-        		ConstantsManager.getLookupUri(
-                cursor.getLong(ContactsQuery.ID),
-                cursor.getString(ContactsQuery.LOOKUP_KEY));
+			ConstantsManager.getLookupUri(getActivity().getApplicationContext(),
+			        cursor.getLong(ContactsQuery.ID),
+			        cursor.getString(ContactsQuery.LOOKUP_KEY));
 
         // Notifies the parent activity that the user selected a contact. In a two-pane layout, the
         // parent activity loads a ContactDetailFragment that displays the details for the selected
@@ -879,7 +879,7 @@ public class ContactsListFragment extends ListFragment implements
 
             // Generates the contact lookup Uri
             //Originally call was to Contacts.getLookupUri();
-            final Uri contactUri = ConstantsManager.getLookupUri(
+            final Uri contactUri = ConstantsManager.getLookupUri(getActivity().getApplicationContext(),
                     cursor.getLong(ContactsQuery.ID),
                     cursor.getString(ContactsQuery.LOOKUP_KEY));
 

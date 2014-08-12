@@ -17,6 +17,7 @@
 package com.prajitdas.parserapp.contentparsers.contacts;
 
 import com.prajitdas.parserapp.BuildConfig;
+import com.prajitdas.parserapp.ParserApplication;
 import com.prajitdas.parserapp.util.Utils;
 
 import android.annotation.TargetApi;
@@ -26,6 +27,7 @@ import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.app.NavUtils;
+import android.util.Log;
 import android.view.MenuItem;
 
 /**
@@ -53,8 +55,14 @@ public class ContactDetailActivity extends FragmentActivity {
                 getActionBar().setDisplayHomeAsUpEnabled(true);
             }
 
+            /**
+             * onCreate gets the uri from the list fragment 
+             * and uses it to populate the detailed fragment
+             */
             // Fetch the data Uri from the intent provided to this activity
             final Uri uri = getIntent().getData();
+            
+            Log.v(ParserApplication.getDebugTag(), uri.toString());
 
             // Checks to see if fragment has already been added, otherwise adds a new
             // ContactDetailFragment with the Uri provided in the intent

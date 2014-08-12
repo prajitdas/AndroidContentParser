@@ -74,7 +74,8 @@ public class ContactDetailFragment extends Fragment implements
         LoaderManager.LoaderCallbacks<Cursor> {
 
     public static final String EXTRA_CONTACT_URI =
-            "com.example.android.contactslist.ui.EXTRA_CONTACT_URI";
+//            "com.example.android.contactslist.ui.EXTRA_CONTACT_URI";
+			"com.prajitdas.sprivacy.contentprovider.Content/contacts";
 
     // Defines a tag for identifying log entries
     private static final String TAG = "ContactDetailFragment";

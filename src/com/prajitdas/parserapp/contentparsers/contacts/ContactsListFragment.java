@@ -21,19 +21,18 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.Locale;
 
-import android.app.Activity;
-import android.database.Cursor;
-import android.net.Uri;
-import android.os.Bundle;
-import android.widget.TextView;
 import android.annotation.SuppressLint;
 import android.annotation.TargetApi;
+import android.app.Activity;
 import android.app.SearchManager;
 import android.content.Context;
 import android.content.Intent;
 import android.content.res.AssetFileDescriptor;
+import android.database.Cursor;
 import android.graphics.Bitmap;
+import android.net.Uri;
 import android.os.Build;
+import android.os.Bundle;
 import android.provider.ContactsContract.Contacts;
 import android.provider.ContactsContract.Contacts.Photo;
 import android.support.v4.app.ListFragment;
@@ -43,6 +42,7 @@ import android.support.v4.content.Loader;
 import android.text.SpannableString;
 import android.text.TextUtils;
 import android.util.DisplayMetrics;
+import android.util.Log;
 import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -58,6 +58,7 @@ import android.widget.ListView;
 import android.widget.QuickContactBadge;
 import android.widget.SearchView;
 import android.widget.SectionIndexer;
+import android.widget.TextView;
 
 import com.prajitdas.parserapp.BuildConfig;
 import com.prajitdas.parserapp.ParserApplication;
@@ -329,10 +330,17 @@ public class ContactsListFragment extends ListFragment implements
         // Moves to the Cursor row corresponding to the ListView item that was clicked
         cursor.moveToPosition(position);
 
+        /**
+         * An item click here signifies that the uri has to be passed on to the detail 
+         * fragment to get it to display the correct data
+         */
         // Creates a contact lookup Uri from contact ID and lookup_key
-        final Uri uri = Contacts.getLookupUri(
-                cursor.getLong(ContactsQuery.ID),
-                cursor.getString(ContactsQuery.LOOKUP_KEY));
+        final Uri uri = Uri.parse("content://com.prajitdas.sprivacy.contentprovider.Content/contacts/John Doe/1");
+//        Contacts.getLookupUri(
+//                cursor.getLong(ContactsQuery.ID),
+//                cursor.getString(ContactsQuery.LOOKUP_KEY));
+
+        Log.v(ParserApplication.getDebugTag(), uri.toString());
 
         // Notifies the parent activity that the user selected a contact. In a two-pane layout, the
         // parent activity loads a ContactDetailFragment that displays the details for the selected

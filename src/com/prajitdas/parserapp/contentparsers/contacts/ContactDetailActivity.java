@@ -62,7 +62,7 @@ public class ContactDetailActivity extends FragmentActivity {
             // Fetch the data Uri from the intent provided to this activity
             final Uri uri = getIntent().getData();
             
-            Log.v(ParserApplication.getDebugTag(), uri.toString());
+            Log.v(ParserApplication.getDebugTag(), "This is the uri for individual contact"+uri.toString());
 
             // Checks to see if fragment has already been added, otherwise adds a new
             // ContactDetailFragment with the Uri provided in the intent

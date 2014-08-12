@@ -42,7 +42,6 @@ import android.support.v4.content.Loader;
 import android.text.SpannableString;
 import android.text.TextUtils;
 import android.util.DisplayMetrics;
-import android.util.Log;
 import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -65,6 +64,7 @@ import com.prajitdas.parserapp.ParserApplication;
 import com.prajitdas.parserapp.R;
 import com.prajitdas.parserapp.util.ImageLoader;
 import com.prajitdas.parserapp.util.Utils;
+import com.prajitdas.sprivacy.contentprovider.util.ConstantsManager;
 
 /**
  * This fragment displays a list of contacts stored in the Contacts Provider. Each item in the list
@@ -335,12 +335,10 @@ public class ContactsListFragment extends ListFragment implements
          * fragment to get it to display the correct data
          */
         // Creates a contact lookup Uri from contact ID and lookup_key
-        final Uri uri = Uri.parse("content://com.prajitdas.sprivacy.contentprovider.Content/contacts/John Doe/1");
-//        Contacts.getLookupUri(
-//                cursor.getLong(ContactsQuery.ID),
-//                cursor.getString(ContactsQuery.LOOKUP_KEY));
-
-        Log.v(ParserApplication.getDebugTag(), uri.toString());
+        final Uri uri = //Uri.parse("content://com.prajitdas.sprivacy.contentprovider.Content/contacts/John Doe/1");
+        		ConstantsManager.getLookupUri(
+                cursor.getLong(ContactsQuery.ID),
+                cursor.getString(ContactsQuery.LOOKUP_KEY));
 
         // Notifies the parent activity that the user selected a contact. In a two-pane layout, the
         // parent activity loads a ContactDetailFragment that displays the details for the selected
@@ -880,7 +878,8 @@ public class ContactsListFragment extends ListFragment implements
             // each detail type.
 
             // Generates the contact lookup Uri
-            final Uri contactUri = Contacts.getLookupUri(
+            //Originally call was to Contacts.getLookupUri();
+            final Uri contactUri = ConstantsManager.getLookupUri(
                     cursor.getLong(ContactsQuery.ID),
                     cursor.getString(ContactsQuery.LOOKUP_KEY));
 

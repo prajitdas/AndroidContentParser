@@ -53,9 +53,11 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 
 import com.prajitdas.parserapp.BuildConfig;
+import com.prajitdas.parserapp.ParserApplication;
 import com.prajitdas.parserapp.R;
 import com.prajitdas.parserapp.util.ImageLoader;
 import com.prajitdas.parserapp.util.Utils;
+import com.prajitdas.sprivacy.contentprovider.util.ConstantsManager;
 
 /**
  * This fragment displays details of a specific contact from the contacts provider. It shows the
@@ -73,9 +75,12 @@ import com.prajitdas.parserapp.util.Utils;
 public class ContactDetailFragment extends Fragment implements
         LoaderManager.LoaderCallbacks<Cursor> {
 
+	/**
+	 * TODO Prajit Have to return the right EXTRA_CONTACT_URI depending on what data is being accessed
+	 */
     public static final String EXTRA_CONTACT_URI =
-//            "com.example.android.contactslist.ui.EXTRA_CONTACT_URI";
-			"com.prajitdas.sprivacy.contentprovider.Content/contacts";
+            "com.example.android.contactslist.ui.EXTRA_CONTACT_URI";
+//			"com.prajitdas.sprivacy.contentprovider.Content/contacts";
 
     // Defines a tag for identifying log entries
     private static final String TAG = "ContactDetailFragment";
@@ -107,6 +112,7 @@ public class ContactDetailFragment extends Fragment implements
      * @return A new instance of {@link ContactDetailFragment}
      */
     public static ContactDetailFragment newInstance(Uri contactUri) {
+    	Log.v(ParserApplication.getDebugTag(), "The contact uri is: "+contactUri.toString());
         // Create new instance of this fragment
         final ContactDetailFragment fragment = new ContactDetailFragment();
 
@@ -147,7 +153,10 @@ public class ContactDetailFragment extends Fragment implements
             // Contacts.Data.CONTENT_DIRECTORY to map to the provided contact. It's done
             // differently for these earlier versions because Contacts.Data.CONTENT_DIRECTORY works
             // differently for Android versions before 3.0.
-            mContactUri = Contacts.lookupContact(getActivity().getContentResolver(),
+			/**
+			 * TODO Prajit Have to change this in order to ensure that the right Contact URI is being accessed
+			 */
+        	mContactUri = ConstantsManager.lookupContact(getActivity(),//.getContentResolver(),
                     contactLookupUri);
         }
 
@@ -322,6 +331,7 @@ public class ContactDetailFragment extends Fragment implements
             case ContactDetailQuery.QUERY_ID:
                 // This query loads main contact details, see
                 // ContactDetailQuery for more information.
+            	Log.v(ParserApplication.getDebugTag(), mContactUri.toString());
                 return new CursorLoader(getActivity(), mContactUri,
                         ContactDetailQuery.PROJECTION,
                         null, null, null);

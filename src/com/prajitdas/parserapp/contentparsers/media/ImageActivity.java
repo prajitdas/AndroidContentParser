@@ -42,6 +42,7 @@ public class ImageActivity extends Activity {
 	    		int idx = queryCursor.getColumnIndex(ImageColumns._ID);
 	    		mImageView.setImageBitmap(Media.getBitmap(this.getContentResolver(), 
 	    				Uri.withAppendedPath(Media.EXTERNAL_CONTENT_URI, queryCursor.getString(idx))));
+	    		Log.v(ParserApplication.getDebugTag(), "I came to display the id: "+queryCursor.getString(idx));
 	    		queryCursor.close();
 	    	}
 	    } catch (FileNotFoundException e) {

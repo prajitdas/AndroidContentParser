@@ -40,9 +40,12 @@ public class ImageActivity extends Activity {
     		else {
 	    		queryCursor.moveToFirst();
 	    		int idx = queryCursor.getColumnIndex(ImageColumns._ID);
-	    		mImageView.setImageBitmap(Media.getBitmap(this.getContentResolver(), 
-	    				Uri.withAppendedPath(Media.EXTERNAL_CONTENT_URI, queryCursor.getString(idx))));
-	    		Log.v(ParserApplication.getDebugTag(), "I came to display the id: "+queryCursor.getString(idx));
+	    		String imageUri = queryCursor.getString(idx);
+	    		Log.v(ParserApplication.getDebugTag(), "I came to display the id: "+imageUri);
+	    		if(!imageUri.contains("content"))
+	    			mImageView.setImageBitmap(Media.getBitmap(this.getContentResolver(), Uri.withAppendedPath(Media.EXTERNAL_CONTENT_URI, imageUri)));
+	    		else
+	    			mImageView.setImageBitmap(Media.getBitmap(this.getContentResolver(), Uri.parse(imageUri)));
 	    		queryCursor.close();
 	    	}
 	    } catch (FileNotFoundException e) {

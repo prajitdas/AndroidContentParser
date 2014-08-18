@@ -23,4 +23,8 @@
         <item name="android:textIsSelectable">true</item>
     </style>
 
+    <style name="phoneDetail" parent="@android:style/TextAppearance.Large">
+        <item name="android:fontFamily">sans-serif-light</item>
+        <item name="android:textIsSelectable">true</item>
+    </style>
 </resources>

@@ -11,6 +11,8 @@
     <string name="app_description">This is a sample app, demonstrating use of the Android system Contacts Provider.</string>
     <string name="imageview_description">Contact Thumbnail</string>
     <string name="address_button_description">View Address</string>
+    <string name="call_number_description">Call Number</string>
+    <string name="hello_world">Hello World!</string>
     <string name="menu_search">Search</string>
     <string name="menu_add_contact">Add Contact</string>
     <string name="menu_edit_contact">Edit Contact</string>
@@ -47,7 +49,6 @@
     <string name="title_activity_media">Media Activity</string>
     <string name="imageDescription">An image displayed from phone gallery</string>
     <string name="title_activity_image">Image Activity</string>
-    <string name="hello_world">Hello world!</string>
     <string name="title_activity_video">Video Activity</string>
     <string name="title_activity_audio">Audio Activity</string>
     <string name="buttonImageProviderText">Image</string>

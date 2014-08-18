@@ -19,6 +19,7 @@ package com.prajitdas.parserapp.contentparsers.contacts;
 import android.annotation.SuppressLint;
 import android.annotation.TargetApi;
 import android.content.ContentResolver;
+import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.content.res.AssetFileDescriptor;
@@ -27,6 +28,7 @@ import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
+import android.provider.ContactsContract.CommonDataKinds;
 import android.provider.ContactsContract.CommonDataKinds.StructuredPostal;
 import android.provider.ContactsContract.Contacts;
 import android.provider.ContactsContract.Contacts.Photo;
@@ -35,6 +37,8 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.LoaderManager;
 import android.support.v4.content.CursorLoader;
 import android.support.v4.content.Loader;
+import android.telephony.PhoneStateListener;
+import android.telephony.TelephonyManager;
 import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -57,7 +61,7 @@ import com.prajitdas.parserapp.ParserApplication;
 import com.prajitdas.parserapp.R;
 import com.prajitdas.parserapp.util.ImageLoader;
 import com.prajitdas.parserapp.util.Utils;
-import com.prajitdas.sprivacy.contentprovider.util.ConstantsManager;
+//import com.prajitdas.sprivacy.contentprovider.util.ConstantsManager;
 
 /**
  * This fragment displays details of a specific contact from the contacts provider. It shows the
@@ -80,10 +84,11 @@ public class ContactDetailFragment extends Fragment implements
 	 */
     public static final String EXTRA_CONTACT_URI =
             "com.example.android.contactslist.ui.EXTRA_CONTACT_URI";
+//			This would have been an alternate way of replacing the URI    
 //			"com.prajitdas.sprivacy.contentprovider.Content/contacts";
 
     // Defines a tag for identifying log entries
-    private static final String TAG = "ContactDetailFragment";
+    private static final String TAG = ParserApplication.getDebugTag()+" in ContactDetailFragment";
 
     // The geo Uri scheme prefix, used with Intent.ACTION_VIEW to form a geographical address
     // intent that will trigger available apps to handle viewing a location (such as Maps)
@@ -99,6 +104,7 @@ public class ContactDetailFragment extends Fragment implements
     // in multiple methods throughout this class.
     private ImageView mImageView;
     private LinearLayout mDetailsLayout;
+    private LinearLayout mPhoneLayout;
     private TextView mEmptyView;
     private TextView mContactName;
     private MenuItem mEditContactMenuItem;
@@ -112,7 +118,7 @@ public class ContactDetailFragment extends Fragment implements
      * @return A new instance of {@link ContactDetailFragment}
      */
     public static ContactDetailFragment newInstance(Uri contactUri) {
-    	Log.v(ParserApplication.getDebugTag(), "The contact uri is: "+contactUri.toString());
+    	Log.v(ParserApplication.getDebugTag(), "In ContactDetailFragment The contact uri is: "+contactUri.toString());
         // Create new instance of this fragment
         final ContactDetailFragment fragment = new ContactDetailFragment();
 
@@ -156,8 +162,8 @@ public class ContactDetailFragment extends Fragment implements
 			/**
 			 * TODO Prajit Have to change this in order to ensure that the right Contact URI is being accessed
 			 */
-        	mContactUri = ConstantsManager.lookupContact(getActivity(),//.getContentResolver(),
-                    contactLookupUri);
+//        	mContactUri = ConstantsManager.lookupContact(getActivity(), contactLookupUri);
+        	mContactUri = Contacts.lookupContact(getActivity().getContentResolver(), contactLookupUri);
         }
 
         // If the Uri contains data, load the contact's image and load contact details.
@@ -179,6 +185,7 @@ public class ContactDetailFragment extends Fragment implements
             // multiple times.
             getLoaderManager().restartLoader(ContactDetailQuery.QUERY_ID, null, this);
             getLoaderManager().restartLoader(ContactAddressQuery.QUERY_ID, null, this);
+            getLoaderManager().restartLoader(ContactPhoneQuery.QUERY_ID, null, this);
         } else {
             // If contactLookupUri is null, then the method was called when no contact was selected
             // in the contacts list. This should only happen in a two-pane layout when the user
@@ -189,6 +196,7 @@ public class ContactDetailFragment extends Fragment implements
             mImageView.setVisibility(View.GONE);
             mEmptyView.setVisibility(View.VISIBLE);
             mDetailsLayout.removeAllViews();
+            mPhoneLayout.removeAllViews();
             if (mContactName != null) {
                 mContactName.setText("");
             }
@@ -247,6 +255,7 @@ public class ContactDetailFragment extends Fragment implements
         // Gets handles to view objects in the layout
         mImageView = (ImageView) detailView.findViewById(R.id.contact_image);
         mDetailsLayout = (LinearLayout) detailView.findViewById(R.id.contact_details_layout);
+        mPhoneLayout = (LinearLayout) detailView.findViewById(R.id.contact_phone_layout);
         mEmptyView = (TextView) detailView.findViewById(android.R.id.empty);
 
         if (mIsTwoPaneLayout) {
@@ -326,22 +335,31 @@ public class ContactDetailFragment extends Fragment implements
 
     @Override
     public Loader<Cursor> onCreateLoader(int id, Bundle args) {
+    	Log.v(ParserApplication.getDebugTag(), "In onCreateLoader and the id is: "+Integer.toString(id));
         switch (id) {
             // Two main queries to load the required information
             case ContactDetailQuery.QUERY_ID:
                 // This query loads main contact details, see
                 // ContactDetailQuery for more information.
-            	Log.v(ParserApplication.getDebugTag(), mContactUri.toString());
+//            	Log.v(ParserApplication.getDebugTag(), mContactUri.toString());
                 return new CursorLoader(getActivity(), mContactUri,
                         ContactDetailQuery.PROJECTION,
                         null, null, null);
             case ContactAddressQuery.QUERY_ID:
                 // This query loads contact address details, see
                 // ContactAddressQuery for more information.
-                final Uri uri = Uri.withAppendedPath(mContactUri, Contacts.Data.CONTENT_DIRECTORY);
-                return new CursorLoader(getActivity(), uri,
+                final Uri addressUri = Uri.withAppendedPath(mContactUri, Contacts.Data.CONTENT_DIRECTORY);
+                return new CursorLoader(getActivity(), addressUri,
                         ContactAddressQuery.PROJECTION,
                         ContactAddressQuery.SELECTION,
+                        null, null);
+            case ContactPhoneQuery.QUERY_ID:
+                // This query loads contact phone details, see
+                // ContactPhoneQuery for more information.
+                final Uri phoneUri = Uri.withAppendedPath(mContactUri, Contacts.Data.CONTENT_DIRECTORY);
+                return new CursorLoader(getActivity(), phoneUri,
+                        ContactPhoneQuery.PROJECTION,
+                        ContactPhoneQuery.SELECTION,
                         null, null);
         }
         return null;
@@ -385,7 +403,7 @@ public class ContactDetailFragment extends Fragment implements
 
                 // Each LinearLayout has the same LayoutParams so this can
                 // be created once and used for each address.
-                final LinearLayout.LayoutParams layoutParams =
+                final LinearLayout.LayoutParams addressLayoutParams =
                         new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,
                                 ViewGroup.LayoutParams.WRAP_CONTENT);
 
@@ -403,11 +421,43 @@ public class ContactDetailFragment extends Fragment implements
                                 data.getString(ContactAddressQuery.LABEL),
                                 data.getString(ContactAddressQuery.ADDRESS));
                         // Adds the new address layout to the details layout
-                        mDetailsLayout.addView(layout, layoutParams);
+                        mDetailsLayout.addView(layout, addressLayoutParams);
                     } while (data.moveToNext());
                 } else {
                     // If nothing found, adds an empty address layout
-                    mDetailsLayout.addView(buildEmptyAddressLayout(), layoutParams);
+                    mDetailsLayout.addView(buildEmptyAddressLayout(), addressLayoutParams);
+                }
+                break;
+            case ContactPhoneQuery.QUERY_ID:
+                // This query loads the contact phone details. More than
+                // one contact phone number is possible, so move each one to a
+                // LinearLayout in a Scrollview so multiple phone numbers can
+                // be scrolled by the user.
+
+                // Each LinearLayout has the same LayoutParams so this can
+                // be created once and used for each address.
+                final LinearLayout.LayoutParams phoneLayoutParams =
+                        new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,
+                                ViewGroup.LayoutParams.WRAP_CONTENT);
+
+                // Clears out the details layout first in case the details
+                // layout has addresses from a previous data load still
+                // added as children.
+                mPhoneLayout.removeAllViews();
+
+                // Loops through all the rows in the Cursor
+                if (data.moveToFirst()) {
+                    do {
+                        // Builds the address layout
+                        final LinearLayout layout = buildPhoneLayout(
+                        		data.getString(ContactPhoneQuery.PHONE_NUMBER),
+                                data.getInt(ContactPhoneQuery.PHONE_NUMBER_TYPE));
+                        // Adds the new address layout to the details layout
+                        mPhoneLayout.addView(layout, phoneLayoutParams);
+                    } while (data.moveToNext());
+                } else {
+                    // If nothing found, adds an empty address layout
+                	mPhoneLayout.addView(buildEmptyPhoneLayout(), phoneLayoutParams);
                 }
                 break;
         }
@@ -516,6 +566,94 @@ public class ContactDetailFragment extends Fragment implements
         // Concatenates the geo:// prefix to the postal address. The postal address must be
         // converted to Uri format and encoded for special characters.
         return Uri.parse(GEO_URI_SCHEME_PREFIX + Uri.encode(postalAddress));
+    }
+
+    /**
+     * Builds an empty phone layout that just shows that no phone numbers
+     * were found for this contact.
+     *
+     * @return A LinearLayout to add to the contact details layout
+     */
+    private LinearLayout buildEmptyPhoneLayout() {
+        return buildPhoneLayout(null,0);
+    }
+
+    /**
+     * Builds a phone number LinearLayout based on phone number info from the Contacts Provider.
+     * Each phone number gets its own LinearLayout object; for example, if the contact
+     * has three phone numbers, then 3 LinearLayouts are generated.
+     *
+     * @param addressType From
+     * {@link android.provider.ContactsContract.CommonDataKinds.StructuredPostal#TYPE}
+     * @param addressTypeLabel From
+     * {@link android.provider.ContactsContract.CommonDataKinds.StructuredPostal#LABEL}
+     * @param address From
+     * {@link android.provider.ContactsContract.CommonDataKinds.StructuredPostal#FORMATTED_ADDRESS}
+     * @return A LinearLayout to add to the contact details layout,
+     *         populated with the provided phone details.
+     */
+    private LinearLayout buildPhoneLayout(String phoneNumber, int phoneType) {
+
+        // Inflates the phone number layout
+        final LinearLayout phoneLayout =
+                (LinearLayout) LayoutInflater.from(getActivity()).inflate(
+                        R.layout.contact_phone_item, mPhoneLayout, false);
+
+        // Gets handles to the view objects in the layout
+        final TextView headerTextView =
+                (TextView) phoneLayout.findViewById(R.id.contact_phone_header);
+        final TextView phoneTextView =
+                (TextView) phoneLayout.findViewById(R.id.contact_phone_item);
+        final ImageButton dialNumberButton =
+                (ImageButton) phoneLayout.findViewById(R.id.button_call_number);
+
+        // If there's no phone number for the contact, shows the empty view and message, and hides the
+        // header and button.
+        if (phoneNumber == null && phoneType == 0) {
+        	headerTextView.setText("");
+        	dialNumberButton.setVisibility(View.GONE);
+            phoneTextView.setText(R.string.no_address);
+        } else {
+        	headerTextView.setText("Phone Number");
+        	phoneTextView.setText(phoneNumber);
+
+    		// add PhoneStateListener
+        	PhoneCallListener phoneListener = new PhoneCallListener();
+    		TelephonyManager telephonyManager = (TelephonyManager) getActivity().getSystemService(Context.TELEPHONY_SERVICE);
+    		telephonyManager.listen(phoneListener, PhoneStateListener.LISTEN_CALL_STATE);
+    		
+            // Defines an onClickListener object for the call number button
+        	dialNumberButton.setOnClickListener(new View.OnClickListener() {
+                // Defines what to do when users click the address button
+                @Override
+                public void onClick(View view) {
+                	Intent dialIntent = null;
+					if (!phoneTextView.equals("")) {
+						Uri number = Uri.parse("tel:" + phoneTextView);
+						dialIntent = new Intent(Intent.ACTION_CALL, number);
+						startActivity(dialIntent);
+					}
+                    // A PackageManager instance is needed to verify that there's a default app
+                    // that handles ACTION_VIEW and a geo Uri.
+                    final PackageManager packageManager = getActivity().getPackageManager();
+
+                    // Checks for an activity that can handle this intent. Preferred in this
+                    // case over Intent.createChooser() as it will still let the user choose
+                    // a default (or use a previously set default) for geo Uris.
+                    if (packageManager.resolveActivity(
+                    		dialIntent, PackageManager.MATCH_DEFAULT_ONLY) != null) {
+                        startActivity(dialIntent);
+                    } else {
+                        // If no default is found, displays a message that no activity can handle
+                        // the view button.
+                        Toast.makeText(getActivity(),
+                                R.string.no_intent_found, Toast.LENGTH_SHORT).show();
+                    }
+                }
+            });
+
+        }
+        return phoneLayout;
     }
 
     /**
@@ -647,7 +785,7 @@ public class ContactDetailFragment extends Fragment implements
         // If none of the case selectors match, returns null.
         return null;
     }
-
+    
     /**
      * This interface defines constants used by contact retrieval queries.
      */
@@ -695,4 +833,82 @@ public class ContactDetailFragment extends Fragment implements
         final static int TYPE = 2;
         final static int LABEL = 3;
     }
+
+    /**
+     * This interface defines constants used by phone number retrieval queries.
+     */
+    public interface ContactPhoneQuery {
+        // A unique query ID to distinguish queries being run by the
+        // LoaderManager.
+        final static int QUERY_ID = 3;
+
+        // The query projection (columns to fetch from the provider)
+        @SuppressLint("InlinedApi")
+        final static String[] PROJECTION = {
+                Contacts._ID,
+                Contacts.Data.MIMETYPE,
+                Contacts.Data.RAW_CONTACT_ID,
+                Contacts.Data.DATA1,// Actual number
+                Contacts.Data.DATA2,// Type of number
+//                Contacts.Data.DATA3,// Another representation of number
+        };
+
+        // The query selection criteria. In this case matching against the
+        // Phone number content mime type.
+        final static String SELECTION =
+                Data.MIMETYPE + "='" + CommonDataKinds.Phone.CONTENT_ITEM_TYPE + "'";
+        
+        // The query column numbers which map to each value in the projection
+        final static int ID = 0;
+        final static int MIMETYPE = 1;
+        final static int RAW_CONTACT_ID = 2;
+        final static int PHONE_NUMBER = 3;
+        final static int PHONE_NUMBER_TYPE = 4;
+//        final static int PHONE_NUMBER_ALT_REP = 5;
+    }
+    
+	//class to monitor phone call activities
+	private class PhoneCallListener extends PhoneStateListener {
+ 
+		private boolean isPhoneCalling = false;
+ 
+		String LOG_TAG = ParserApplication.getDebugTag()+" in PhoneCallListener";
+ 
+		@Override
+		public void onCallStateChanged(int state, String incomingNumber) {
+ 
+			if (TelephonyManager.CALL_STATE_RINGING == state) {
+				// phone ringing
+				Log.i(LOG_TAG, "RINGING, number: " + incomingNumber);
+			}
+ 
+			if (TelephonyManager.CALL_STATE_OFFHOOK == state) {
+				// active
+				Log.i(LOG_TAG, "OFFHOOK");
+ 
+				isPhoneCalling = true;
+			}
+ 
+			if (TelephonyManager.CALL_STATE_IDLE == state) {
+				// run when class initial and phone call ended, 
+				// need detect flag from CALL_STATE_OFFHOOK
+				Log.i(LOG_TAG, "IDLE");
+ 
+				if (isPhoneCalling) {
+ 
+					Log.i(LOG_TAG, "restart app");
+ 
+					// restart app
+					Intent i = getActivity().getPackageManager()
+						.getLaunchIntentForPackage(
+								getActivity().getPackageName());
+					i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+					startActivity(i);
+ 
+					isPhoneCalling = false;
+				}
+ 
+			}
+		}
+	}
 }

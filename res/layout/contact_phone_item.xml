@@ -50,7 +50,7 @@
 
         <ImageButton
             android:id="@+id/button_call_number"
-            android:src="@drawable/ic_action_map"
+            android:background="@drawable/ic_action_dial"
             android:layout_height="match_parent"
             android:layout_width="wrap_content"
             android:paddingTop="8dp"

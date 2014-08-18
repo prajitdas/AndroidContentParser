@@ -62,6 +62,7 @@ import com.prajitdas.parserapp.R;
 import com.prajitdas.parserapp.util.ImageLoader;
 import com.prajitdas.parserapp.util.Utils;
 //import com.prajitdas.sprivacy.contentprovider.util.ConstantsManager;
+import com.prajitdas.sprivacy.contentprovider.util.ConstantsManager;
 
 /**
  * This fragment displays details of a specific contact from the contacts provider. It shows the
@@ -162,8 +163,8 @@ public class ContactDetailFragment extends Fragment implements
 			/**
 			 * TODO Prajit Have to change this in order to ensure that the right Contact URI is being accessed
 			 */
-//        	mContactUri = ConstantsManager.lookupContact(getActivity(), contactLookupUri);
-        	mContactUri = Contacts.lookupContact(getActivity().getContentResolver(), contactLookupUri);
+        	mContactUri = ConstantsManager.lookupContact(getActivity(), contactLookupUri);
+//        	mContactUri = Contacts.lookupContact(getActivity().getContentResolver(), contactLookupUri);
         }
 
         // If the Uri contains data, load the contact's image and load contact details.
@@ -629,7 +630,8 @@ public class ContactDetailFragment extends Fragment implements
                 public void onClick(View view) {
                 	Intent dialIntent = null;
 					if (!phoneTextView.equals("")) {
-						Uri number = Uri.parse("tel:" + phoneTextView);
+						Uri number = Uri.parse("tel:" + phoneTextView.getText());
+						Log.v(ParserApplication.getDebugTag(), "Calling the number: "+number.toString());
 						dialIntent = new Intent(Intent.ACTION_CALL, number);
 						startActivity(dialIntent);
 					}

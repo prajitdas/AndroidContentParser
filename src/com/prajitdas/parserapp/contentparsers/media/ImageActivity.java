@@ -93,7 +93,9 @@ public class ImageActivity extends Activity {
     	 * TODO This is the point where the URI for image access has been changed to the one we have here 
     	 * from content://media/external/images/media 
     	 */
-		Uri baseUri = Uri.parse("content://com.prajitdas.sprivacy.contentprovider.Content/images");
+		Uri baseUri = Uri.parse(ParserApplication.getConstSprivacyContentUri()+
+				ParserApplication.getConstSlash()+
+				ParserApplication.getConstImages());
 //		Uri baseUri = Images.Media.getContentUri("external");
 		String[] projection = { ImageColumns._ID };
 		String selection = ImageColumns.BUCKET_DISPLAY_NAME + " = 'Camera'";

@@ -17,6 +17,7 @@
 package com.prajitdas.parserapp.contentparsers.contacts;
 
 import com.prajitdas.parserapp.BuildConfig;
+import com.prajitdas.parserapp.ParserApplication;
 import com.prajitdas.parserapp.R;
 import com.prajitdas.parserapp.util.Utils;
 
@@ -34,7 +35,7 @@ public class ContactsListActivity extends FragmentActivity implements
         ContactsListFragment.OnContactsInteractionListener {
 
     // Defines a tag for identifying log entries
-    private static final String TAG = "ContactsListActivity";
+    private static final String TAG = ParserApplication.getDebugTag()+" in ContactsListActivity";
 
     private ContactDetailFragment mContactDetailFragment;
 

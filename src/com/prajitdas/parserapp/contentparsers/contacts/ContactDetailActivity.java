@@ -27,7 +27,6 @@ import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.app.NavUtils;
-import android.util.Log;
 import android.view.MenuItem;
 
 /**
@@ -35,7 +34,7 @@ import android.view.MenuItem;
  */
 public class ContactDetailActivity extends FragmentActivity {
     // Defines a tag for identifying the single fragment that this activity holds
-    private static final String TAG = "ContactDetailActivity";
+    private static final String TAG = ParserApplication.getDebugTag()+" in ContactDetailActivity";
 
     @TargetApi(Build.VERSION_CODES.HONEYCOMB)
     @Override
@@ -62,7 +61,7 @@ public class ContactDetailActivity extends FragmentActivity {
             // Fetch the data Uri from the intent provided to this activity
             final Uri uri = getIntent().getData();
             
-            Log.v(ParserApplication.getDebugTag(), "This is the uri for individual contact "+uri.toString());
+//            Log.v(ParserApplication.getDebugTag(), "This is the uri for individual contact "+uri.toString());
 
             // Checks to see if fragment has already been added, otherwise adds a new
             // ContactDetailFragment with the Uri provided in the intent

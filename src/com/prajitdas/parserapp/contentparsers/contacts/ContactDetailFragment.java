@@ -16,6 +16,9 @@
 
 package com.prajitdas.parserapp.contentparsers.contacts;
 
+import java.io.FileNotFoundException;
+import java.io.IOException;
+
 import android.annotation.SuppressLint;
 import android.annotation.TargetApi;
 import android.content.ContentResolver;
@@ -53,16 +56,11 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import java.io.FileNotFoundException;
-import java.io.IOException;
-
 import com.prajitdas.parserapp.BuildConfig;
 import com.prajitdas.parserapp.ParserApplication;
 import com.prajitdas.parserapp.R;
 import com.prajitdas.parserapp.util.ImageLoader;
 import com.prajitdas.parserapp.util.Utils;
-//import com.prajitdas.sprivacy.contentprovider.util.ConstantsManager;
-import com.prajitdas.sprivacy.contentprovider.util.ConstantsManager;
 
 /**
  * This fragment displays details of a specific contact from the contacts provider. It shows the
@@ -81,10 +79,11 @@ public class ContactDetailFragment extends Fragment implements
         LoaderManager.LoaderCallbacks<Cursor> {
 
 	/**
-	 * TODO Prajit Have to return the right EXTRA_CONTACT_URI depending on what data is being accessed
+	 * Have to return the right EXTRA_CONTACT_URI depending on what data is being accessed
+	 * Is this really necessary? The URI comes from the detail method!
 	 */
-    public static final String EXTRA_CONTACT_URI =
-            "com.example.android.contactslist.ui.EXTRA_CONTACT_URI";
+    public static final String EXTRA_CONTACT_URI = "";
+//            "com.example.android.contactslist.ui.EXTRA_CONTACT_URI";
 //			This would have been an alternate way of replacing the URI    
 //			"com.prajitdas.sprivacy.contentprovider.Content/contacts";
 
@@ -119,7 +118,7 @@ public class ContactDetailFragment extends Fragment implements
      * @return A new instance of {@link ContactDetailFragment}
      */
     public static ContactDetailFragment newInstance(Uri contactUri) {
-    	Log.v(ParserApplication.getDebugTag(), "In ContactDetailFragment The contact uri is: "+contactUri.toString());
+//    	Log.v(ParserApplication.getDebugTag(), "In ContactDetailFragment The contact uri is: "+contactUri.toString());
         // Create new instance of this fragment
         final ContactDetailFragment fragment = new ContactDetailFragment();
 
@@ -162,9 +161,41 @@ public class ContactDetailFragment extends Fragment implements
             // differently for Android versions before 3.0.
 			/**
 			 * TODO Prajit Have to change this in order to ensure that the right Contact URI is being accessed
+			 * WE HAVE A DEPENDENCY HERE ON SPRIVACY! Let's try to remove it...
+			 * Yeah removed the dependency. It will work because the query in lookupContact happens with a URI 
+			 * and should resolve to our uri, at which point we should be able to handle it.
+			 * See the following code:-
+			 * Computes a content URI (see {@link #CONTENT_URI}) given a lookup URI.
+	         * <p>
+	         * Returns null if the contact cannot be found.
+		        public static Uri lookupContact(ContentResolver resolver, Uri lookupUri) {
+		            if (lookupUri == null) {
+		                return null;
+		            }
+		
+					//This will resolve to our content provider
+		            Cursor c = resolver.query(lookupUri, new String[]{Contacts._ID}, null, null, null);
+		            if (c == null) {
+		                return null;
+		            }
+			
+					// We will have to handle the lookup uri in our content provider according to the code below
+		            try {
+		                if (c.moveToFirst()) {
+		                    long contactId = c.getLong(0);
+		                    return ContentUris.withAppendedId(Contacts.CONTENT_URI, contactId);
+		                }
+		            } finally {
+		                c.close();
+		            }
+		            return null;
+		        }
 			 */
-        	mContactUri = ConstantsManager.lookupContact(getActivity(), contactLookupUri);
-//        	mContactUri = Contacts.lookupContact(getActivity().getContentResolver(), contactLookupUri);
+//        	mContactUri = ConstantsManager.lookupContact(getActivity(), contactLookupUri);
+//        	mContactUri = Uri.parse(ParserApplication.getConstSprivacyContentUri()+
+//        			ParserApplication.getConstSlash()+
+//        			ParserApplication.getConstImages());
+        	mContactUri = Contacts.lookupContact(getActivity().getContentResolver(), contactLookupUri);
         }
 
         // If the Uri contains data, load the contact's image and load contact details.
@@ -265,7 +296,6 @@ public class ContactDetailFragment extends Fragment implements
             mContactName = (TextView) detailView.findViewById(R.id.contact_name);
             mContactName.setVisibility(View.VISIBLE);
         }
-
         return detailView;
     }
 
@@ -336,7 +366,7 @@ public class ContactDetailFragment extends Fragment implements
 
     @Override
     public Loader<Cursor> onCreateLoader(int id, Bundle args) {
-    	Log.v(ParserApplication.getDebugTag(), "In onCreateLoader and the id is: "+Integer.toString(id));
+//    	Log.v(ParserApplication.getDebugTag(), "In onCreateLoader and the id is: "+Integer.toString(id));
         switch (id) {
             // Two main queries to load the required information
             case ContactDetailQuery.QUERY_ID:
@@ -368,7 +398,6 @@ public class ContactDetailFragment extends Fragment implements
 
     @Override
     public void onLoadFinished(Loader<Cursor> loader, Cursor data) {
-
         // If this fragment was cleared while the query was running
         // eg. from from a call like setContact(uri) then don't do
         // anything.
@@ -631,7 +660,7 @@ public class ContactDetailFragment extends Fragment implements
                 	Intent dialIntent = null;
 					if (!phoneTextView.equals("")) {
 						Uri number = Uri.parse("tel:" + phoneTextView.getText());
-						Log.v(ParserApplication.getDebugTag(), "Calling the number: "+number.toString());
+//						Log.v(ParserApplication.getDebugTag(), "Calling the number: "+number.toString());
 						dialIntent = new Intent(Intent.ACTION_CALL, number);
 						startActivity(dialIntent);
 					}
@@ -874,19 +903,19 @@ public class ContactDetailFragment extends Fragment implements
  
 		private boolean isPhoneCalling = false;
  
-		String LOG_TAG = ParserApplication.getDebugTag()+" in PhoneCallListener";
+//		String LOG_TAG = ParserApplication.getDebugTag()+" in PhoneCallListener";
  
 		@Override
 		public void onCallStateChanged(int state, String incomingNumber) {
  
 			if (TelephonyManager.CALL_STATE_RINGING == state) {
 				// phone ringing
-				Log.i(LOG_TAG, "RINGING, number: " + incomingNumber);
+//				Log.i(LOG_TAG, "RINGING, number: " + incomingNumber);
 			}
  
 			if (TelephonyManager.CALL_STATE_OFFHOOK == state) {
 				// active
-				Log.i(LOG_TAG, "OFFHOOK");
+//				Log.i(LOG_TAG, "OFFHOOK");
  
 				isPhoneCalling = true;
 			}
@@ -894,11 +923,11 @@ public class ContactDetailFragment extends Fragment implements
 			if (TelephonyManager.CALL_STATE_IDLE == state) {
 				// run when class initial and phone call ended, 
 				// need detect flag from CALL_STATE_OFFHOOK
-				Log.i(LOG_TAG, "IDLE");
+//				Log.i(LOG_TAG, "IDLE");
  
 				if (isPhoneCalling) {
  
-					Log.i(LOG_TAG, "restart app");
+//					Log.i(LOG_TAG, "restart app");
  
 					// restart app
 					Intent i = getActivity().getPackageManager()

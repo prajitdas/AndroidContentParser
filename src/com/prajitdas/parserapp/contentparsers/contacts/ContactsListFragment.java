@@ -64,7 +64,6 @@ import com.prajitdas.parserapp.ParserApplication;
 import com.prajitdas.parserapp.R;
 import com.prajitdas.parserapp.util.ImageLoader;
 import com.prajitdas.parserapp.util.Utils;
-import com.prajitdas.sprivacy.contentprovider.util.ConstantsManager;
 
 /**
  * This fragment displays a list of contacts stored in the Contacts Provider. Each item in the list
@@ -334,11 +333,24 @@ public class ContactsListFragment extends ListFragment implements
          * An item click here signifies that the uri has to be passed on to the detail 
          * fragment to get it to display the correct data
          */
+		/**
+		 * TODO Prajit Have to change this in order to ensure that the right Contact URI is being accessed
+		 * WE HAVE A DEPENDENCY HERE ON SPRIVACY! Let's try to remove it...
+		 */
         // Creates a contact lookup Uri from contact ID and lookup_key
-        final Uri uri = //Uri.parse("content://com.prajitdas.sprivacy.contentprovider.Content/contacts/John Doe/1");
-			ConstantsManager.getLookupUri(getActivity().getApplicationContext(),
-			        cursor.getLong(ContactsQuery.ID),
-			        cursor.getString(ContactsQuery.LOOKUP_KEY));
+        final Uri uri = 
+//        		ContentUris.withAppendedId(
+//        					Uri.withAppendedPath(
+//        							Uri.withAppendedPath(ContactsQuery.CONTENT_URI, "lookup"), 
+//        								cursor.getString(ContactsQuery.LOOKUP_KEY)),
+//        								cursor.getLong(ContactsQuery.ID)
+//        								); 
+        Contacts.getLookupUri(cursor.getLong(ContactsQuery.ID), cursor.getString(ContactsQuery.LOOKUP_KEY));
+//			Uri.parse("content://com.prajitdas.sprivacy.contentprovider.Content/contacts/John Doe/1");
+//			ConstantsManager.getLookupUri(getActivity().getApplicationContext(),
+//			        cursor.getLong(ContactsQuery.ID),
+//			        cursor.getString(ContactsQuery.LOOKUP_KEY));
+        		
 
         // Notifies the parent activity that the user selected a contact. In a two-pane layout, the
         // parent activity loads a ContactDetailFragment that displays the details for the selected
@@ -879,9 +891,10 @@ public class ContactsListFragment extends ListFragment implements
 
             // Generates the contact lookup Uri
             //Originally call was to Contacts.getLookupUri();
-            final Uri contactUri = ConstantsManager.getLookupUri(getActivity().getApplicationContext(),
-                    cursor.getLong(ContactsQuery.ID),
-                    cursor.getString(ContactsQuery.LOOKUP_KEY));
+            final Uri contactUri = Contacts.getLookupUri(cursor.getLong(ContactsQuery.ID), cursor.getString(ContactsQuery.LOOKUP_KEY));
+//            ConstantsManager.getLookupUri(getActivity().getApplicationContext(),
+//                    cursor.getLong(ContactsQuery.ID),
+//                    cursor.getString(ContactsQuery.LOOKUP_KEY));
 
             // Binds the contact's lookup Uri to the QuickContactBadge
             holder.icon.assignContactUri(contactUri);

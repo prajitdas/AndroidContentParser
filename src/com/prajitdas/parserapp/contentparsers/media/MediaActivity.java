@@ -111,7 +111,9 @@ public class MediaActivity extends Activity {
     	 * TODO This is the point where the URI for image access has been changed to the one we have here 
     	 * from content://media/external/file
     	 */
-    	Uri baseUri = Uri.parse("content://com.prajitdas.sprivacy.contentprovider.Content/files");
+    	Uri baseUri = Uri.parse(ParserApplication.getConstSprivacyContentUri()+
+				ParserApplication.getConstSlash()+
+				ParserApplication.getConstFiles());
 //		Uri baseUri = Files.getContentUri("external");
 		// every column, although that is huge waste, you probably need
 		// BaseColumns.DATA (the path) only.

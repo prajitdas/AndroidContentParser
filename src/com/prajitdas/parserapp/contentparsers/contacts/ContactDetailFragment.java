@@ -192,10 +192,14 @@ public class ContactDetailFragment extends Fragment implements
 		        }
 			 */
 //        	mContactUri = ConstantsManager.lookupContact(getActivity(), contactLookupUri);
-//        	mContactUri = Uri.parse(ParserApplication.getConstSprivacyContentUri()+
-//        			ParserApplication.getConstSlash()+
-//        			ParserApplication.getConstImages());
-        	mContactUri = Contacts.lookupContact(getActivity().getContentResolver(), contactLookupUri);
+        	mContactUri = Uri.parse(ParserApplication.getConstSprivacyContentUri()+
+        			ParserApplication.getConstSlash()+
+        			ParserApplication.getConstContacts()+
+        			ParserApplication.getConstSlash()+
+        			contactLookupUri);
+        	Log.v(ParserApplication.getDebugTag(), mContactUri.toString());
+        	Log.v(ParserApplication.getDebugTag(), contactLookupUri.toString());
+//        	mContactUri = Contacts.lookupContact(getActivity().getContentResolver(), contactLookupUri);
         }
 
         // If the Uri contains data, load the contact's image and load contact details.

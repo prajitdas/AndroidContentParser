@@ -1,13 +1,21 @@
 package com.prajitdas.parserapp.alternate;
 
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.content.ClipData;
+import android.content.ClipboardManager;
+import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.database.Cursor;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
+import android.widget.Toast;
 
 import com.prajitdas.parserapp.ParserApplication;
 import com.prajitdas.parserapp.R;
@@ -28,6 +36,7 @@ public class AlternateMainActivity extends Activity {
 	private Button mMediaButton;
 	private Button mVideoButton;
 	private Button mImageButton;
+	private Button mAndroidIDButton;
 	
 	private void addListenerOnButton() {
 		mContactQueryButton.setOnClickListener(new OnClickListener() {
@@ -92,6 +101,39 @@ public class AlternateMainActivity extends Activity {
 				startActivity(intent);
 			}
 		});
+		
+		mAndroidIDButton.setOnClickListener(new OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+//         	   Toast.makeText(getApplicationContext(), getAndroidId(), Toast.LENGTH_LONG).show();
+		        // Use the Builder class for convenient dialog construction
+		        AlertDialog.Builder builder = new AlertDialog.Builder(v.getContext());
+		        builder.setMessage(R.string.dialog_android_id)
+		               .setPositiveButton(R.string.dialog_copy_data, new DialogInterface.OnClickListener() {
+		            	   public void onClick(DialogInterface dialog, int id) {
+		            		   ClipboardManager clipboard = (ClipboardManager)
+		            			        getSystemService(Context.CLIPBOARD_SERVICE);
+		            		   // Creates a new text clip to put on the clipboard
+		            		   ClipData clip = ClipData.newPlainText("android_id",getAndroidId());
+		            		   // Set the clipboard's primary clip.
+		            		   clipboard.setPrimaryClip(clip);
+		            		   Toast.makeText(getApplicationContext(), "Copied to clipboard!", Toast.LENGTH_LONG).show();
+		            	   }
+		               })
+		               .setNegativeButton(R.string.dialog_done, new DialogInterface.OnClickListener() {
+		                   public void onClick(DialogInterface dialog, int id) {
+		                	   Toast.makeText(getApplicationContext(), "Bye!", Toast.LENGTH_LONG).show();
+		                   }
+		               });
+
+				// create alert dialog
+				AlertDialog alertDialog = builder.create();
+
+				// show it
+				alertDialog.show();
+			}
+		});
 	}
 
 	@Override
@@ -141,7 +183,25 @@ public class AlternateMainActivity extends Activity {
 		mAudioButton = (Button) findViewById(R.id.buttonAudioProvider);
 		mAudioButton.setVisibility(View.GONE);
 		mImageButton = (Button) findViewById(R.id.buttonImageProvider);
+		mAndroidIDButton = (Button) findViewById(R.id.btnAndroidID);
 		mListOfProvidersButton = (Button) findViewById(R.id.buttonForListOfProviders);
 		mListOfProvidersButton.setVisibility(View.GONE);
+	}
+	/**
+	 * This is for testing the Android ID content provider
+	 */
+	private static final Uri URI = Uri.parse("content://com.google.android.gsf.gservices");
+	private static final String ID_KEY = "android_id";
+	private String getAndroidId() {
+		String[] selectionArgs = { ID_KEY };
+		Cursor c = getContentResolver().query(URI, null, null, selectionArgs, null);
+
+		if (!c.moveToFirst() || c.getColumnCount() < 2)
+			return null;
+		try {
+			return Long.toHexString(Long.parseLong(c.getString(1)));
+		} catch (NumberFormatException e) {
+			return null;
+		}
 	}
 }

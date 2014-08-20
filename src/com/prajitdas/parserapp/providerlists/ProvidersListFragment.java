@@ -12,6 +12,7 @@ import android.widget.ListView;
 import com.prajitdas.parserapp.ParserApplication;
 
 /**
+ * @author prajit.das
  * A placeholder fragment containing a simple view.
  */
 public class ProvidersListFragment extends ListFragment {

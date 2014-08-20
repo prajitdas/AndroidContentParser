@@ -24,6 +24,7 @@ import android.os.Build;
 import android.os.StrictMode;
 
 /**
+ * @author prajit.das
  * This class contains static utility methods.
  */
 public class Utils {

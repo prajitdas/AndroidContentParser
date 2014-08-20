@@ -14,7 +14,9 @@ import com.prajitdas.parserapp.ParserApplication;
 import com.prajitdas.parserapp.R;
 import com.prajitdas.parserapp.contentparsers.contacts.ContactsListActivity;
 import com.prajitdas.parserapp.util.ProviderContent;
-
+/**
+ * @author prajit.das
+ */
 public class ProvidersMainActivity extends Activity 
 	implements ProvidersListFragment.OnProviderSelectedListener {
 	

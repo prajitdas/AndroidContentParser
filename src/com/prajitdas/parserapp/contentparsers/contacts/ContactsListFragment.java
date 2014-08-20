@@ -83,9 +83,6 @@ import com.prajitdas.parserapp.util.Utils;
  * trigger starts a new Activity which loads a fresh instance of this fragment. The resulting UI
  * displays the filtered list and disables the search feature to prevent furthering searching.
  * 
- * 
- * @author prajit.das
- * 
  * Code modification was required in:-
  * 1) 	onActivityCreated() to ensure that the right loader was called. 
  * 		This was an experiment and was unnecessary from the point of implementation. 

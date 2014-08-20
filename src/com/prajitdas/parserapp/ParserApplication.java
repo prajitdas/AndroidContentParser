@@ -11,7 +11,9 @@ import android.app.Application;
 import android.content.Context;
 import android.content.res.Configuration;
 import android.widget.Toast;
-
+/**
+ * @author prajit.das
+ */
 public class ParserApplication extends Application {
 	private static final String CONST_SPRIVACY_CONTENT_URI = "content://com.prajitdas.sprivacy.contentprovider.Content";
 

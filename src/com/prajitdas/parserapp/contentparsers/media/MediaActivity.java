@@ -19,7 +19,9 @@ import android.widget.TextView;
 
 import com.prajitdas.parserapp.ParserApplication;
 import com.prajitdas.parserapp.R;
-
+/**
+ * @author prajit.das
+ */
 public class MediaActivity extends Activity {
 	private TextView mTextView;
 	private String defaultText = "No data found!";

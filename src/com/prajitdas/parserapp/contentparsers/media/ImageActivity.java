@@ -17,7 +17,9 @@ import android.widget.ImageView;
 
 import com.prajitdas.parserapp.ParserApplication;
 import com.prajitdas.parserapp.R;
-
+/**
+ * @author prajit.das
+ */
 public class ImageActivity extends Activity {
 	private ImageView mImageView;
 	private Cursor queryCursor;

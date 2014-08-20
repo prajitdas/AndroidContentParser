@@ -5,6 +5,7 @@ import android.content.pm.ProviderInfo;
 import com.prajitdas.parserapp.ParserApplication;
 
 /**
+ * @author prajit.das
  * Helper class for providing sample content for user interfaces created by
  * Android template wizards.
  * <p>

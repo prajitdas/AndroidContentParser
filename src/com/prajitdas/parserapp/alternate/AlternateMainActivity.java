@@ -17,7 +17,9 @@ import com.prajitdas.parserapp.contentparsers.media.ImageActivity;
 import com.prajitdas.parserapp.contentparsers.media.MediaActivity;
 import com.prajitdas.parserapp.contentparsers.media.VideoActivity;
 import com.prajitdas.parserapp.providerlists.ProvidersMainActivity;
-
+/**
+ * @author prajit.das
+ */
 public class AlternateMainActivity extends Activity {
 	private Button mAudioButton;
 	private Button mContactLoaderButton;

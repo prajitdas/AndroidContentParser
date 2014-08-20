@@ -27,6 +27,7 @@ import android.support.v4.util.LruCache;
 import android.util.Log;
 
 /**
+ * @author prajit.das
  * This class holds our bitmap caches (memory and disk).
  */
 public class ImageCache {

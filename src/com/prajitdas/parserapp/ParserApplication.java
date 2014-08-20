@@ -13,7 +13,7 @@ import android.content.res.Configuration;
 import android.widget.Toast;
 
 public class ParserApplication extends Application {
-	private static final String CONST_SPRIVACY_CONTENT_URI = "content://content://com.prajitdas.sprivacy.contentprovider.Content";
+	private static final String CONST_SPRIVACY_CONTENT_URI = "content://com.prajitdas.sprivacy.contentprovider.Content";
 
 	private static final String CONST_AUDIOS = "audios";
 

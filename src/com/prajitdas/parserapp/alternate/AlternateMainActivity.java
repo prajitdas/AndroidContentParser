@@ -118,7 +118,8 @@ public class AlternateMainActivity extends Activity {
 		            		   ClipData clip = ClipData.newPlainText("android_id",getAndroidId());
 		            		   // Set the clipboard's primary clip.
 		            		   clipboard.setPrimaryClip(clip);
-		            		   Toast.makeText(getApplicationContext(), "Copied to clipboard!", Toast.LENGTH_LONG).show();
+		            		   Toast.makeText(getApplicationContext(), "Copied the deviceId: "
+		            				   +getAndroidId()+" to clipboard!", Toast.LENGTH_LONG).show();
 		            	   }
 		               })
 		               .setNegativeButton(R.string.dialog_done, new DialogInterface.OnClickListener() {

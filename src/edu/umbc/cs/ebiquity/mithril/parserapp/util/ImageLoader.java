@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.prajitdas.parserapp.util;
+package edu.umbc.cs.ebiquity.mithril.parserapp.util;
 
 import java.io.FileDescriptor;
 import java.lang.ref.WeakReference;
@@ -31,8 +31,7 @@ import android.os.AsyncTask;
 import android.support.v4.app.FragmentManager;
 import android.util.Log;
 import android.widget.ImageView;
-
-import com.prajitdas.parserapp.BuildConfig;
+import edu.umbc.cs.ebiquity.mithril.parserapp.BuildConfig;
 
 /**
  * @author prajit.das

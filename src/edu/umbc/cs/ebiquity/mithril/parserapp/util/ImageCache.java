@@ -14,9 +14,7 @@
  * limitations under the License.
  */
 
-package com.prajitdas.parserapp.util;
-
-import com.prajitdas.parserapp.BuildConfig;
+package edu.umbc.cs.ebiquity.mithril.parserapp.util;
 
 import android.annotation.TargetApi;
 import android.graphics.Bitmap;
@@ -25,6 +23,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.util.LruCache;
 import android.util.Log;
+import edu.umbc.cs.ebiquity.mithril.parserapp.BuildConfig;
 
 /**
  * @author prajit.das

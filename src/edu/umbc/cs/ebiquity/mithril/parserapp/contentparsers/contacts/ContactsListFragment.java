@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.prajitdas.parserapp.contentparsers.contacts;
+package edu.umbc.cs.ebiquity.mithril.parserapp.contentparsers.contacts;
 
 import java.io.FileDescriptor;
 import java.io.FileNotFoundException;
@@ -58,12 +58,11 @@ import android.widget.QuickContactBadge;
 import android.widget.SearchView;
 import android.widget.SectionIndexer;
 import android.widget.TextView;
-
-import com.prajitdas.parserapp.BuildConfig;
-import com.prajitdas.parserapp.ParserApplication;
-import com.prajitdas.parserapp.R;
-import com.prajitdas.parserapp.util.ImageLoader;
-import com.prajitdas.parserapp.util.Utils;
+import edu.umbc.cs.ebiquity.mithril.parserapp.BuildConfig;
+import edu.umbc.cs.ebiquity.mithril.parserapp.ParserApplication;
+import edu.umbc.cs.ebiquity.mithril.parserapp.R;
+import edu.umbc.cs.ebiquity.mithril.parserapp.util.ImageLoader;
+import edu.umbc.cs.ebiquity.mithril.parserapp.util.Utils;
 
 /**
  * This fragment displays a list of contacts stored in the Contacts Provider. Each item in the list
@@ -995,7 +994,7 @@ public class ContactsListFragment extends ListFragment implements
         final static int QUERY_ID = 1;
 
         // A content URI for the Contacts table
-        final static Uri CONTENT_URI = Uri.parse("content://com.prajitdas.sprivacy.contentprovider.Content/contacts");
+        final static Uri CONTENT_URI = Uri.parse(ParserApplication.getConstEbAndMWContentUri()+"/contacts");
 //        final static Uri CONTENT_URI = Contacts.CONTENT_URI;
 
         // The search/filter query Uri

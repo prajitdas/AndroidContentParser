@@ -1,4 +1,4 @@
-package com.prajitdas.parserapp.contentparsers.media;
+package edu.umbc.cs.ebiquity.mithril.parserapp.contentparsers.media;
 
 import android.app.Activity;
 import android.net.Uri;
@@ -8,8 +8,7 @@ import android.provider.MediaStore.Images;
 import android.provider.MediaStore.Images.ImageColumns;
 import android.view.Menu;
 import android.view.MenuItem;
-
-import com.prajitdas.parserapp.R;
+import edu.umbc.cs.ebiquity.mithril.parserapp.R;
 /**
  * @author prajit.das
  */

@@ -14,11 +14,7 @@
  * limitations under the License.
  */
 
-package com.prajitdas.parserapp.contentparsers.contacts;
-
-import com.prajitdas.parserapp.BuildConfig;
-import com.prajitdas.parserapp.ParserApplication;
-import com.prajitdas.parserapp.util.Utils;
+package edu.umbc.cs.ebiquity.mithril.parserapp.contentparsers.contacts;
 
 import android.annotation.TargetApi;
 import android.net.Uri;
@@ -28,6 +24,9 @@ import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.app.NavUtils;
 import android.view.MenuItem;
+import edu.umbc.cs.ebiquity.mithril.parserapp.BuildConfig;
+import edu.umbc.cs.ebiquity.mithril.parserapp.ParserApplication;
+import edu.umbc.cs.ebiquity.mithril.parserapp.util.Utils;
 
 /**
  * This class defines a simple FragmentActivity as the parent of {@link ContactDetailFragment}.

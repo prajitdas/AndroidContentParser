@@ -1,8 +1,7 @@
-package com.prajitdas.parserapp.util;
+package edu.umbc.cs.ebiquity.mithril.parserapp.util;
 
 import android.content.pm.ProviderInfo;
-
-import com.prajitdas.parserapp.ParserApplication;
+import edu.umbc.cs.ebiquity.mithril.parserapp.ParserApplication;
 
 /**
  * @author prajit.das

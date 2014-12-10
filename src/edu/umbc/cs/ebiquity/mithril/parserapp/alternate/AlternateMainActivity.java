@@ -1,4 +1,4 @@
-package com.prajitdas.parserapp.alternate;
+package edu.umbc.cs.ebiquity.mithril.parserapp.alternate;
 
 import android.app.Activity;
 import android.app.AlertDialog;
@@ -16,15 +16,14 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.Toast;
-
-import com.prajitdas.parserapp.ParserApplication;
-import com.prajitdas.parserapp.R;
-import com.prajitdas.parserapp.contentparsers.contacts.ContactsListActivity;
-import com.prajitdas.parserapp.contentparsers.media.AudioActivity;
-import com.prajitdas.parserapp.contentparsers.media.ImageActivity;
-import com.prajitdas.parserapp.contentparsers.media.MediaActivity;
-import com.prajitdas.parserapp.contentparsers.media.VideoActivity;
-import com.prajitdas.parserapp.providerlists.ProvidersMainActivity;
+import edu.umbc.cs.ebiquity.mithril.parserapp.ParserApplication;
+import edu.umbc.cs.ebiquity.mithril.parserapp.R;
+import edu.umbc.cs.ebiquity.mithril.parserapp.contentparsers.contacts.ContactsListActivity;
+import edu.umbc.cs.ebiquity.mithril.parserapp.contentparsers.media.AudioActivity;
+import edu.umbc.cs.ebiquity.mithril.parserapp.contentparsers.media.ImageActivity;
+import edu.umbc.cs.ebiquity.mithril.parserapp.contentparsers.media.MediaActivity;
+import edu.umbc.cs.ebiquity.mithril.parserapp.contentparsers.media.VideoActivity;
+import edu.umbc.cs.ebiquity.mithril.parserapp.providerlists.ProvidersMainActivity;
 /**
  * @author prajit.das
  */

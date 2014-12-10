@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.prajitdas.parserapp.contentparsers.contacts;
+package edu.umbc.cs.ebiquity.mithril.parserapp.contentparsers.contacts;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -55,12 +55,11 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
-
-import com.prajitdas.parserapp.BuildConfig;
-import com.prajitdas.parserapp.ParserApplication;
-import com.prajitdas.parserapp.R;
-import com.prajitdas.parserapp.util.ImageLoader;
-import com.prajitdas.parserapp.util.Utils;
+import edu.umbc.cs.ebiquity.mithril.parserapp.BuildConfig;
+import edu.umbc.cs.ebiquity.mithril.parserapp.ParserApplication;
+import edu.umbc.cs.ebiquity.mithril.parserapp.R;
+import edu.umbc.cs.ebiquity.mithril.parserapp.util.ImageLoader;
+import edu.umbc.cs.ebiquity.mithril.parserapp.util.Utils;
 
 /**
  * This fragment displays details of a specific contact from the contacts provider. It shows the
@@ -192,7 +191,7 @@ public class ContactDetailFragment extends Fragment implements
 		        }
 			 */
 //        	mContactUri = ConstantsManager.lookupContact(getActivity(), contactLookupUri);
-        	mContactUri = Uri.parse(ParserApplication.getConstSprivacyContentUri()+
+        	mContactUri = Uri.parse(ParserApplication.getConstEbAndMWContentUri()+
         			ParserApplication.getConstSlash()+
         			ParserApplication.getConstContacts()+
         			ParserApplication.getConstSlash()+

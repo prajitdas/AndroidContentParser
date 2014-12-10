@@ -1,4 +1,4 @@
-package com.prajitdas.parserapp.providerlists;
+package edu.umbc.cs.ebiquity.mithril.parserapp.providerlists;
 
 import android.app.Activity;
 import android.app.ListFragment;
@@ -8,8 +8,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
-
-import com.prajitdas.parserapp.ParserApplication;
+import edu.umbc.cs.ebiquity.mithril.parserapp.ParserApplication;
 
 /**
  * @author prajit.das

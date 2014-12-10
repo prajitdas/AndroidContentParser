@@ -14,14 +14,13 @@
  * limitations under the License.
  */
 
-package com.prajitdas.parserapp.util;
-
-import com.prajitdas.parserapp.contentparsers.contacts.ContactDetailActivity;
-import com.prajitdas.parserapp.contentparsers.contacts.ContactsListActivity;
+package edu.umbc.cs.ebiquity.mithril.parserapp.util;
 
 import android.annotation.TargetApi;
 import android.os.Build;
 import android.os.StrictMode;
+import edu.umbc.cs.ebiquity.mithril.parserapp.contentparsers.contacts.ContactDetailActivity;
+import edu.umbc.cs.ebiquity.mithril.parserapp.contentparsers.contacts.ContactsListActivity;
 
 /**
  * @author prajit.das

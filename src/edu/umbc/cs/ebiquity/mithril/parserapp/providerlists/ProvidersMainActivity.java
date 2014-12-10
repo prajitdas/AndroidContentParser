@@ -1,4 +1,4 @@
-package com.prajitdas.parserapp.providerlists;
+package edu.umbc.cs.ebiquity.mithril.parserapp.providerlists;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -9,11 +9,10 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
-
-import com.prajitdas.parserapp.ParserApplication;
-import com.prajitdas.parserapp.R;
-import com.prajitdas.parserapp.contentparsers.contacts.ContactsListActivity;
-import com.prajitdas.parserapp.util.ProviderContent;
+import edu.umbc.cs.ebiquity.mithril.parserapp.ParserApplication;
+import edu.umbc.cs.ebiquity.mithril.parserapp.R;
+import edu.umbc.cs.ebiquity.mithril.parserapp.contentparsers.contacts.ContactsListActivity;
+import edu.umbc.cs.ebiquity.mithril.parserapp.util.ProviderContent;
 /**
  * @author prajit.das
  */

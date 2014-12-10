@@ -1,21 +1,20 @@
-package com.prajitdas.parserapp;
+package edu.umbc.cs.ebiquity.mithril.parserapp;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import com.prajitdas.parserapp.util.ProviderContent.ProviderItem;
-
 import android.app.Application;
 import android.content.Context;
 import android.content.res.Configuration;
 import android.widget.Toast;
+import edu.umbc.cs.ebiquity.mithril.parserapp.util.ProviderContent.ProviderItem;
 /**
  * @author prajit.das
  */
 public class ParserApplication extends Application {
-	private static final String CONST_SPRIVACY_CONTENT_URI = "content://com.prajitdas.sprivacy.contentprovider.Content";
+	private static final String CONST_EBANDMW_CONTENT_URI = "content://edu.umbc.cs.ebiquity.mithril.comandd.contentprovider.Content";
 
 	private static final String CONST_AUDIOS = "audios";
 
@@ -52,8 +51,8 @@ public class ParserApplication extends Application {
 		return CONST_IMAGES;
 	}
 	
-	public static String getConstSprivacyContentUri() {
-		return CONST_SPRIVACY_CONTENT_URI;
+	public static String getConstEbAndMWContentUri() {
+		return CONST_EBANDMW_CONTENT_URI;
 	}
 
 	public static String getContactButtonLoader() {

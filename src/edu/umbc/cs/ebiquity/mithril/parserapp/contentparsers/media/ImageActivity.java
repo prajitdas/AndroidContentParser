@@ -1,4 +1,4 @@
-package com.prajitdas.parserapp.contentparsers.media;
+package edu.umbc.cs.ebiquity.mithril.parserapp.contentparsers.media;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -14,9 +14,8 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.ImageView;
-
-import com.prajitdas.parserapp.ParserApplication;
-import com.prajitdas.parserapp.R;
+import edu.umbc.cs.ebiquity.mithril.parserapp.ParserApplication;
+import edu.umbc.cs.ebiquity.mithril.parserapp.R;
 /**
  * @author prajit.das
  */
@@ -95,7 +94,7 @@ public class ImageActivity extends Activity {
     	 * TODO This is the point where the URI for image access has been changed to the one we have here 
     	 * from content://media/external/images/media 
     	 */
-		Uri baseUri = Uri.parse(ParserApplication.getConstSprivacyContentUri()+
+		Uri baseUri = Uri.parse(ParserApplication.getConstEbAndMWContentUri()+
 				ParserApplication.getConstSlash()+
 				ParserApplication.getConstImages());
 //		Uri baseUri = Images.Media.getContentUri("external");

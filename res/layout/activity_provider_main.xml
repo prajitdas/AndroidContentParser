@@ -7,5 +7,5 @@
     android:paddingTop="15dp"
     android:paddingBottom="15dp"
     android:paddingRight="15dp"
-    tools:context="com.prajitdas.parserapp.providerlists.ProvidersMainActivity"
+    tools:context="edu.umbc.cs.ebiquity.mithril.parserapp.providerlists.ProvidersMainActivity"
     tools:ignore="MergeRootFrame" />

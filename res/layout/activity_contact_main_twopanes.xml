@@ -28,13 +28,13 @@
               android:weightSum="100"
               android:baselineAligned="false">
 
-    <fragment class="com.prajitdas.parserapp.contentparsers.contacts.ContactsListFragment"
+    <fragment class="edu.umbc.cs.ebiquity.mithril.parserapp.contentparsers.contacts.ContactsListFragment"
               android:id="@+id/contact_list"
               android:layout_height="match_parent"
               android:layout_width="0dp"
               android:layout_weight="@integer/contact_list_percent"/>
 
-    <fragment class="com.prajitdas.parserapp.contentparsers.contacts.ContactDetailFragment"
+    <fragment class="edu.umbc.cs.ebiquity.mithril.parserapp.contentparsers.contacts.ContactDetailFragment"
               android:id="@+id/contact_detail"
               android:layout_height="match_parent"
               android:layout_width="0dp"

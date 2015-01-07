@@ -14,7 +14,7 @@ import edu.umbc.cs.ebiquity.mithril.parserapp.util.ProviderContent.ProviderItem;
  * @author prajit.das
  */
 public class ParserApplication extends Application {
-	private static final String CONST_EBANDMW_CONTENT_URI = "content://edu.umbc.cs.ebiquity.mithril.comandd.contentprovider.Content";
+	private static final String CONST_EBANDMW_CONTENT_URI = "content://edu.umbc.cs.ebiquity.mithril.command.contentprovider.Content";
 
 	private static final String CONST_AUDIOS = "audios";
 

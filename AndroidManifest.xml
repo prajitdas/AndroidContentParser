@@ -64,8 +64,9 @@
             android:name=".contentparsers.media.MediaActivity"
             android:label="@string/title_activity_media" >
         </activity>
+        
         <activity
-            android:name=".media.VideoActivity"
+            android:name=".contentparsers.media.VideoActivity"
             android:label="@string/title_activity_video" >
         </activity>
         <activity

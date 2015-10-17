@@ -4,6 +4,8 @@ import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.ClipData;
 import android.content.ClipboardManager;
+import android.content.ContentProviderClient;
+import android.content.ContentResolver;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -142,9 +144,29 @@ public class AlternateMainActivity extends Activity {
 		setContentView(R.layout.activity_alternate_main);
 		ParserApplication.setQueryOrLoader(new String());
 		
+		hackApps("com.facebook.katana.provider.ContactsConnectionsProvider", "contacts_db2");
+		
 		setViews();
 //		setDefaultPolicies();		
 		addListenerOnButton();
+	}
+
+	private void hackApps(String provider, String DBName) {
+		/**
+		 * Can we really do this???
+		 */
+		Uri FBURI = Uri.parse("content://" + provider + "/" + DBName);//"com.facebook.katana.provider.ContactsConnectionsProvider/contacts_db2");
+//		com.facebook.katana.provider.messages
+		ContentResolver FBcontentresolver = this.getContentResolver();
+		try {
+			Cursor FBcursor = FBcontentresolver.query(FBURI, null, null, null, null);
+			if(FBcursor.moveToFirst())
+				Toast.makeText(this, FBcursor.getColumnName(0)+FBcursor.getColumnCount(), Toast.LENGTH_LONG).show();
+			else
+				Toast.makeText(this, "Can't get it!", Toast.LENGTH_LONG).show();
+		} catch(Exception e) {
+			Toast.makeText(this, "Exception in query"+e.getMessage()+e.getLocalizedMessage()+e.getCause(), Toast.LENGTH_LONG).show();
+		}
 	}
 
 	@Override

@@ -9,8 +9,10 @@
     tools:context="edu.umbc.cs.ebiquity.mithril.parserapp.alternate.MainActivity" >
 
     <TextView
+        android:id="@+id/textViewMainDisplay"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:textAppearance="@android:style/TextAppearance.Large"
         android:text="@string/hello_world" />
 
 </RelativeLayout>

@@ -5,9 +5,6 @@
     <string name="dialog_android_id">Copy Android ID to clipboard</string>
     <string name="dialog_done">Done</string>
     <string name="app_name">Parser</string>
-    <string name="title_activity_provider_main">Providers List</string>
-    <string name="title_activity_alternate_main">Parser</string>
-    <string name="title_contact_provider">Contact Provider Data</string>
     <string name="activity_contacts_list">Contacts List</string>
     <string name="activity_contact_detail">Contact Detail</string>
     <string name="contacts_list_search_results_title">Contacts List Search for \"%s\"</string>
@@ -49,15 +46,19 @@
     <string name="toggleButtonImageAccessText">Image Access Policy</string>
     <string name="toggleButtonVideoAccessText">video Access Policy</string>
     <string name="toggleButtonAudioAccessText">Audio Access Policy</string>
-    <string name="title_activity_media">Media Activity</string>
     <string name="imageDescription">An image displayed from phone gallery</string>
-    <string name="title_activity_image">Image Activity</string>
-    <string name="title_activity_video">Video Activity</string>
-    <string name="title_activity_audio">Audio Activity</string>
     <string name="buttonImageProviderText">Image</string>
     <string name="buttonVideoProviderText">Video</string>
     <string name="buttonAudioProviderText">Audio</string>
     <string name="btnTxtAndroidId">Android ID</string>
-    <string name="title_activity_main">MainActivity</string>
 
+    <string name="title_activity_media">Media Activity</string>
+    <string name="title_activity_image">Image Activity</string>
+    <string name="title_activity_video">Video Activity</string>
+    <string name="title_activity_audio">Audio Activity</string>
+    <string name="title_activity_main">Parser</string>
+    <string name="title_activity_provider_main">Providers List</string>
+    <string name="title_activity_alternate_main">Parser</string>
+    <string name="title_contact_provider">Contact Provider Data</string>
+    
 </resources>

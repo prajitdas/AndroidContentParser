@@ -1,38 +1,71 @@
 package edu.umbc.cs.ebiquity.mithril.parserapp.alternate;
 
 import android.app.Activity;
+import android.content.ContentResolver;
+import android.database.Cursor;
+import android.net.Uri;
 import android.os.Bundle;
-import android.view.Menu;
-import android.view.MenuItem;
+import android.provider.MediaStore.Images.ImageColumns;
+import android.util.Log;
+import android.widget.TextView;
+import android.widget.Toast;
+import edu.umbc.cs.ebiquity.mithril.parserapp.ParserApplication;
 import edu.umbc.cs.ebiquity.mithril.parserapp.R;
-import edu.umbc.cs.ebiquity.mithril.parserapp.R.id;
-import edu.umbc.cs.ebiquity.mithril.parserapp.R.layout;
-import edu.umbc.cs.ebiquity.mithril.parserapp.R.menu;
 
 public class MainActivity extends Activity {
-
+	private TextView mDisplayTextView;
+	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
+		
+		mDisplayTextView = (TextView) findViewById(R.id.textViewMainDisplay);
+		mDisplayTextView.setText("");
+		/**
+		 * Facebook
+		 */
+//		hackApps("Facebook", "com.facebook.katana.provider.ContactsConnectionsProvider", "contacts_db2");
+		/**
+		 * Expense Manager
+		 */
+//		hackApps("Expense Manager", "at.markushi.expensemanager.provider.backup", "*");
+		/**
+		 * COMMAND
+		 */
+		hackApps("COMMAND", "edu.umbc.cs.ebiquity.mithril.command.contentprovider.Content", "images");
+		/**
+		 * Mint
+		 */
+//		hackApps("Mint", "com.mint.integrations", "")
 	}
 
-	@Override
-	public boolean onCreateOptionsMenu(Menu menu) {
-		// Inflate the menu; this adds items to the action bar if it is present.
-		getMenuInflater().inflate(R.menu.main, menu);
-		return true;
-	}
-
-	@Override
-	public boolean onOptionsItemSelected(MenuItem item) {
-		// Handle action bar item clicks here. The action bar will
-		// automatically handle clicks on the Home/Up button, so long
-		// as you specify a parent activity in AndroidManifest.xml.
-		int id = item.getItemId();
-		if (id == R.id.action_settings) {
-			return true;
+	private void hackApps(String appName, String provider, String tableName) {
+		StringBuffer stringToSetOnTextView = new StringBuffer();
+		stringToSetOnTextView.append(mDisplayTextView.getText());
+		/**
+		 * Can we really do this???
+		 */
+		Uri FBURI = Uri.parse("content://" + provider + "/" + tableName);//"com.facebook.katana.provider.ContactsConnectionsProvider/contacts_db2");
+		Log.v(ParserApplication.getDebugTag(), "I am printing the URI: "+FBURI.toString());
+//		com.facebook.katana.provider.messages
+		ContentResolver FBcontentresolver = this.getContentResolver();
+		String[] projection = { ImageColumns._ID };
+		try {
+			Cursor FBcursor = FBcontentresolver.query(FBURI, projection, null, null, null);
+//			Cursor FBcursor = managedQuery(FBURI, projection, null, null, null);
+			if(FBcursor == null)
+				Log.v(ParserApplication.getDebugTag(), "Got null cursor!");
+			if(FBcursor.moveToFirst()) {
+//				Toast.makeText(this, FBcursor.getColumnName(0)+FBcursor.getColumnCount(), Toast.LENGTH_LONG).show();
+				Log.v(ParserApplication.getDebugTag(), Integer.toString(FBcursor.getCount()));
+				stringToSetOnTextView.append("# rows for "+appName+" app: "+Integer.toString(FBcursor.getCount())+"\n");
+			}
+			else
+				Toast.makeText(this, "Can't get it!", Toast.LENGTH_LONG).show();
+		} catch(Exception e) {
+			Toast.makeText(this, "Exception in query"+e.getMessage()+e.getLocalizedMessage()+e.getCause(), Toast.LENGTH_LONG).show();
 		}
-		return super.onOptionsItemSelected(item);
+		mDisplayTextView.setText(stringToSetOnTextView.toString());
 	}
 }

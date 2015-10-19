@@ -4,15 +4,12 @@ import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.ClipData;
 import android.content.ClipboardManager;
-import android.content.ContentResolver;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
-import android.provider.MediaStore.Images.ImageColumns;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -145,47 +142,9 @@ public class AlternateMainActivity extends Activity {
 		setContentView(R.layout.activity_alternate_main);
 		ParserApplication.setQueryOrLoader(new String());
 
-		/**
-		 * Facebook
-		 */
-//		hackApps("com.facebook.katana.provider.ContactsConnectionsProvider", "contacts_db2");
-		/**
-		 * Expense Manager
-		 */
-		hackApps("at.markushi.expensemanager.provider.backup", "*");
-		
-		hackApps("edu.umbc.cs.ebiquity.mithril.command.contentprovider.Content", "images");
-		
-//		hackApps("com.mint.integrations", "")
-		
 		setViews();
 //		setDefaultPolicies();		
 		addListenerOnButton();
-	}
-
-	private void hackApps(String provider, String tableName) {
-		/**
-		 * Can we really do this???
-		 */
-		Uri FBURI = Uri.parse("content://" + provider + "/" + tableName);//"com.facebook.katana.provider.ContactsConnectionsProvider/contacts_db2");
-		Log.v(ParserApplication.getDebugTag(), "I am printing the URI: "+FBURI.toString());
-//		com.facebook.katana.provider.messages
-		ContentResolver FBcontentresolver = this.getContentResolver();
-		String[] projection = { ImageColumns._ID };
-		try {
-			Cursor FBcursor = FBcontentresolver.query(FBURI, projection, null, null, null);
-//			Cursor FBcursor = managedQuery(FBURI, projection, null, null, null);
-			if(FBcursor == null)
-				Log.v(ParserApplication.getDebugTag(), "Got null cursor!");
-			if(FBcursor.moveToFirst()) {
-//				Toast.makeText(this, FBcursor.getColumnName(0)+FBcursor.getColumnCount(), Toast.LENGTH_LONG).show();
-				Log.v(ParserApplication.getDebugTag(), Integer.toString(FBcursor.getCount()));
-			}
-			else
-				Toast.makeText(this, "Can't get it!", Toast.LENGTH_LONG).show();
-		} catch(Exception e) {
-			Toast.makeText(this, "Exception in query"+e.getMessage()+e.getLocalizedMessage()+e.getCause(), Toast.LENGTH_LONG).show();
-		}
 	}
 
 	@Override

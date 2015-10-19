@@ -25,13 +25,17 @@
         android:label="@string/app_name"
         android:theme="@style/AppTheme" >
         <activity
-            android:name=".alternate.AlternateMainActivity"
-            android:label="@string/title_activity_alternate_main" >
-<!--             <intent-filter>
+            android:name=".alternate.MainActivity"
+            android:label="@string/title_activity_main" >
+            <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter> -->
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".alternate.AlternateMainActivity"
+            android:label="@string/title_activity_alternate_main" >
         </activity>
         <activity
             android:name=".providerlists.ProvidersMainActivity"
@@ -77,15 +81,6 @@
         <activity
             android:name=".contentparsers.media.ImageActivity"
             android:label="@string/title_activity_image" >
-        </activity>
-        <activity
-            android:name=".alternate.MainActivity"
-            android:label="@string/title_activity_main" >
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
     </application>
 

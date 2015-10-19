@@ -27,7 +27,8 @@ public class ProvidersListFragment extends ListFragment {
     public ProvidersListFragment() {
 	}
     
-    @Override
+    @SuppressWarnings("deprecation")
+	@Override
     public void onAttach(Activity activity) {
         super.onAttach(activity);
         

@@ -8,18 +8,18 @@
         android:minSdkVersion="17"
         android:targetSdkVersion="23" />
 
-    <uses-permission android:name="com.google.android.providers.gsf.permission.READ_GSERVICES"/>
+    <uses-permission android:name="com.google.android.providers.gsf.permission.READ_GSERVICES" />
     <uses-permission android:name="android.permission.READ_CONTACTS" />
     <!-- Required permission for reading the content -->
-	<!-- uses-permission android:name="android.permission.command.READ_WRITE_CONTENT" / -->
+    <!-- uses-permission android:name="android.permission.command.READ_WRITE_CONTENT" / -->
     <!-- Required permission only for Android 4.4 and above -->
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <!-- Unusual but true! -->
-	<uses-permission android:name="android.permission.CALL_PHONE" />
-	<uses-permission android:name="android.permission.READ_PHONE_STATE" />
-    
+    <uses-permission android:name="android.permission.CALL_PHONE" />
+    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
+
     <application
-        android:name="edu.umbc.cs.ebiquity.mithril.parserapp.ParserApplication"
+        android:name=".ParserApplication"
         android:allowBackup="true"
         android:icon="@drawable/ic_launcher"
         android:label="@string/app_name"
@@ -27,11 +27,11 @@
         <activity
             android:name=".alternate.AlternateMainActivity"
             android:label="@string/title_activity_alternate_main" >
-            <intent-filter>
+<!--             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
+            </intent-filter> -->
         </activity>
         <activity
             android:name=".providerlists.ProvidersMainActivity"
@@ -55,16 +55,17 @@
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".contentparsers.contacts.ContactsListActivity" />
-<!-- 			<intent-filter>
+            <!--
+     			<intent-filter>
 			    <action android:name="android.intent.action.CALL_BUTTON" />
 			    <category android:name="android.intent.category.DEFAULT" />
-			</intent-filter> -->
+			</intent-filter>
+            -->
         </activity>
         <activity
             android:name=".contentparsers.media.MediaActivity"
             android:label="@string/title_activity_media" >
         </activity>
-        
         <activity
             android:name=".contentparsers.media.VideoActivity"
             android:label="@string/title_activity_video" >
@@ -76,6 +77,15 @@
         <activity
             android:name=".contentparsers.media.ImageActivity"
             android:label="@string/title_activity_image" >
+        </activity>
+        <activity
+            android:name=".alternate.MainActivity"
+            android:label="@string/title_activity_main" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
         </activity>
     </application>
 

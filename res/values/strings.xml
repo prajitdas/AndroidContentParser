@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+
     <string name="dialog_copy_data">Copy</string>
     <string name="dialog_android_id">Copy Android ID to clipboard</string>
     <string name="dialog_done">Done</string>
@@ -57,5 +58,6 @@
     <string name="buttonVideoProviderText">Video</string>
     <string name="buttonAudioProviderText">Audio</string>
     <string name="btnTxtAndroidId">Android ID</string>
+    <string name="title_activity_main">MainActivity</string>
 
 </resources>

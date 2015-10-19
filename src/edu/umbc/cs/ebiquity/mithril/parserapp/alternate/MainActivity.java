@@ -29,7 +29,7 @@ public class MainActivity extends Activity {
 		/**
 		 * Expense Manager
 		 */
-		hackApps("Expense Manager", "at.markushi.expensemanager.provider.backup", "*");
+		hackApps("Expense Manager", "at.markushi.expensemanager.provider.backup", "#");
 		/**
 		 * COMMAND
 		 */
@@ -55,8 +55,8 @@ public class MainActivity extends Activity {
 			Cursor FBcursor = FBcontentresolver.query(FBURI, projection, null, null, null);
 //			Cursor FBcursor = managedQuery(FBURI, projection, null, null, null);
 			if(FBcursor == null) {
-				Log.v(ParserApplication.getDebugTag(), "Got null cursor!");
-				stringToSetOnTextView.append("For app "+appName+" got null cursor!\n");
+				Log.v(ParserApplication.getDebugTag(), "No data!");
+				stringToSetOnTextView.append("For app "+appName+" there is no data!\n");
 			}
 			if(FBcursor.moveToFirst()) {
 //				Toast.makeText(this, FBcursor.getColumnName(0)+FBcursor.getColumnCount(), Toast.LENGTH_LONG).show();

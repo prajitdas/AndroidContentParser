@@ -293,7 +293,7 @@ public class ContactsListFragment extends ListFragment implements
 
 	@Override
     public void onAttach(Activity activity) {
-        super.onAttach(activity);
+        super.onAttach(activity.getApplicationContext());
 
         try {
             // Assign callback listener which the holding activity must implement. This is used

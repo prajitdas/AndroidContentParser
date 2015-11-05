@@ -159,6 +159,7 @@ public class AlternateMainActivity extends Activity {
 	 * <uses-permission android:name="android.permission.READ_CONTACTS" />
 	 * <uses-permission android:name="android.permission.READ_CALL_LOG" />
 	 * <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+	 * The next one isn't a dangerous permission so why care?
 	 * <uses-permission android:name="com.google.android.providers.gsf.permission.READ_GSERVICES"/>
 	 * <!-- Required permission not required at or below Android 4.3 API level -->
 	 * <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
@@ -169,37 +170,14 @@ public class AlternateMainActivity extends Activity {
 		checkReadCallLogsPermission();
 		checkReadExternalStoragePermission();
 		checkWriteExternalStoragePermission();
-		checkReadGServicesPermission();
-	}
-
-	private void checkReadGServicesPermission() {
-		String [] tempList = {permissionsList[4]}; 
-		// Here, thisActivity is the current activity
-		if (ContextCompat.checkSelfPermission(this, Manifest.permission.READ_CONTACTS) != PackageManager.PERMISSION_GRANTED) {
-			// Should we show an explanation?
-			if (ActivityCompat.shouldShowRequestPermissionRationale(this, Manifest.permission.READ_CONTACTS)) {
-				Log.d(ParserApplication.getDebugTag(),"shouldShowRequestPermissionRationale");
-				// Show an expanation to the user *asynchronously* -- don't block
-				// this thread waiting for the user's response! After the user
-				// sees the explanation, try again to request the permission.
-			} 
-			else {
-				// No explanation needed, we can request the permission.
-				ActivityCompat.requestPermissions(this, tempList, ParserApplication.getConstPermissionReadContacts());
-				Log.d(ParserApplication.getDebugTag(),"requestPermissions");
-				// MY_PERMISSIONS_REQUEST_READ_CONTACTS is an
-				// app-defined int constant. The callback method gets the
-				// result of the request.
-			}
-		}
 	}
 
 	private void checkReadExternalStoragePermission() {
 		String [] tempList = {permissionsList[0]}; 
 		// Here, thisActivity is the current activity
-		if (ContextCompat.checkSelfPermission(this, Manifest.permission.READ_CONTACTS) != PackageManager.PERMISSION_GRANTED) {
+		if (ContextCompat.checkSelfPermission(this, Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
 			// Should we show an explanation?
-			if (ActivityCompat.shouldShowRequestPermissionRationale(this, Manifest.permission.READ_CONTACTS)) {
+			if (ActivityCompat.shouldShowRequestPermissionRationale(this, Manifest.permission.READ_EXTERNAL_STORAGE)) {
 				Log.d(ParserApplication.getDebugTag(),"shouldShowRequestPermissionRationale");
 				// Show an expanation to the user *asynchronously* -- don't block
 				// this thread waiting for the user's response! After the user
@@ -207,7 +185,7 @@ public class AlternateMainActivity extends Activity {
 			} 
 			else {
 				// No explanation needed, we can request the permission.
-				ActivityCompat.requestPermissions(this, tempList, ParserApplication.getConstPermissionReadContacts());
+				ActivityCompat.requestPermissions(this, tempList, ParserApplication.getConstPermissionReadExternalStorage());
 				Log.d(ParserApplication.getDebugTag(),"requestPermissions");
 				// MY_PERMISSIONS_REQUEST_READ_CONTACTS is an
 				// app-defined int constant. The callback method gets the
@@ -219,9 +197,9 @@ public class AlternateMainActivity extends Activity {
 	private void checkReadCallLogsPermission() {
 		String [] tempList = {permissionsList[0]}; 
 		// Here, thisActivity is the current activity
-		if (ContextCompat.checkSelfPermission(this, Manifest.permission.READ_CONTACTS) != PackageManager.PERMISSION_GRANTED) {
+		if (ContextCompat.checkSelfPermission(this, Manifest.permission.READ_CALL_LOG) != PackageManager.PERMISSION_GRANTED) {
 			// Should we show an explanation?
-			if (ActivityCompat.shouldShowRequestPermissionRationale(this, Manifest.permission.READ_CONTACTS)) {
+			if (ActivityCompat.shouldShowRequestPermissionRationale(this, Manifest.permission.READ_CALL_LOG)) {
 				Log.d(ParserApplication.getDebugTag(),"shouldShowRequestPermissionRationale");
 				// Show an expanation to the user *asynchronously* -- don't block
 				// this thread waiting for the user's response! After the user
@@ -229,7 +207,7 @@ public class AlternateMainActivity extends Activity {
 			} 
 			else {
 				// No explanation needed, we can request the permission.
-				ActivityCompat.requestPermissions(this, tempList, ParserApplication.getConstPermissionReadContacts());
+				ActivityCompat.requestPermissions(this, tempList, ParserApplication.getConstPermissionReadCallLog());
 				Log.d(ParserApplication.getDebugTag(),"requestPermissions");
 				// MY_PERMISSIONS_REQUEST_READ_CONTACTS is an
 				// app-defined int constant. The callback method gets the
@@ -241,9 +219,9 @@ public class AlternateMainActivity extends Activity {
 	private void checkWriteExternalStoragePermission() {
 		String [] tempList = {permissionsList[0]}; 
 		// Here, thisActivity is the current activity
-		if (ContextCompat.checkSelfPermission(this, Manifest.permission.READ_CONTACTS) != PackageManager.PERMISSION_GRANTED) {
+		if (ContextCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
 			// Should we show an explanation?
-			if (ActivityCompat.shouldShowRequestPermissionRationale(this, Manifest.permission.READ_CONTACTS)) {
+			if (ActivityCompat.shouldShowRequestPermissionRationale(this, Manifest.permission.WRITE_EXTERNAL_STORAGE)) {
 				Log.d(ParserApplication.getDebugTag(),"shouldShowRequestPermissionRationale");
 				// Show an expanation to the user *asynchronously* -- don't block
 				// this thread waiting for the user's response! After the user
@@ -251,7 +229,7 @@ public class AlternateMainActivity extends Activity {
 			} 
 			else {
 				// No explanation needed, we can request the permission.
-				ActivityCompat.requestPermissions(this, tempList, ParserApplication.getConstPermissionReadContacts());
+				ActivityCompat.requestPermissions(this, tempList, ParserApplication.getConstPermissionWriteExternalStorage());
 				Log.d(ParserApplication.getDebugTag(),"requestPermissions");
 				// MY_PERMISSIONS_REQUEST_READ_CONTACTS is an
 				// app-defined int constant. The callback method gets the

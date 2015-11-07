@@ -11,7 +11,7 @@
     <uses-permission android:name="com.google.android.providers.gsf.permission.READ_GSERVICES" />
     <uses-permission android:name="android.permission.READ_CONTACTS" />
     <!-- Required permission for reading the content -->
-<!--     <uses-permission android:name="android.permission.command.READ_WRITE_CONTENT" /> -->
+	<uses-permission android:name="android.permission.command.READ_WRITE_CONTENT" />
     <!-- Required permission only for Android 4.4 and above -->
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <!-- Unusual but true! -->
@@ -27,15 +27,15 @@
         <activity
             android:name=".alternate.MainActivity"
             android:label="@string/title_activity_main" >
-        </activity>
-        <activity
-            android:name=".alternate.AlternateMainActivity"
-            android:label="@string/title_activity_alternate_main" >
-            <intent-filter>
+             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+        </activity>
+        <activity
+            android:name=".alternate.AlternateMainActivity"
+            android:label="@string/title_activity_alternate_main" >
         </activity>
         <activity
             android:name=".providerlists.ProvidersMainActivity"

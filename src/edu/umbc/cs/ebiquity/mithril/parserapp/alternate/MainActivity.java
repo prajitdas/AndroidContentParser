@@ -2,6 +2,7 @@ package edu.umbc.cs.ebiquity.mithril.parserapp.alternate;
 
 import android.app.Activity;
 import android.content.ContentResolver;
+import android.content.Intent;
 import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
@@ -11,6 +12,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 import edu.umbc.cs.ebiquity.mithril.parserapp.ParserApplication;
 import edu.umbc.cs.ebiquity.mithril.parserapp.R;
+import edu.umbc.cs.ebiquity.mithril.parserapp.contentparsers.media.ImageActivity;
 
 public class MainActivity extends Activity {
 	private TextView mDisplayTextView;
@@ -19,7 +21,10 @@ public class MainActivity extends Activity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
-		
+
+		//Hacky method to show the image because Banerjee wants this for the demo
+		Intent intent = new Intent(this, ImageActivity.class);
+		startActivity(intent);
 		mDisplayTextView = (TextView) findViewById(R.id.textViewMainDisplay);
 		mDisplayTextView.setText("");
 		/**

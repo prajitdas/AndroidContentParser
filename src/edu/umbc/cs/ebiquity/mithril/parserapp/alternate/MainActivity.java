@@ -13,6 +13,7 @@ import android.widget.Toast;
 import edu.umbc.cs.ebiquity.mithril.parserapp.ParserApplication;
 import edu.umbc.cs.ebiquity.mithril.parserapp.R;
 import edu.umbc.cs.ebiquity.mithril.parserapp.contentparsers.media.ImageActivity;
+import edu.umbc.cs.ebiquity.mithril.parserapp.util.CheckPermissionsHelper;
 
 public class MainActivity extends Activity {
 	private TextView mDisplayTextView;
@@ -22,6 +23,7 @@ public class MainActivity extends Activity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
 
+		CheckPermissionsHelper.checkMarshMallowPermissions(getApplicationContext(),this);
 		//Hacky method to show the image because Banerjee wants this for the demo
 		Intent intent = new Intent(this, ImageActivity.class);
 		startActivity(intent);

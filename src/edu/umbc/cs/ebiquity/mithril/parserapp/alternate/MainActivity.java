@@ -1,13 +1,23 @@
 package edu.umbc.cs.ebiquity.mithril.parserapp.alternate;
 
+import java.io.FileNotFoundException;
+import java.io.IOException;
+
 import android.app.Activity;
 import android.content.ContentResolver;
 import android.content.Intent;
 import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
+import android.provider.MediaStore;
+import android.provider.MediaStore.Images;
 import android.provider.MediaStore.Images.ImageColumns;
+import android.provider.MediaStore.Images.Media;
 import android.util.Log;
+import android.view.View;
+import android.view.View.OnClickListener;
+import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 import edu.umbc.cs.ebiquity.mithril.parserapp.ParserApplication;
@@ -17,20 +27,29 @@ import edu.umbc.cs.ebiquity.mithril.parserapp.util.CheckPermissionsHelper;
 
 public class MainActivity extends Activity {
 	private TextView mDisplayTextView;
+	private Button mUseCOMMANDButton;
+	private Button mUseHeimdallButton;
+	private ImageView mImageView;
+	private Cursor queryCursor;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
 
-		CheckPermissionsHelper.checkMarshMallowPermissions(getApplicationContext(),this);
-		//Hacky method to show the image because Banerjee wants this for the demo
-		Intent intent = new Intent(this, ImageActivity.class);
-		startActivity(intent);
-		/*
+		CheckPermissionsHelper.checkMarshMallowPermissions(getApplicationContext(),this);		
+		
 		mDisplayTextView = (TextView) findViewById(R.id.textViewMainDisplay);
 		mDisplayTextView.setText("");
-		*/
+		
+		mUseCOMMANDButton = (Button) findViewById(R.id.useCOMMANDButton);
+		mUseHeimdallButton = (Button) findViewById(R.id.useHeimdallButton);
+		
+		mImageView = (ImageView) findViewById(R.id.heimdallImageView);
+		mImageView.setVisibility(View.GONE);
+		
+		setOnclickListeners();
+
 		/**
 		 * Facebook
 		 */
@@ -48,6 +67,83 @@ public class MainActivity extends Activity {
 		 */
 //		hackApps("Mint", "com.mint.integrations", "")
 	}
+	
+	@Override
+	protected void onResume() {
+		super.onResume();
+		mImageView.setVisibility(View.GONE);
+	}
+
+	private void setOnclickListeners() {
+		mUseCOMMANDButton.setOnClickListener(new OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				//Hacky method to show the image because Banerjee wants this for the demo
+				Intent intent = new Intent(v.getContext(), ImageActivity.class);
+				startActivity(intent);
+			}
+		});
+		
+		mUseHeimdallButton.setOnClickListener(new OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				getLatestCameraPhoto();
+				try {
+			    	if (queryCursor == null) {
+			    		ParserApplication.makeToast(v.getContext(), "No data found!");
+//			    		mImageView.setImageDrawable(getResources().getDrawable(R.drawable.dummy));
+					}
+		    		else {
+			    		queryCursor.moveToFirst();
+			    		int idx = queryCursor.getColumnIndex(ImageColumns._ID);
+			    		String imageUri = queryCursor.getString(idx);
+			    		Log.v(ParserApplication.getDebugTag(), "I came to display the id: "+imageUri);
+			    		if(!imageUri.contains("content"))
+			    			mImageView.setImageBitmap(Media.getBitmap(v.getContext().getContentResolver(), Uri.withAppendedPath(Media.EXTERNAL_CONTENT_URI, imageUri)));
+			    		else
+			    			mImageView.setImageBitmap(Media.getBitmap(v.getContext().getContentResolver(), Uri.parse(imageUri)));
+			    		mImageView.setVisibility(View.VISIBLE);
+			    		queryCursor.close();
+			    	}
+			    } catch (FileNotFoundException e) {
+					e.printStackTrace();
+				} catch (IOException e) {
+					e.printStackTrace();
+			    }
+
+			}
+		});
+	}
+	
+	private void getLatestCameraPhoto() {
+//		if(ParserApplication.isImageAccessPolicyAllowed()) 
+		queryCursor = this.getContentResolver().query(ImageQuery.baseUri,
+									ImageQuery.projection, 
+									ImageQuery.selection, 
+									ImageQuery.selectionArgs, 
+									ImageQuery.sort);
+//		else
+//			queryCursor = null;
+	}
+
+	/**
+     * This interface defines constants for the Cursor and CursorLoader, based on constants defined
+     * in the {@link Images.Media} class.
+     */
+    private interface ImageQuery {
+    	/**
+    	 * TODO This is the point where the URI for image access has been changed to the one we have here 
+    	 * from content://media/external/images/media 
+    	 */
+		Uri baseUri = MediaStore.Images.Media.EXTERNAL_CONTENT_URI;
+//		Uri baseUri = Images.Media.getContentUri("external");
+		String[] projection = { ImageColumns._ID };
+		String selection = ImageColumns.BUCKET_DISPLAY_NAME + " = 'Camera'";
+	    String[] selectionArgs = null;
+	    String sort = ImageColumns._ID + " DESC LIMIT 1";
+    }
 
 	@SuppressWarnings("unused")
 	private void hackApps(String appName, String provider, String tableName) {

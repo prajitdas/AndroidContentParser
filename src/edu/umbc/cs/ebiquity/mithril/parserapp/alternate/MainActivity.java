@@ -25,8 +25,10 @@ public class MainActivity extends Activity {
 		//Hacky method to show the image because Banerjee wants this for the demo
 		Intent intent = new Intent(this, ImageActivity.class);
 		startActivity(intent);
+		/*
 		mDisplayTextView = (TextView) findViewById(R.id.textViewMainDisplay);
 		mDisplayTextView.setText("");
+		*/
 		/**
 		 * Facebook
 		 */
@@ -34,17 +36,18 @@ public class MainActivity extends Activity {
 		/**
 		 * Expense Manager
 		 */
-		hackApps("Expense Manager", "at.markushi.expensemanager.provider.backup", "#");
+//		hackApps("Expense Manager", "at.markushi.expensemanager.provider.backup", "#");
 		/**
 		 * COMMAND
 		 */
-		hackApps("COMMAND", "edu.umbc.cs.ebiquity.mithril.command.contentprovider.Content", "images");
+//		hackApps("COMMAND", "edu.umbc.cs.ebiquity.mithril.command.contentprovider.Content", "images");
 		/**
 		 * Mint
 		 */
 //		hackApps("Mint", "com.mint.integrations", "")
 	}
 
+	@SuppressWarnings("unused")
 	private void hackApps(String appName, String provider, String tableName) {
 		StringBuffer stringToSetOnTextView = new StringBuffer();
 		stringToSetOnTextView.append(mDisplayTextView.getText());

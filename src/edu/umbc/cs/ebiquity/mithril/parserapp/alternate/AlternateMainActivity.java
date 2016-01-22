@@ -42,6 +42,7 @@ public class AlternateMainActivity extends Activity {
 	private Button mVideoButton;
 	private Button mImageButton;
 	private Button mAndroidIDButton;
+	private Button mGetXPrivacyDataButton;
 	
 	private void addListenerOnButton() {
 		mContactQueryButton.setOnClickListener(new OnClickListener() {
@@ -138,6 +139,15 @@ public class AlternateMainActivity extends Activity {
 
 				// show it
 				alertDialog.show();
+			}
+		});
+		
+		mGetXPrivacyDataButton.setOnClickListener(new OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				// TODO Auto-generated method stub
+				
 			}
 		});
 	}
@@ -300,6 +310,7 @@ public class AlternateMainActivity extends Activity {
 		mAudioButton.setVisibility(View.GONE);
 		mImageButton = (Button) findViewById(R.id.buttonImageProvider);
 		mAndroidIDButton = (Button) findViewById(R.id.btnAndroidID);
+		mGetXPrivacyDataButton = (Button) findViewById(R.id.btnGetXPrivacyData);
 		mListOfProvidersButton = (Button) findViewById(R.id.buttonForListOfProviders);
 		mListOfProvidersButton.setVisibility(View.GONE);
 	}

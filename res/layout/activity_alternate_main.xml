@@ -5,16 +5,6 @@
     android:layout_height="match_parent" >
 
     <Button
-        android:id="@+id/buttonContactProviderQuery"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentTop="true"
-        android:layout_marginTop="32dp"
-        android:text="@string/buttonContactProviderQueryText" />
-
-    <Button
         android:id="@+id/buttonForListOfProviders"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -76,5 +66,23 @@
         android:layout_alignParentRight="true"
         android:layout_below="@+id/buttonImageProvider"
         android:text="@string/btnTxtAndroidId" />
+
+    <Button
+        android:id="@+id/btnGetXPrivacyData"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentRight="true"
+        android:layout_below="@+id/btnAndroidID"
+        android:text="@string/btnTxtGetXPrivacyData" />
+
+    <Button
+        android:id="@+id/buttonContactProviderQuery"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentTop="true"
+        android:text="@string/buttonContactProviderQueryText" />
 
 </RelativeLayout>

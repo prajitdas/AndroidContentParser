@@ -51,6 +51,7 @@
     <string name="buttonVideoProviderText">Video</string>
     <string name="buttonAudioProviderText">Audio</string>
     <string name="btnTxtAndroidId">Android ID</string>
+    <string name="btnTxtGetXPrivacyData">Get XPrivacy Data</string>
 
     <string name="title_activity_media">Media Activity</string>
     <string name="title_activity_image">Image Activity</string>

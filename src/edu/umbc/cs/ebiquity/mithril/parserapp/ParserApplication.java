@@ -23,6 +23,20 @@ public class ParserApplication extends Application {
 			"com.google.android.providers.gsf.permission.READ_GSERVICES"
 		};
 
+	public static final String XPRIVACY_CONST_COL_UID = "Uid";
+	
+	public static final String XPRIVACY_CONST_COL_RESTRICTION = "Restriction";
+	
+	public static final String XPRIVACY_CONST_COL_RESTRICTED = "Restricted";
+	
+	public static final String XPRIVACY_CONST_COL_METHOD = "Method";
+	
+	public static final String XPRIVACY_CONST_COL_USED = "Used";
+	
+	public static final String XPRIVACY_CONST_COL_SETTING = "Setting";
+	
+	public static final String XPRIVACY_CONST_COL_VALUE = "Value";
+	
 	private static final int CONST_PERMISSION_READ_CONTACTS = 1;
 
 	private static final int CONST_PERMISSION_READ_CALL_LOG = 1;
@@ -34,6 +48,8 @@ public class ParserApplication extends Application {
 	private static final int CONST_PERMISSION_READ_GSERVICES = 1;
 
 	private static final String CONST_EBANDMW_CONTENT_URI = "content://edu.umbc.cs.ebiquity.mithril.command.contentprovider.Content";
+
+	private static final String CONST_XPRIVACY_CONTENT_URI = "content://biz.bokhorst.xprivacy.provider/usage";
 
 	private static final String CONST_AUDIOS = "audios";
 
@@ -237,5 +253,9 @@ public class ParserApplication extends Application {
 
 	public static int getConstPermissionReadGservices() {
 		return CONST_PERMISSION_READ_GSERVICES;
+	}
+
+	public static String getConstXprivacyContentUri() {
+		return CONST_XPRIVACY_CONTENT_URI;
 	}
 }

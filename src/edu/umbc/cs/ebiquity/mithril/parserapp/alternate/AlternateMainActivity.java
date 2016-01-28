@@ -1,8 +1,5 @@
 package edu.umbc.cs.ebiquity.mithril.parserapp.alternate;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import android.Manifest;
 import android.app.Activity;
 import android.app.AlertDialog;
@@ -14,7 +11,6 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.database.Cursor;
 import android.net.Uri;
-import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
@@ -24,7 +20,6 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
-import android.widget.ListView;
 import android.widget.Toast;
 import edu.umbc.cs.ebiquity.mithril.parserapp.ParserApplication;
 import edu.umbc.cs.ebiquity.mithril.parserapp.R;
@@ -34,7 +29,6 @@ import edu.umbc.cs.ebiquity.mithril.parserapp.contentparsers.media.ImageActivity
 import edu.umbc.cs.ebiquity.mithril.parserapp.contentparsers.media.MediaActivity;
 import edu.umbc.cs.ebiquity.mithril.parserapp.contentparsers.media.VideoActivity;
 import edu.umbc.cs.ebiquity.mithril.parserapp.providerlists.ProvidersMainActivity;
-import edu.umbc.cs.ebiquity.mithril.parserapp.util.PRestriction;
 /**
  * @author prajit.das
  */
@@ -152,39 +146,48 @@ public class AlternateMainActivity extends Activity {
 			
 			@Override
 			public void onClick(View v) {
-				// Start task to get usage data
-				UsageTask usageTask = new UsageTask();
-				usageTask.executeOnExecutor(mExecutor, (Object) null);
+				Cursor mCursor = getContentResolver().query( 
+						XPrivaycQuery.baseUri,		// The content URI of the words table
+						XPrivaycQuery.projection,	// The columns to return for each row 
+						XPrivaycQuery.selection,	// Selection criteria 
+						XPrivaycQuery.selectionArgs,// Selection arguments 
+						XPrivaycQuery.sortOrder);	// Sorting order
+
+				// Get some data
+				int index = mCursor.getCount();
+				if (mCursor != null) {
+					Log.v(ParserApplication.getDebugTag(), String.valueOf(index));
+					while (mCursor.moveToNext()) {
+						Log.v(ParserApplication.getDebugTag(), mCursor.getString(1));
+					}
+				}
 			}
 		});
 	}
 
-	// Tasks
-
-	private class UsageTask extends AsyncTask<Object, Object, List<PRestriction>> {
-		@Override
-		protected List<PRestriction> doInBackground(Object... arg0) {
-			List<PRestriction> listUsageData = new ArrayList<PRestriction>();
-			for (PRestriction usageData : PrivacyManager.getUsageList(ActivityUsage.this, mUid, mRestrictionName)) {
-				listUsageData.add(usageData);
-			}
-			return listUsageData;
-		}
-
-		@Override
-		protected void onPostExecute(List<PRestriction> listUsageData) {
-			if (!ActivityUsage.this.isFinishing()) {
-				mUsageAdapter = new UsageAdapter(ActivityUsage.this, R.layout.usageentry, listUsageData);
-				ListView lvUsage = (ListView) findViewById(R.id.lvUsage);
-				lvUsage.setAdapter(mUsageAdapter);
-				mUsageAdapter.getFilter().filter(Boolean.toString(mAll));
-			}
-
-			super.onPostExecute(listUsageData);
-		}
-	}
-
-	@Override
+	/**
+     * This interface defines constants for the Cursor and CursorLoader, based on constants defined
+     * in the the data class.
+     */
+    private interface XPrivaycQuery {
+    	/**
+    	 * TODO This is the point where the URI for XPrivacy data access is inserted
+    	 */
+		Uri baseUri = Uri.parse(ParserApplication.getConstXprivacyContentUri());
+//		Uri baseUri = Images.Media.getContentUri("external");
+		String[] projection = { 
+				ParserApplication.XPRIVACY_CONST_COL_UID, 
+				ParserApplication.XPRIVACY_CONST_COL_METHOD, 
+				ParserApplication.XPRIVACY_CONST_COL_RESTRICTION, 
+				ParserApplication.XPRIVACY_CONST_COL_RESTRICTED,
+				ParserApplication.XPRIVACY_CONST_COL_USED
+				};
+		String selection = ParserApplication.XPRIVACY_CONST_COL_UID + " = 10096";
+	    String[] selectionArgs = {""};
+	    String sortOrder = ParserApplication.XPRIVACY_CONST_COL_USED;
+    }
+    
+    @Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_alternate_main);

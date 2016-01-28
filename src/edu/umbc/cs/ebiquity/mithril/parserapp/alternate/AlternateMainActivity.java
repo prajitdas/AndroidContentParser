@@ -1,5 +1,8 @@
 package edu.umbc.cs.ebiquity.mithril.parserapp.alternate;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import android.Manifest;
 import android.app.Activity;
 import android.app.AlertDialog;
@@ -11,6 +14,7 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.database.Cursor;
 import android.net.Uri;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
@@ -20,6 +24,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
+import android.widget.ListView;
 import android.widget.Toast;
 import edu.umbc.cs.ebiquity.mithril.parserapp.ParserApplication;
 import edu.umbc.cs.ebiquity.mithril.parserapp.R;
@@ -29,6 +34,7 @@ import edu.umbc.cs.ebiquity.mithril.parserapp.contentparsers.media.ImageActivity
 import edu.umbc.cs.ebiquity.mithril.parserapp.contentparsers.media.MediaActivity;
 import edu.umbc.cs.ebiquity.mithril.parserapp.contentparsers.media.VideoActivity;
 import edu.umbc.cs.ebiquity.mithril.parserapp.providerlists.ProvidersMainActivity;
+import edu.umbc.cs.ebiquity.mithril.parserapp.util.PRestriction;
 /**
  * @author prajit.das
  */
@@ -146,10 +152,36 @@ public class AlternateMainActivity extends Activity {
 			
 			@Override
 			public void onClick(View v) {
-				// TODO Auto-generated method stub
-				
+				// Start task to get usage data
+				UsageTask usageTask = new UsageTask();
+				usageTask.executeOnExecutor(mExecutor, (Object) null);
 			}
 		});
+	}
+
+	// Tasks
+
+	private class UsageTask extends AsyncTask<Object, Object, List<PRestriction>> {
+		@Override
+		protected List<PRestriction> doInBackground(Object... arg0) {
+			List<PRestriction> listUsageData = new ArrayList<PRestriction>();
+			for (PRestriction usageData : PrivacyManager.getUsageList(ActivityUsage.this, mUid, mRestrictionName)) {
+				listUsageData.add(usageData);
+			}
+			return listUsageData;
+		}
+
+		@Override
+		protected void onPostExecute(List<PRestriction> listUsageData) {
+			if (!ActivityUsage.this.isFinishing()) {
+				mUsageAdapter = new UsageAdapter(ActivityUsage.this, R.layout.usageentry, listUsageData);
+				ListView lvUsage = (ListView) findViewById(R.id.lvUsage);
+				lvUsage.setAdapter(mUsageAdapter);
+				mUsageAdapter.getFilter().filter(Boolean.toString(mAll));
+			}
+
+			super.onPostExecute(listUsageData);
+		}
 	}
 
 	@Override

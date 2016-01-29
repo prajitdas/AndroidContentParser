@@ -31,7 +31,7 @@ public class ParserApplication extends Application {
 	
 	public static final String XPRIVACY_CONST_COL_METHOD = "Method";
 	
-	public static final String XPRIVACY_CONST_COL_USED = "Used";
+	public static final String XPRIVACY_CONST_COL_USED = "time";
 	
 	public static final String XPRIVACY_CONST_COL_SETTING = "Setting";
 	

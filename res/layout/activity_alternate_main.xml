@@ -68,15 +68,6 @@
         android:text="@string/btnTxtAndroidId" />
 
     <Button
-        android:id="@+id/btnGetXPrivacyData"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentEnd="true"
-        android:layout_below="@+id/btnAndroidID"
-        android:text="@string/btnTxtGetXPrivacyData" />
-
-    <Button
         android:id="@+id/buttonContactProviderQuery"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

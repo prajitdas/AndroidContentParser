@@ -8,42 +8,51 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="edu.umbc.cs.ebiquity.mithril.parserapp.alternate.MainActivity" >
 
-    <ImageView
-        android:id="@+id/heimdallImageView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentRight="true"
-        android:layout_below="@+id/useHeimdallButton"
-        android:src="@drawable/dummy" />
-
     <TextView
         android:id="@+id/textViewMainDisplay"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentEnd="true"
         android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="15dp"
-        android:text="@string/hello_world"
-        android:textAppearance="@android:style/TextAppearance.Large" />
+        android:text="@string/hello_world" />
 
     <Button
         android:id="@+id/useCOMMANDButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentRight="true"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentEnd="true"
         android:layout_below="@+id/textViewMainDisplay"
-        android:text="Use COMMAND" />
+        android:text="@string/btnTxtUseCOMMAND" />
 
     <Button
         android:id="@+id/useHeimdallButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentRight="true"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentEnd="true"
         android:layout_below="@+id/useCOMMANDButton"
-        android:text="Use Heimdall" />
+        android:text="@string/btnTxtUseHeimdall" />
+
+	<Button
+        android:id="@+id/getXPrivacyDataButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentEnd="true"
+        android:layout_below="@+id/useHeimdallButton"
+        android:text="@string/btnTxtGetXPrivacyData" />
+    
+    <ImageView
+        android:id="@+id/heimdallImageView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentEnd="true"
+        android:layout_below="@+id/getXPrivacyDataButton"
+        android:contentDescription="@string/imageDescription"
+        android:src="@drawable/dummy" />
 
 </RelativeLayout>

@@ -29,6 +29,7 @@ public class MainActivity extends Activity {
 	private TextView mDisplayTextView;
 	private Button mUseCOMMANDButton;
 	private Button mUseHeimdallButton;
+	private Button mGetXPrivacyDataButton;
 	private ImageView mImageView;
 	private Cursor queryCursor;
 	
@@ -44,6 +45,7 @@ public class MainActivity extends Activity {
 		
 		mUseCOMMANDButton = (Button) findViewById(R.id.useCOMMANDButton);
 		mUseHeimdallButton = (Button) findViewById(R.id.useHeimdallButton);
+		mGetXPrivacyDataButton = (Button) findViewById(R.id.getXPrivacyDataButton);
 		
 		mImageView = (ImageView) findViewById(R.id.heimdallImageView);
 		mImageView.setVisibility(View.GONE);
@@ -74,7 +76,30 @@ public class MainActivity extends Activity {
 		mImageView.setVisibility(View.GONE);
 	}
 
-	private void setOnclickListeners() {
+
+	/**
+     * This interface defines constants for the Cursor and CursorLoader, based on constants defined
+     * in the the data class.
+     */
+    private interface XPrivaycQuery {
+    	/**
+    	 * TODO This is the point where the URI for XPrivacy data access is inserted
+    	 */
+		Uri baseUri = Uri.parse(ParserApplication.getConstXprivacyContentUri());
+//		Uri baseUri = Images.Media.getContentUri("external");
+		String[] projection = { 
+				ParserApplication.XPRIVACY_CONST_COL_UID, 
+				ParserApplication.XPRIVACY_CONST_COL_METHOD, 
+				ParserApplication.XPRIVACY_CONST_COL_RESTRICTION, 
+				ParserApplication.XPRIVACY_CONST_COL_RESTRICTED,
+				ParserApplication.XPRIVACY_CONST_COL_USED
+				};
+		String selection = ParserApplication.XPRIVACY_CONST_COL_UID + " = 10096";
+	    String[] selectionArgs = {""};
+	    String sortOrder = ParserApplication.XPRIVACY_CONST_COL_USED;
+    }
+    
+    private void setOnclickListeners() {
 		mUseCOMMANDButton.setOnClickListener(new OnClickListener() {
 			
 			@Override
@@ -113,6 +138,28 @@ public class MainActivity extends Activity {
 					e.printStackTrace();
 			    }
 
+			}
+		});
+		
+		mGetXPrivacyDataButton.setOnClickListener(new OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				Cursor mCursor = getContentResolver().query( 
+						XPrivaycQuery.baseUri,		// The content URI of the words table
+						XPrivaycQuery.projection,	// The columns to return for each row 
+						XPrivaycQuery.selection,	// Selection criteria 
+						XPrivaycQuery.selectionArgs,// Selection arguments 
+						XPrivaycQuery.sortOrder);	// Sorting order
+
+				// Get some data
+				int index = mCursor.getCount();
+				if (mCursor != null) {
+					Log.v(ParserApplication.getDebugTag(), String.valueOf(index));
+					while (mCursor.moveToNext()) {
+						Log.v(ParserApplication.getDebugTag(), mCursor.getString(1));
+					}
+				}
 			}
 		});
 	}

@@ -52,7 +52,9 @@
     <string name="buttonAudioProviderText">Audio</string>
     <string name="btnTxtAndroidId">Android ID</string>
     <string name="btnTxtGetXPrivacyData">Get XPrivacy Data</string>
-
+    <string name="btnTxtUseCOMMAND">Use COMMAND</string>
+    <string name="btnTxtUseHeimdall">Use Heimdall</string>
+    
     <string name="title_activity_media">Media Activity</string>
     <string name="title_activity_image">Image Activity</string>
     <string name="title_activity_video">Video Activity</string>

@@ -42,7 +42,6 @@ public class AlternateMainActivity extends Activity {
 	private Button mVideoButton;
 	private Button mImageButton;
 	private Button mAndroidIDButton;
-	private Button mGetXPrivacyDataButton;
 	
 	private void addListenerOnButton() {
 		mContactQueryButton.setOnClickListener(new OnClickListener() {
@@ -141,51 +140,8 @@ public class AlternateMainActivity extends Activity {
 				alertDialog.show();
 			}
 		});
-		
-		mGetXPrivacyDataButton.setOnClickListener(new OnClickListener() {
-			
-			@Override
-			public void onClick(View v) {
-				Cursor mCursor = getContentResolver().query( 
-						XPrivaycQuery.baseUri,		// The content URI of the words table
-						XPrivaycQuery.projection,	// The columns to return for each row 
-						XPrivaycQuery.selection,	// Selection criteria 
-						XPrivaycQuery.selectionArgs,// Selection arguments 
-						XPrivaycQuery.sortOrder);	// Sorting order
-
-				// Get some data
-				int index = mCursor.getCount();
-				if (mCursor != null) {
-					Log.v(ParserApplication.getDebugTag(), String.valueOf(index));
-					while (mCursor.moveToNext()) {
-						Log.v(ParserApplication.getDebugTag(), mCursor.getString(1));
-					}
-				}
-			}
-		});
 	}
 
-	/**
-     * This interface defines constants for the Cursor and CursorLoader, based on constants defined
-     * in the the data class.
-     */
-    private interface XPrivaycQuery {
-    	/**
-    	 * TODO This is the point where the URI for XPrivacy data access is inserted
-    	 */
-		Uri baseUri = Uri.parse(ParserApplication.getConstXprivacyContentUri());
-//		Uri baseUri = Images.Media.getContentUri("external");
-		String[] projection = { 
-				ParserApplication.XPRIVACY_CONST_COL_UID, 
-				ParserApplication.XPRIVACY_CONST_COL_METHOD, 
-				ParserApplication.XPRIVACY_CONST_COL_RESTRICTION, 
-				ParserApplication.XPRIVACY_CONST_COL_RESTRICTED,
-				ParserApplication.XPRIVACY_CONST_COL_USED
-				};
-		String selection = ParserApplication.XPRIVACY_CONST_COL_UID + " = 10096";
-	    String[] selectionArgs = {""};
-	    String sortOrder = ParserApplication.XPRIVACY_CONST_COL_USED;
-    }
     
     @Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -345,10 +301,10 @@ public class AlternateMainActivity extends Activity {
 		mAudioButton.setVisibility(View.GONE);
 		mImageButton = (Button) findViewById(R.id.buttonImageProvider);
 		mAndroidIDButton = (Button) findViewById(R.id.btnAndroidID);
-		mGetXPrivacyDataButton = (Button) findViewById(R.id.btnGetXPrivacyData);
 		mListOfProvidersButton = (Button) findViewById(R.id.buttonForListOfProviders);
 		mListOfProvidersButton.setVisibility(View.GONE);
 	}
+	
 	/**
 	 * This is for testing the Android ID content provider
 	 */

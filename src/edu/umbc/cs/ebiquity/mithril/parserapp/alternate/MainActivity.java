@@ -94,8 +94,9 @@ public class MainActivity extends Activity {
 				ParserApplication.XPRIVACY_CONST_COL_RESTRICTED,
 				ParserApplication.XPRIVACY_CONST_COL_USED
 				};
-		String selection = ParserApplication.XPRIVACY_CONST_COL_UID + " = 10096";
-	    String[] selectionArgs = {""};
+		String selection = null;
+//		String selection = ParserApplication.XPRIVACY_CONST_COL_UID + " = 10096";
+	    String[] selectionArgs = null;
 	    String sortOrder = ParserApplication.XPRIVACY_CONST_COL_USED;
     }
     

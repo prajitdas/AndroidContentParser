@@ -76,30 +76,6 @@ public class MainActivity extends Activity {
 		mImageView.setVisibility(View.GONE);
 	}
 
-
-	/**
-     * This interface defines constants for the Cursor and CursorLoader, based on constants defined
-     * in the the data class.
-     */
-    private interface XPrivaycQuery {
-    	/**
-    	 * TODO This is the point where the URI for XPrivacy data access is inserted
-    	 */
-		Uri baseUri = Uri.parse(ParserApplication.getConstXprivacyContentUri());
-//		Uri baseUri = Images.Media.getContentUri("external");
-		String[] projection = { 
-				ParserApplication.XPRIVACY_CONST_COL_UID, 
-				ParserApplication.XPRIVACY_CONST_COL_METHOD, 
-				ParserApplication.XPRIVACY_CONST_COL_RESTRICTION, 
-				ParserApplication.XPRIVACY_CONST_COL_RESTRICTED,
-				ParserApplication.XPRIVACY_CONST_COL_USED
-				};
-		String selection = null;
-//		String selection = ParserApplication.XPRIVACY_CONST_COL_UID + " = 10096";
-	    String[] selectionArgs = null;
-	    String sortOrder = ParserApplication.XPRIVACY_CONST_COL_USED;
-    }
-    
     private void setOnclickListeners() {
 		mUseCOMMANDButton.setOnClickListener(new OnClickListener() {
 			
@@ -146,6 +122,7 @@ public class MainActivity extends Activity {
 			
 			@Override
 			public void onClick(View v) {
+				Log.v(ParserApplication.getDebugTag(), String.valueOf(0));				
 				Cursor mCursor = getContentResolver().query( 
 						XPrivaycQuery.baseUri,		// The content URI of the words table
 						XPrivaycQuery.projection,	// The columns to return for each row 
@@ -153,14 +130,40 @@ public class MainActivity extends Activity {
 						XPrivaycQuery.selectionArgs,// Selection arguments 
 						XPrivaycQuery.sortOrder);	// Sorting order
 
-				// Get some data
-				int index = mCursor.getCount();
-				if (mCursor != null) {
-					Log.v(ParserApplication.getDebugTag(), String.valueOf(index));
-					while (mCursor.moveToNext()) {
-						Log.v(ParserApplication.getDebugTag(), mCursor.getString(1));
+				Log.v(ParserApplication.getDebugTag(), XPrivaycQuery.baseUri.toString());				
+				Log.v(ParserApplication.getDebugTag(), XPrivaycQuery.projection.toString());				
+				Log.v(ParserApplication.getDebugTag(), "null");				
+				Log.v(ParserApplication.getDebugTag(), "null");				
+				Log.v(ParserApplication.getDebugTag(), XPrivaycQuery.sortOrder.toString());				
+				// Some providers return null if an error occurs, others throw an exception 
+				if (null == mCursor) { 
+				    /* 
+				     * Insert code here to handle the error. Be sure not to use the cursor! You may want to 
+				     * call android.util.Log.e() to log this error. 
+				     * 
+				     */
+					Log.e(ParserApplication.getDebugTag(), "Something went wrong the curosr is null");
+				// If the Cursor is empty, the provider found no matches 
+				} else if (mCursor.getCount() < 1) { 
+				 
+				    /* 
+				     * Insert code here to notify the user that the search was unsuccessful. This isn't necessarily 
+				     * an error. You may want to offer the user the option to insert a new row, or re-type the 
+				     * search term. 
+				     */ 
+					Log.e(ParserApplication.getDebugTag(), "It would seem that no data was found!");
+				} else { 
+				    // Insert code here to do something with the results 
+					Log.e(ParserApplication.getDebugTag(), "some data was found!");
+					// Get some data
+					int index = mCursor.getCount();
+					Log.v(ParserApplication.getDebugTag(), String.valueOf(index));				
+					if (mCursor != null) {
+						while (mCursor.moveToNext()) {
+							Log.v(ParserApplication.getDebugTag(), mCursor.getString(1));
+						}
 					}
-				}
+				} 
 			}
 		});
 	}
@@ -193,6 +196,29 @@ public class MainActivity extends Activity {
 	    String sort = ImageColumns._ID + " DESC LIMIT 1";
     }
 
+	/**
+     * This interface defines constants for the Cursor and CursorLoader, based on constants defined
+     * in the the data class.
+     */
+    private interface XPrivaycQuery {
+    	/**
+    	 * TODO This is the point where the URI for XPrivacy data access is inserted
+    	 */
+		Uri baseUri = Uri.parse(ParserApplication.getConstXprivacyContentUri());
+//		Uri baseUri = Images.Media.getContentUri("external");
+		String[] projection = { 
+				ParserApplication.XPRIVACY_CONST_COL_UID, 
+				ParserApplication.XPRIVACY_CONST_COL_METHOD, 
+				ParserApplication.XPRIVACY_CONST_COL_RESTRICTION, 
+				ParserApplication.XPRIVACY_CONST_COL_RESTRICTED,
+				ParserApplication.XPRIVACY_CONST_COL_USED
+				};
+		String selection = null;
+//		String selection = ParserApplication.XPRIVACY_CONST_COL_UID + " = 10096";
+	    String[] selectionArgs = null;
+	    String sortOrder = ParserApplication.XPRIVACY_CONST_COL_USED;
+    }
+    
 	@SuppressWarnings("unused")
 	private void hackApps(String appName, String provider, String tableName) {
 		StringBuffer stringToSetOnTextView = new StringBuffer();

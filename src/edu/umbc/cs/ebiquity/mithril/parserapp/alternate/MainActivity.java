@@ -143,6 +143,8 @@ public class MainActivity extends Activity {
 				     * 
 				     */
 					Log.e(ParserApplication.getDebugTag(), "Something went wrong the curosr is null");
+					Toast.makeText(v.getContext(), "Something went wrong the curosr is null",
+							Toast.LENGTH_LONG).show();
 				// If the Cursor is empty, the provider found no matches 
 				} else if (mCursor.getCount() < 1) { 
 				 
@@ -152,9 +154,13 @@ public class MainActivity extends Activity {
 				     * search term. 
 				     */ 
 					Log.e(ParserApplication.getDebugTag(), "It would seem that no data was found!");
+					Toast.makeText(v.getContext(), "It would seem that no data was found!",
+							Toast.LENGTH_LONG).show();
 				} else { 
 				    // Insert code here to do something with the results 
 					Log.e(ParserApplication.getDebugTag(), "some data was found!");
+					Toast.makeText(v.getContext(), "some data was found!",
+							Toast.LENGTH_LONG).show();
 					// Get some data
 					int index = mCursor.getCount();
 					Log.v(ParserApplication.getDebugTag(), String.valueOf(index));				

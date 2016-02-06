@@ -49,8 +49,8 @@ public class ParserApplication extends Application {
 
 	private static final String CONST_EBANDMW_CONTENT_URI = "content://edu.umbc.cs.ebiquity.mithril.command.contentprovider.Content";
 
-	private static final String CONST_XPRIVACY_CONTENT_URI = "content://biz.bokhorst.xprivacy.data.provider/usage";
-//	private static final String CONST_XPRIVACY_CONTENT_URI = "content://biz.bokhorst.xprivacy.provider/usage";
+//	private static final String CONST_XPRIVACY_CONTENT_URI = "content://biz.bokhorst.xprivacy.data.provider/usage";
+	private static final String CONST_XPRIVACY_CONTENT_URI = "content://biz.bokhorst.xprivacy.provider/usage";
 
 	private static final String CONST_AUDIOS = "audios";
 

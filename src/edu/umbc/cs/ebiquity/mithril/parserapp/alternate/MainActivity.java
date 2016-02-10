@@ -122,7 +122,17 @@ public class MainActivity extends Activity {
 			
 			@Override
 			public void onClick(View v) {
-				Log.v(ParserApplication.getDebugTag(), String.valueOf(0));				
+				Log.v(ParserApplication.getDebugTag(), String.valueOf(0));
+				/**
+				 * Getting a bug while trying to get the content resolver.
+				 * E/DatabaseUtils(12235): Writing exception to parcel
+				 * E/DatabaseUtils(12235): java.lang.IllegalArgumentException: content://biz.bokhorst.xprivacy.provider/usage
+				 * E/DatabaseUtils(12235): 	at biz.bokhorst.xprivacy.PrivacyProvider.query(PrivacyProvider.java:119)
+				 * E/DatabaseUtils(12235): 	at android.content.ContentProvider.query(ContentProvider.java:966)
+				 * E/DatabaseUtils(12235): 	at android.content.ContentProvider$Transport.query(ContentProvider.java:211)
+				 * E/DatabaseUtils(12235): 	at android.content.ContentProviderNative.onTransact(ContentProviderNative.java:112)
+				 * E/DatabaseUtils(12235): 	at android.os.Binder.execTransact(Binder.java:446)
+				 */
 				Cursor mCursor = getContentResolver().query( 
 						XPrivaycQuery.baseUri,		// The content URI of the words table
 						XPrivaycQuery.projection,	// The columns to return for each row 

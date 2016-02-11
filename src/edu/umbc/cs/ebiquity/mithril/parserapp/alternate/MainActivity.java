@@ -125,6 +125,8 @@ public class MainActivity extends Activity {
 				Log.v(ParserApplication.getDebugTag(), String.valueOf(0));
 				/**
 				 * Getting a bug while trying to get the content resolver.
+				 * 
+				 * Bug 1:
 				 * E/DatabaseUtils(12235): Writing exception to parcel
 				 * E/DatabaseUtils(12235): java.lang.IllegalArgumentException: content://biz.bokhorst.xprivacy.provider/usage
 				 * E/DatabaseUtils(12235): 	at biz.bokhorst.xprivacy.PrivacyProvider.query(PrivacyProvider.java:119)
@@ -132,6 +134,25 @@ public class MainActivity extends Activity {
 				 * E/DatabaseUtils(12235): 	at android.content.ContentProvider$Transport.query(ContentProvider.java:211)
 				 * E/DatabaseUtils(12235): 	at android.content.ContentProviderNative.onTransact(ContentProviderNative.java:112)
 				 * E/DatabaseUtils(12235): 	at android.os.Binder.execTransact(Binder.java:446)
+				 * 
+				 * Bug 2:
+				 * W/XPrivacy(10701): Hooking package=biz.bokhorst.xprivacy
+				 * W/XPrivacy(10701): UI started
+				 * W/XPrivacy(10701): Package change action=android.intent.action.PACKAGE_REMOVED replacing=true uid=10101
+				 * W/XPrivacy(10701): Package change action=android.intent.action.PACKAGE_ADDED replacing=true uid=10101
+				 * W/XPrivacy(10701): Package change action=android.intent.action.PACKAGE_REPLACED replacing=true uid=10101
+				 * V/XPrivacyPrajitdatabase(10701): content://biz.bokhorst.xprivacy.provider/usage
+				 * E/DatabaseUtils(10701): Writing exception to parcel
+				 * E/DatabaseUtils(10701): java.lang.NumberFormatException: Invalid int: ""
+				 * E/DatabaseUtils(10701): 	at java.lang.Integer.invalidInt(Integer.java:138)
+				 * E/DatabaseUtils(10701): 	at java.lang.Integer.parseInt(Integer.java:358)
+				 * E/DatabaseUtils(10701): 	at java.lang.Integer.parseInt(Integer.java:334)
+				 * E/DatabaseUtils(10701): 	at biz.bokhorst.xprivacy.PrivacyProvider.query(PrivacyProvider.java:111)
+				 * E/DatabaseUtils(10701): 	at android.content.ContentProvider.query(ContentProvider.java:966)
+				 * E/DatabaseUtils(10701): 	at android.content.ContentProvider$Transport.query(ContentProvider.java:211)
+				 * E/DatabaseUtils(10701): 	at android.content.ContentProviderNative.onTransact(ContentProviderNative.java:112)
+				 * E/DatabaseUtils(10701): 	at android.os.Binder.execTransact(Binder.java:446)
+				 * Does a query against the table and returns a Cursor object 
 				 */
 				Cursor mCursor = getContentResolver().query( 
 						XPrivaycQuery.baseUri,		// The content URI of the words table
@@ -219,9 +240,12 @@ public class MainActivity extends Activity {
     private interface XPrivaycQuery {
     	/**
     	 * TODO This is the point where the URI for XPrivacy data access is inserted
+    	 * The content URI of the usage table
     	 */
 		Uri baseUri = Uri.parse(ParserApplication.getConstXprivacyContentUri());
 //		Uri baseUri = Images.Media.getContentUri("external");
+		
+//		A "projection" defines the columns that will be returned for each row 
 		String[] projection = { 
 				ParserApplication.XPRIVACY_CONST_COL_UID, 
 				ParserApplication.XPRIVACY_CONST_COL_METHOD, 
@@ -229,9 +253,15 @@ public class MainActivity extends Activity {
 				ParserApplication.XPRIVACY_CONST_COL_RESTRICTED,
 				ParserApplication.XPRIVACY_CONST_COL_USED
 				};
+		
+//		Defines a string to contain the selection clause
 		String selection = null;
 //		String selection = ParserApplication.XPRIVACY_CONST_COL_UID + " = 10096";
-	    String[] selectionArgs = null;
+
+//		Initializes an array to contain selection arguments
+	    String[] selectionArgs = {""};
+	    
+//	    The sort order for the returned rows 
 	    String sortOrder = ParserApplication.XPRIVACY_CONST_COL_USED;
     }
     

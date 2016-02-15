@@ -23,19 +23,19 @@ public class ParserApplication extends Application {
 			"com.google.android.providers.gsf.permission.READ_GSERVICES"
 		};
 
-	public static final String XPRIVACY_CONST_COL_UID = "Uid";
+	public static final String XPRIVACY_CONST_COL_UID = "uid";
 	
-	public static final String XPRIVACY_CONST_COL_RESTRICTION = "Restriction";
+	public static final String XPRIVACY_CONST_COL_RESTRICTION = "restriction";
 	
-	public static final String XPRIVACY_CONST_COL_RESTRICTED = "Restricted";
+	public static final String XPRIVACY_CONST_COL_RESTRICTED = "restricted";
 	
-	public static final String XPRIVACY_CONST_COL_METHOD = "Method";
+	public static final String XPRIVACY_CONST_COL_METHOD = "method";
 	
 	public static final String XPRIVACY_CONST_COL_USED = "time";
 	
-	public static final String XPRIVACY_CONST_COL_SETTING = "Setting";
+	public static final String XPRIVACY_CONST_COL_SETTING = "setting";
 	
-	public static final String XPRIVACY_CONST_COL_VALUE = "Value";
+	public static final String XPRIVACY_CONST_COL_VALUE = "value";
 	
 	private static final int CONST_PERMISSION_READ_CONTACTS = 1;
 

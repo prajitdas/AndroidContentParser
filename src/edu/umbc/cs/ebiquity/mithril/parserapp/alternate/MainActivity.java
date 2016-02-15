@@ -124,6 +124,7 @@ public class MainActivity extends Activity {
 			public void onClick(View v) {
 				Log.v(ParserApplication.getDebugTag(), String.valueOf(0));
 				/**
+				 * Does a query against the table and returns a Cursor object
 				 * Getting a bug while trying to get the content resolver.
 				 * 
 				 * Bug 1:
@@ -151,8 +152,7 @@ public class MainActivity extends Activity {
 				 * E/DatabaseUtils(10701): 	at android.content.ContentProvider.query(ContentProvider.java:966)
 				 * E/DatabaseUtils(10701): 	at android.content.ContentProvider$Transport.query(ContentProvider.java:211)
 				 * E/DatabaseUtils(10701): 	at android.content.ContentProviderNative.onTransact(ContentProviderNative.java:112)
-				 * E/DatabaseUtils(10701): 	at android.os.Binder.execTransact(Binder.java:446)
-				 * Does a query against the table and returns a Cursor object 
+				 * E/DatabaseUtils(10701): 	at android.os.Binder.execTransact(Binder.java:446) 
 				 */
 				Cursor mCursor = getContentResolver().query( 
 						XPrivaycQuery.baseUri,		// The content URI of the words table
@@ -161,11 +161,20 @@ public class MainActivity extends Activity {
 						XPrivaycQuery.selectionArgs,// Selection arguments 
 						XPrivaycQuery.sortOrder);	// Sorting order
 
-				Log.v(ParserApplication.getDebugTag(), XPrivaycQuery.baseUri.toString());				
-				Log.v(ParserApplication.getDebugTag(), XPrivaycQuery.projection.toString());				
-				Log.v(ParserApplication.getDebugTag(), "null");				
-				Log.v(ParserApplication.getDebugTag(), "null");				
-				Log.v(ParserApplication.getDebugTag(), XPrivaycQuery.sortOrder.toString());				
+				Log.v(ParserApplication.getDebugTag(), XPrivaycQuery.baseUri.toString());
+				
+				Log.v(ParserApplication.getDebugTag(), XPrivaycQuery.projection[0].toString());
+				Log.v(ParserApplication.getDebugTag(), XPrivaycQuery.projection[1].toString());
+				Log.v(ParserApplication.getDebugTag(), XPrivaycQuery.projection[2].toString());
+				Log.v(ParserApplication.getDebugTag(), XPrivaycQuery.projection[3].toString());
+				Log.v(ParserApplication.getDebugTag(), XPrivaycQuery.projection[4].toString());
+				
+				Log.v(ParserApplication.getDebugTag(), XPrivaycQuery.selection.toString());
+				
+				Log.v(ParserApplication.getDebugTag(), XPrivaycQuery.selectionArgs[0].toString());
+				Log.v(ParserApplication.getDebugTag(), XPrivaycQuery.selectionArgs[1].toString());
+				
+				Log.v(ParserApplication.getDebugTag(), XPrivaycQuery.sortOrder.toString());	
 				// Some providers return null if an error occurs, others throw an exception 
 				if (null == mCursor) { 
 				    /* 
@@ -255,11 +264,11 @@ public class MainActivity extends Activity {
 				};
 		
 //		Defines a string to contain the selection clause
-		String selection = null;
-//		String selection = ParserApplication.XPRIVACY_CONST_COL_UID + " = 10096";
+//		String selection = null;
+		String selection = ParserApplication.XPRIVACY_CONST_COL_RESTRICTION + " = 'storage'";
 
 //		Initializes an array to contain selection arguments
-	    String[] selectionArgs = {""};
+	    String[] selectionArgs = {"10024","sdcard"};
 	    
 //	    The sort order for the returned rows 
 	    String sortOrder = ParserApplication.XPRIVACY_CONST_COL_USED;

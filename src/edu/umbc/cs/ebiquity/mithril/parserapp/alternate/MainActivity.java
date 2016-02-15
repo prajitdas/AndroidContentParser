@@ -268,7 +268,8 @@ public class MainActivity extends Activity {
 		String selection = ParserApplication.XPRIVACY_CONST_COL_RESTRICTION + " = 'storage'";
 
 //		Initializes an array to contain selection arguments
-	    String[] selectionArgs = {"10024","sdcard"};
+//	    String[] selectionArgs = {"10024","sdcard"};
+	    String[] selectionArgs = {"0","sdcard"}; //Select all data
 	    
 //	    The sort order for the returned rows 
 	    String sortOrder = ParserApplication.XPRIVACY_CONST_COL_USED;
